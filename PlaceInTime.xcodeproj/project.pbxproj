@@ -17,6 +17,12 @@
 		C42DDBAB1B82454300CAAD15 /* PlaceInTimeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C42DDBAA1B82454300CAAD15 /* PlaceInTimeTests.m */; };
 		C42DDBB51B8247A400CAAD15 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C42DDBB41B8247A400CAAD15 /* MapKit.framework */; };
 		C42DDBB71B8247AA00CAAD15 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C42DDBB61B8247AA00CAAD15 /* CoreLocation.framework */; };
+		C42DDBC31B82851500CAAD15 /* UserEventAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = C42DDBC21B82851500CAAD15 /* UserEventAnnotationView.m */; };
+		C42DDBCC1B828D4C00CAAD15 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C42DDBC81B828D4C00CAAD15 /* Fabric.framework */; };
+		C42DDBCD1B828D4C00CAAD15 /* TwitterKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C42DDBC91B828D4C00CAAD15 /* TwitterKit.framework */; };
+		C42DDBCE1B828D4C00CAAD15 /* TwitterKitResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C42DDBCA1B828D4C00CAAD15 /* TwitterKitResources.bundle */; };
+		C42DDBCF1B828D4C00CAAD15 /* TwitterCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C42DDBCB1B828D4C00CAAD15 /* TwitterCore.framework */; };
+		C42DDBD21B828DC900CAAD15 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C42DDBD11B828DC900CAAD15 /* LoginViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +52,14 @@
 		C42DDBAA1B82454300CAAD15 /* PlaceInTimeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlaceInTimeTests.m; sourceTree = "<group>"; };
 		C42DDBB41B8247A400CAAD15 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		C42DDBB61B8247AA00CAAD15 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		C42DDBC11B82851500CAAD15 /* UserEventAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserEventAnnotationView.h; sourceTree = "<group>"; };
+		C42DDBC21B82851500CAAD15 /* UserEventAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserEventAnnotationView.m; sourceTree = "<group>"; };
+		C42DDBC81B828D4C00CAAD15 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
+		C42DDBC91B828D4C00CAAD15 /* TwitterKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TwitterKit.framework; sourceTree = "<group>"; };
+		C42DDBCA1B828D4C00CAAD15 /* TwitterKitResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = TwitterKitResources.bundle; path = TwitterKit.framework/Versions/A/Resources/TwitterKitResources.bundle; sourceTree = "<group>"; };
+		C42DDBCB1B828D4C00CAAD15 /* TwitterCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TwitterCore.framework; sourceTree = "<group>"; };
+		C42DDBD01B828DC900CAAD15 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		C42DDBD11B828DC900CAAD15 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,8 +67,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C42DDBCF1B828D4C00CAAD15 /* TwitterCore.framework in Frameworks */,
 				C42DDBB71B8247AA00CAAD15 /* CoreLocation.framework in Frameworks */,
 				C42DDBB51B8247A400CAAD15 /* MapKit.framework in Frameworks */,
+				C42DDBCC1B828D4C00CAAD15 /* Fabric.framework in Frameworks */,
+				C42DDBCD1B828D4C00CAAD15 /* TwitterKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -71,6 +88,10 @@
 		C42DDB7F1B82454300CAAD15 = {
 			isa = PBXGroup;
 			children = (
+				C42DDBC81B828D4C00CAAD15 /* Fabric.framework */,
+				C42DDBC91B828D4C00CAAD15 /* TwitterKit.framework */,
+				C42DDBCA1B828D4C00CAAD15 /* TwitterKitResources.bundle */,
+				C42DDBCB1B828D4C00CAAD15 /* TwitterCore.framework */,
 				C42DDBB61B8247AA00CAAD15 /* CoreLocation.framework */,
 				C42DDBB41B8247A400CAAD15 /* MapKit.framework */,
 				C42DDB8A1B82454300CAAD15 /* PlaceInTime */,
@@ -93,8 +114,12 @@
 			children = (
 				C42DDB8F1B82454300CAAD15 /* AppDelegate.h */,
 				C42DDB901B82454300CAAD15 /* AppDelegate.m */,
+				C42DDBD01B828DC900CAAD15 /* LoginViewController.h */,
+				C42DDBD11B828DC900CAAD15 /* LoginViewController.m */,
 				C42DDB951B82454300CAAD15 /* MapViewController.h */,
 				C42DDB961B82454300CAAD15 /* MapViewController.m */,
+				C42DDBC11B82851500CAAD15 /* UserEventAnnotationView.h */,
+				C42DDBC21B82851500CAAD15 /* UserEventAnnotationView.m */,
 				C42DDB981B82454300CAAD15 /* Main.storyboard */,
 				C42DDB9B1B82454300CAAD15 /* Images.xcassets */,
 				C42DDB9D1B82454300CAAD15 /* LaunchScreen.xib */,
@@ -140,6 +165,7 @@
 				C42DDB841B82454300CAAD15 /* Sources */,
 				C42DDB851B82454300CAAD15 /* Frameworks */,
 				C42DDB861B82454300CAAD15 /* Resources */,
+				C42DDBC71B828CF800CAAD15 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -210,6 +236,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C42DDBCE1B828D4C00CAAD15 /* TwitterKitResources.bundle in Resources */,
 				C42DDB9A1B82454300CAAD15 /* Main.storyboard in Resources */,
 				C42DDB9F1B82454300CAAD15 /* LaunchScreen.xib in Resources */,
 				C42DDB9C1B82454300CAAD15 /* Images.xcassets in Resources */,
@@ -225,14 +252,32 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		C42DDBC71B828CF800CAAD15 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Fabric.framework/run 9cc60370a37258d038971b7142a3ebf98ba7a2e3 384791db7ba122412984891d4b5d6dbbd34561197698373b3a6e9a97d7ba2cbd";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		C42DDB841B82454300CAAD15 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C42DDBD21B828DC900CAAD15 /* LoginViewController.m in Sources */,
 				C42DDB911B82454300CAAD15 /* AppDelegate.m in Sources */,
 				C42DDB941B82454300CAAD15 /* PlaceInTime.xcdatamodeld in Sources */,
 				C42DDB971B82454300CAAD15 /* MapViewController.m in Sources */,
+				C42DDBC31B82851500CAAD15 /* UserEventAnnotationView.m in Sources */,
 				C42DDB8E1B82454300CAAD15 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -359,6 +404,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = PlaceInTime/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -369,6 +418,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = PlaceInTime/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";

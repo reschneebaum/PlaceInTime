@@ -41,8 +41,7 @@
     [self.mapView addGestureRecognizer:lpgr];
 }
 
-- (void)handleLongPress:(UIGestureRecognizer *)gestureRecognizer
-{
+- (void)handleLongPress:(UIGestureRecognizer *)gestureRecognizer {
     if (gestureRecognizer.state != UIGestureRecognizerStateBegan)
         return;
 
@@ -53,6 +52,10 @@
     MKPointAnnotation *annot = [[MKPointAnnotation alloc] init];
     annot.coordinate = touchMapCoordinate;
     [self.mapView addAnnotation:annot];
+
+//  store & persist the following values:
+    double latitude = annot.coordinate.latitude;
+    double longitude = annot.coordinate.longitude;
 }
 
 
@@ -80,16 +83,9 @@
     MKPlacemark *placemark = [[MKPlacemark alloc] initWithCoordinate:view.annotation.coordinate addressDictionary:nil];
     self.mapLocation = [[MKMapItem alloc] initWithPlacemark:placemark];
 
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Directions" message:nil preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Something Happened!" message:nil preferredStyle:UIAlertControllerStyleAlert];
 
-    UIAlertAction *directionsAction = [UIAlertAction actionWithTitle:@"Get Directions" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-        MKMapItem *mapItem = [[MKMapItem alloc] initWithPlacemark:placemark];
-//        [self getDirectionsTo:mapItem];
-    }];
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
-
-    [alert addAction:directionsAction];
-    [alert addAction:cancelAction];
+//  display information about event
 
     [self presentViewController:alert animated:YES completion:nil];
 }
