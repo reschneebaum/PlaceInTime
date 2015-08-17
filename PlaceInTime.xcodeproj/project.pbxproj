@@ -10,11 +10,13 @@
 		C42DDB8E1B82454300CAAD15 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C42DDB8D1B82454300CAAD15 /* main.m */; };
 		C42DDB911B82454300CAAD15 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C42DDB901B82454300CAAD15 /* AppDelegate.m */; };
 		C42DDB941B82454300CAAD15 /* PlaceInTime.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C42DDB921B82454300CAAD15 /* PlaceInTime.xcdatamodeld */; };
-		C42DDB971B82454300CAAD15 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C42DDB961B82454300CAAD15 /* ViewController.m */; };
+		C42DDB971B82454300CAAD15 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C42DDB961B82454300CAAD15 /* MapViewController.m */; };
 		C42DDB9A1B82454300CAAD15 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C42DDB981B82454300CAAD15 /* Main.storyboard */; };
 		C42DDB9C1B82454300CAAD15 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C42DDB9B1B82454300CAAD15 /* Images.xcassets */; };
 		C42DDB9F1B82454300CAAD15 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C42DDB9D1B82454300CAAD15 /* LaunchScreen.xib */; };
 		C42DDBAB1B82454300CAAD15 /* PlaceInTimeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C42DDBAA1B82454300CAAD15 /* PlaceInTimeTests.m */; };
+		C42DDBB51B8247A400CAAD15 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C42DDBB41B8247A400CAAD15 /* MapKit.framework */; };
+		C42DDBB71B8247AA00CAAD15 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C42DDBB61B8247AA00CAAD15 /* CoreLocation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,14 +36,16 @@
 		C42DDB8F1B82454300CAAD15 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		C42DDB901B82454300CAAD15 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		C42DDB931B82454300CAAD15 /* PlaceInTime.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PlaceInTime.xcdatamodel; sourceTree = "<group>"; };
-		C42DDB951B82454300CAAD15 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		C42DDB961B82454300CAAD15 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		C42DDB951B82454300CAAD15 /* MapViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
+		C42DDB961B82454300CAAD15 /* MapViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
 		C42DDB991B82454300CAAD15 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C42DDB9B1B82454300CAAD15 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		C42DDB9E1B82454300CAAD15 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		C42DDBA41B82454300CAAD15 /* PlaceInTimeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PlaceInTimeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C42DDBA91B82454300CAAD15 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C42DDBAA1B82454300CAAD15 /* PlaceInTimeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlaceInTimeTests.m; sourceTree = "<group>"; };
+		C42DDBB41B8247A400CAAD15 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		C42DDBB61B8247AA00CAAD15 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,6 +53,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C42DDBB71B8247AA00CAAD15 /* CoreLocation.framework in Frameworks */,
+				C42DDBB51B8247A400CAAD15 /* MapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,6 +71,8 @@
 		C42DDB7F1B82454300CAAD15 = {
 			isa = PBXGroup;
 			children = (
+				C42DDBB61B8247AA00CAAD15 /* CoreLocation.framework */,
+				C42DDBB41B8247A400CAAD15 /* MapKit.framework */,
 				C42DDB8A1B82454300CAAD15 /* PlaceInTime */,
 				C42DDBA71B82454300CAAD15 /* PlaceInTimeTests */,
 				C42DDB891B82454300CAAD15 /* Products */,
@@ -85,8 +93,8 @@
 			children = (
 				C42DDB8F1B82454300CAAD15 /* AppDelegate.h */,
 				C42DDB901B82454300CAAD15 /* AppDelegate.m */,
-				C42DDB951B82454300CAAD15 /* ViewController.h */,
-				C42DDB961B82454300CAAD15 /* ViewController.m */,
+				C42DDB951B82454300CAAD15 /* MapViewController.h */,
+				C42DDB961B82454300CAAD15 /* MapViewController.m */,
 				C42DDB981B82454300CAAD15 /* Main.storyboard */,
 				C42DDB9B1B82454300CAAD15 /* Images.xcassets */,
 				C42DDB9D1B82454300CAAD15 /* LaunchScreen.xib */,
@@ -224,7 +232,7 @@
 			files = (
 				C42DDB911B82454300CAAD15 /* AppDelegate.m in Sources */,
 				C42DDB941B82454300CAAD15 /* PlaceInTime.xcdatamodeld in Sources */,
-				C42DDB971B82454300CAAD15 /* ViewController.m in Sources */,
+				C42DDB971B82454300CAAD15 /* MapViewController.m in Sources */,
 				C42DDB8E1B82454300CAAD15 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
