@@ -8,6 +8,7 @@
 
 #import <MapKit/MapKit.h>
 #import <CoreLocation/CoreLocation.h>
+#import <Parse/Parse.h>
 #import "MapViewController.h"
 
 @interface MapViewController () <CLLocationManagerDelegate>
@@ -39,6 +40,10 @@
                                           initWithTarget:self action:@selector(handleLongPress:)];
     lpgr.minimumPressDuration = 1.5; //length of user press
     [self.mapView addGestureRecognizer:lpgr];
+
+    PFObject *testObject = [PFObject objectWithClassName:@"TestObject"];
+    testObject[@"foo"] = @"bar";
+    [testObject saveInBackground];
 }
 
 - (void)handleLongPress:(UIGestureRecognizer *)gestureRecognizer {
