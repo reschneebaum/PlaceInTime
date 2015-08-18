@@ -49,13 +49,13 @@
 //    [testObject saveInBackground];
 }
 
--(void)promptSignInWhenPinDroppedAtLocation:(CLLocationCoordinate2D)eventLocation {
+-(void)promptSignInWhenPinDropped:(MKPointAnnotation *)annotation atLocation:(CLLocationCoordinate2D)eventLocation {
     UIAlertController *userEventAlert = [UIAlertController alertControllerWithTitle:@"Authenticate" message:@"Please authenticate your existence in order to add a new event to the map." preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *addAction = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         LoginViewController *loginVC = [LoginViewController new];
         [self presentViewController:loginVC animated:true completion:nil];
-//        [self.navigationController pushViewController:loginVC animated:YES];
         loginVC.userEventLocation = eventLocation;
+        [self.mapView addAnnotation:annotation];
     }];
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
     }];
@@ -74,8 +74,7 @@
 
     MKPointAnnotation *newAnnotation = [[MKPointAnnotation alloc] init];
     newAnnotation.coordinate = touchMapCoordinate;
-    [self promptSignInWhenPinDroppedAtLocation:touchMapCoordinate];
-    [self.mapView addAnnotation:newAnnotation];
+    [self promptSignInWhenPinDropped:newAnnotation atLocation:touchMapCoordinate];
 
 //  store & persist the following values:
 //    double latitude = annot.coordinate.latitude;
