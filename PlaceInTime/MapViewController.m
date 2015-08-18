@@ -76,8 +76,6 @@
     annot.coordinate = touchMapCoordinate;
     [self notifyUserWhenPinDroppedAtLocation:touchMapCoordinate];
     [self.mapView addAnnotation:annot];
-//
-//    [self notifyUserWhenPinDroppedAtLocation:annot.coordinate];
 
 //  store & persist the following values:
 //    double latitude = annot.coordinate.latitude;
@@ -132,6 +130,15 @@
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    LoginViewController *loginVC = segue.destinationViewController;
+    loginVC.currentLocation = self.currentLocation;
+}
+
+- (IBAction)unwindFromCancelAction:(UIStoryboardSegue *)segue {
+
+}
+
+- (IBAction)unwindFromAddAction:(UIStoryboardSegue *)segue {
 
 }
 

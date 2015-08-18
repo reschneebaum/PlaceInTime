@@ -1,13 +1,13 @@
 //
-//  NewUserPinAnnotationView.h
+//  UserEvent.m
 //  PlaceInTime
 //
 //  Created by Rachel Schneebaum on 8/18/15.
 //  Copyright (c) 2015 Rachel Schneebaum. All rights reserved.
 //
 
-#import <MapKit/MapKit.h>
+#import "UserEvent.h"
 
-@interface NewUserPinAnnotationView : MKPinAnnotationView
+@implementation UserEvent
 
 @end

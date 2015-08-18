@@ -8,6 +8,10 @@
 
 #import "UserEventAnnotationView.h"
 
+@interface UserEventAnnotationView ()
+
+@end
+
 @implementation UserEventAnnotationView
 
 - (void)setEventEmotionValence {

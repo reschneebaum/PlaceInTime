@@ -1,5 +1,5 @@
 //
-//  LoginViewController.h
+//  AddEventViewController.h
 //  PlaceInTime
 //
 //  Created by Rachel Schneebaum on 8/18/15.
@@ -7,11 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <CoreLocation/CoreLocation.h>
 
-@interface LoginViewController : UIViewController
+@interface AddEventViewController : UIViewController
 
-@property CLLocationCoordinate2D userEventLocation;
+@property CLLocationManager *locationManager;
 @property CLLocation *currentLocation;
 
 @end
