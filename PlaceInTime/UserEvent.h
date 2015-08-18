@@ -11,9 +11,12 @@
 
 @interface UserEvent : NSObject
 
-@property NSString *name;
-@property NSString *textDescription;
-@property NSString *valence;
-@property CLLocationCoordinate2D locationCoordinate;
+//@property NSString *name;
+//@property NSString *textDescription;
+//@property NSString *valence;
+//@property NSString *userID;
+//@property CLLocationCoordinate2D locationCoordinate;
+//
+//-(instancetype)initWithLocationCoordinate:(CLLocationCoordinate2D)location andUserID:(NSString *)userID;
 
 @end

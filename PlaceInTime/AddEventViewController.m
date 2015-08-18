@@ -8,15 +8,19 @@
 
 #import <MapKit/MapKit.h>
 #import <CoreLocation/CoreLocation.h>
+#import <Parse/Parse.h>
 #import "AddEventViewController.h"
+#import "MapViewController.h"
+#import "UserEvent.h"
 
-@interface AddEventViewController () <CLLocationManagerDelegate>
+@interface AddEventViewController () <CLLocationManagerDelegate, UITextViewDelegate>
 
 @property (weak, nonatomic) IBOutlet MKMapView *bgMapView;
 @property (weak, nonatomic) IBOutlet UITextField *eventNameTextField;
 @property (weak, nonatomic) IBOutlet UITextView *eventDescriptionTextView;
 @property (weak, nonatomic) IBOutlet UISlider *eventValenceSlider;
 @property (weak, nonatomic) IBOutlet UITextView *valenceDescriptionTextView;
+@property (weak, nonatomic) IBOutlet UIButton *addButton;
 
 @end
 
@@ -30,6 +34,18 @@
     [self.locationManager startUpdatingLocation];
     [self.bgMapView showsUserLocation];
     [self.bgMapView showsBuildings];
+    [self configureStoryboardObjects];
+}
+
+-(void)configureStoryboardObjects {
+    self.eventDescriptionTextView.layer.cornerRadius = 10.0;
+    self.eventDescriptionTextView.layer.borderWidth = 0.3;
+    self.eventDescriptionTextView.layer.borderColor = [[UIColor grayColor]CGColor];
+    self.valenceDescriptionTextView.layer.cornerRadius = 10.0;
+    self.valenceDescriptionTextView.layer.borderWidth = 0.3;
+    self.valenceDescriptionTextView.layer.borderColor = [[UIColor grayColor]CGColor];
+    self.addButton.enabled = false;
+    self.eventDescriptionTextView.delegate = self;
 }
 
 #pragma mark - CLLocationManagerDelegate methods
@@ -48,5 +64,35 @@
         [self.bgMapView setRegion:MKCoordinateRegionMake(self.currentLocation.coordinate, MKCoordinateSpanMake(.05, .05)) animated:false];
     }
 }
+
+- (IBAction)onEventNameChanged:(UITextField *)sender {
+    if ([self.eventNameTextField hasText] && [self.eventDescriptionTextView hasText]) {
+        self.addButton.enabled = true;
+    }
+}
+
+-(IBAction)textViewDidChange:(UITextView *)textView {
+    textView = self.eventDescriptionTextView;
+    if ([self.eventNameTextField hasText] && [self.eventDescriptionTextView hasText]) {
+        self.addButton.enabled = true;
+    }
+}
+
+- (IBAction)onAddButtonTapped:(UIButton *)sender {
+    PFObject *userEvent = [PFObject objectWithClassName:@"UserEvent"];
+    userEvent[@"name"] = self.eventNameTextField.text;
+    userEvent[@"textDescription"] = self.eventDescriptionTextView.text;
+    userEvent[@"valence"] = [NSString stringWithFormat:@"%.0f", self.eventValenceSlider.value];
+    [userEvent saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (succeeded) {
+            NSLog(@"The object has been saved.");
+            MapViewController *mapVC = [self.storyboard instantiateViewControllerWithIdentifier:@"mapVC"];
+            [self presentViewController:mapVC animated:false completion:nil];
+        } else {
+            NSLog(@"There was a problem, check error.description");
+        }
+    }];
+}
+
 
 @end

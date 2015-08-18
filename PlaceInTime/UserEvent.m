@@ -10,4 +10,12 @@
 
 @implementation UserEvent
 
+//-(instancetype)initWithLocationCoordinate:(CLLocationCoordinate2D)location andUserID:(NSString *)userID {
+//    if (self) {
+//        self.userID = userID;
+//        self.locationCoordinate = location;
+//    }
+//    return self;
+//}
+
 @end

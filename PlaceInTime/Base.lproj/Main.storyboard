@@ -25,6 +25,9 @@
                                 <state key="normal" title="test button">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <segue destination="ibc-ge-Fzv" kind="modal" id="M9n-wj-rkQ"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -41,7 +44,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="129.59999999999999" y="309.56"/>
+            <point key="canvasLocation" x="205" y="309"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="8Hi-MS-XjJ">
@@ -62,6 +65,7 @@
                                 </state>
                                 <connections>
                                     <action selector="onTestButtonPress:" destination="NXr-Ra-BpJ" eventType="touchUpInside" id="9py-VG-1y2"/>
+                                    <segue destination="ibc-ge-Fzv" kind="modal" id="pZo-ak-Dc3"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -96,19 +100,25 @@
                                     <navigationItem id="TDe-gT-d0P"/>
                                 </items>
                             </navigationBar>
-                            <textField opaque="NO" clipsSubviews="YES" alpha="0.94999999999999996" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Event Name" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="msa-a9-ave">
+                            <textField opaque="NO" clipsSubviews="YES" alpha="0.89999999999999991" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Event Name" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="msa-a9-ave">
                                 <rect key="frame" x="16" y="80" width="288" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="xvq-A0-Wez"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="16"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="onEventNameChanged:" destination="ibc-ge-Fzv" eventType="editingChanged" id="EBv-SY-KaJ"/>
+                                </connections>
                             </textField>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.84999999999999987" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7it-lz-RgV">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.79999999999999982" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7it-lz-RgV">
                                 <rect key="frame" x="16" y="163" width="288" height="155"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="next" enablesReturnKeyAutomatically="YES"/>
+                                <connections>
+                                    <outlet property="delegate" destination="ibc-ge-Fzv" id="HaL-ZF-Idh"/>
+                                </connections>
                             </textView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What happened?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aUs-NH-0OA">
                                 <rect key="frame" x="16" y="134" width="135" height="21"/>
@@ -132,7 +142,7 @@
                                 <nil key="highlightedColor"/>
                                 <color key="shadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </label>
-                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="3" minValue="1" maxValue="5" continuous="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eUz-6S-MJa">
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="3" minValue="1" maxValue="5" continuous="NO" minimumValueImage="sad" maximumValueImage="happy" translatesAutoresizingMaskIntoConstraints="NO" id="eUz-6S-MJa">
                                 <rect key="frame" x="14" y="371" width="292" height="31"/>
                                 <color key="tintColor" red="0.28007233790000002" green="0.35666016979999998" blue="0.60823074489999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -140,9 +150,8 @@
                                 </constraints>
                                 <color key="minimumTrackTintColor" red="0.0" green="0.25098040700000002" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="maximumTrackTintColor" red="0.675485322" green="0.08940792601" blue="0.019543544860000001" alpha="1" colorSpace="calibratedRGB"/>
-                                <color key="thumbTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </slider>
-                            <textView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.79999999999999982" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" editable="NO" text="please move the slider to indicate your emotional valence, from most negative (left) to most positive (right)" translatesAutoresizingMaskIntoConstraints="NO" id="wMt-o4-iwq">
+                            <textView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.84999999999999987" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" editable="NO" text="please move the slider to indicate your emotional valence, from most negative (left) to most positive (right)" translatesAutoresizingMaskIntoConstraints="NO" id="wMt-o4-iwq">
                                 <rect key="frame" x="16" y="415" width="288" height="63"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -152,25 +161,32 @@
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Italic" family="Helvetica Neue" pointSize="13"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OKC-vJ-hD3">
-                                <rect key="frame" x="0.0" y="524" width="320" height="44"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l93-RY-xTV">
+                                <rect key="frame" x="21" y="518" width="48" height="30"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="w1A-nM-aCt"/>
+                                    <constraint firstAttribute="height" constant="30" id="9av-4Q-IYH"/>
+                                    <constraint firstAttribute="width" constant="48" id="Nu1-Go-UbA"/>
                                 </constraints>
-                                <items>
-                                    <barButtonItem systemItem="cancel" id="VfV-eL-nWO">
-                                        <connections>
-                                            <segue destination="I6s-wg-dUq" kind="unwind" unwindAction="unwindFromCancelAction:" id="LaR-gU-iOb"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="Ufx-Q8-AP4"/>
-                                    <barButtonItem title="Add Event" id="qAB-b1-nHc">
-                                        <connections>
-                                            <segue destination="I6s-wg-dUq" kind="unwind" unwindAction="unwindFromAddAction:" id="MWK-n8-zZY"/>
-                                        </connections>
-                                    </barButtonItem>
-                                </items>
-                            </toolbar>
+                                <state key="normal" title="Cancel">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="I6s-wg-dUq" kind="unwind" unwindAction="unwindFromCancelAction:" id="Of6-Da-8KZ"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wmi-M9-tcc">
+                                <rect key="frame" x="233" y="518" width="71" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="71" id="1H3-7M-lm8"/>
+                                    <constraint firstAttribute="height" constant="30" id="t7b-nb-NPj"/>
+                                </constraints>
+                                <state key="normal" title="Add Event">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="onAddButtonTapped:" destination="ibc-ge-Fzv" eventType="touchUpInside" id="YN8-fu-WRH"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -181,10 +197,10 @@
                             <constraint firstAttribute="trailingMargin" secondItem="17R-jb-rz0" secondAttribute="trailing" constant="148" id="Ff9-R6-8jq"/>
                             <constraint firstAttribute="trailingMargin" secondItem="vvd-6U-8E3" secondAttribute="trailing" constant="-16" id="GbU-NU-Lyu"/>
                             <constraint firstItem="vvd-6U-8E3" firstAttribute="top" secondItem="lQh-ZA-kQY" secondAttribute="topMargin" id="HaG-Pq-vAK"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="OKC-vJ-hD3" secondAttribute="trailing" constant="-16" id="TEB-9v-XUX"/>
-                            <constraint firstItem="OKC-vJ-hD3" firstAttribute="leading" secondItem="lQh-ZA-kQY" secondAttribute="leadingMargin" constant="-16" id="U3c-Sb-NIP"/>
+                            <constraint firstItem="l93-RY-xTV" firstAttribute="leading" secondItem="lQh-ZA-kQY" secondAttribute="leadingMargin" constant="5" id="Hjo-XS-Goi"/>
+                            <constraint firstItem="Qfq-1c-2DP" firstAttribute="top" secondItem="Wmi-M9-tcc" secondAttribute="bottom" constant="20" id="L3W-mc-1IH"/>
                             <constraint firstAttribute="trailingMargin" secondItem="1h1-Qd-Wap" secondAttribute="trailing" constant="-16" id="V8V-MR-Qgd"/>
-                            <constraint firstItem="Qfq-1c-2DP" firstAttribute="top" secondItem="OKC-vJ-hD3" secondAttribute="bottom" id="Ykj-6O-kBt"/>
+                            <constraint firstItem="Qfq-1c-2DP" firstAttribute="top" secondItem="l93-RY-xTV" secondAttribute="bottom" constant="20" id="Z67-jc-7JV"/>
                             <constraint firstItem="17R-jb-rz0" firstAttribute="top" secondItem="7it-lz-RgV" secondAttribute="bottom" constant="24" id="Z9o-Ec-kyM"/>
                             <constraint firstItem="Qfq-1c-2DP" firstAttribute="top" secondItem="7it-lz-RgV" secondAttribute="bottom" constant="250" id="bh7-uh-MLl"/>
                             <constraint firstItem="vvd-6U-8E3" firstAttribute="leading" secondItem="lQh-ZA-kQY" secondAttribute="leadingMargin" constant="-16" id="cGZ-MG-Zba"/>
@@ -196,6 +212,7 @@
                             <constraint firstItem="7it-lz-RgV" firstAttribute="leading" secondItem="lQh-ZA-kQY" secondAttribute="leadingMargin" id="kwh-0f-ciH"/>
                             <constraint firstItem="7it-lz-RgV" firstAttribute="top" secondItem="aUs-NH-0OA" secondAttribute="bottom" constant="8" id="lS7-kw-zcy"/>
                             <constraint firstItem="msa-a9-ave" firstAttribute="top" secondItem="1h1-Qd-Wap" secondAttribute="bottom" constant="36" id="mTg-v5-mEB"/>
+                            <constraint firstItem="Wmi-M9-tcc" firstAttribute="trailing" secondItem="lQh-ZA-kQY" secondAttribute="trailingMargin" id="p3y-Zh-p3g"/>
                             <constraint firstItem="1h1-Qd-Wap" firstAttribute="top" secondItem="lQh-ZA-kQY" secondAttribute="topMargin" id="qbT-zw-zvA"/>
                             <constraint firstItem="msa-a9-ave" firstAttribute="trailing" secondItem="lQh-ZA-kQY" secondAttribute="trailingMargin" id="w3A-03-yGJ"/>
                             <constraint firstItem="aUs-NH-0OA" firstAttribute="top" secondItem="msa-a9-ave" secondAttribute="bottom" constant="24" id="yBS-Dk-zSl"/>
@@ -205,6 +222,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="addButton" destination="Wmi-M9-tcc" id="BoK-Yh-eeW"/>
                         <outlet property="bgMapView" destination="vvd-6U-8E3" id="QoS-LJ-PyN"/>
                         <outlet property="eventDescriptionTextView" destination="7it-lz-RgV" id="Pt2-CD-UbG"/>
                         <outlet property="eventNameTextField" destination="msa-a9-ave" id="yRT-h4-unA"/>
@@ -218,9 +236,16 @@
             <point key="canvasLocation" x="968" y="309"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="happy" width="20" height="20"/>
+        <image name="sad" width="20" height="20"/>
+    </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="M9n-wj-rkQ"/>
+    </inferredMetricsTieBreakers>
 </document>

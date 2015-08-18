@@ -54,7 +54,7 @@
     UIAlertAction *addAction = [UIAlertAction actionWithTitle:@"Add New Event" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         LoginViewController *loginVC = [LoginViewController new];
         [self presentViewController:loginVC animated:true completion:nil];
-        [self.navigationController pushViewController:loginVC animated:YES];
+//        [self.navigationController pushViewController:loginVC animated:YES];
         loginVC.userEventLocation = eventLocation;
     }];
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
