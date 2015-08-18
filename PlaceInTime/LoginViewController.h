@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CoreLocation/CoreLocation.h>
 
 @interface LoginViewController : UIViewController
+
+@property CLLocationCoordinate2D userEventLocation;
 
 @end

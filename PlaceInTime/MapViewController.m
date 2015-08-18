@@ -9,9 +9,11 @@
 #import <MapKit/MapKit.h>
 #import <CoreLocation/CoreLocation.h>
 #import <Parse/Parse.h>
+#import <TwitterKit/TwitterKit.h>
 #import "MapViewController.h"
+#import "LoginViewController.h"
 
-@interface MapViewController () <CLLocationManagerDelegate>
+@interface MapViewController () <CLLocationManagerDelegate, MKMapViewDelegate>
 
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property CLLocationManager *locationManager;
@@ -35,6 +37,7 @@
     [self.locationManager startUpdatingLocation];
     [self.mapView showsUserLocation];
     [self.mapView showsBuildings];
+    self.mapView.delegate = self;
 
     UILongPressGestureRecognizer *lpgr = [[UILongPressGestureRecognizer alloc]
                                           initWithTarget:self action:@selector(handleLongPress:)];
@@ -44,6 +47,21 @@
     PFObject *testObject = [PFObject objectWithClassName:@"TestObject"];
     testObject[@"foo"] = @"bar";
     [testObject saveInBackground];
+}
+
+-(void)notifyUserWhenPinDroppedAtLocation:(CLLocationCoordinate2D)eventLocation {
+    UIAlertController *userEventAlert = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *addAction = [UIAlertAction actionWithTitle:@"Add New Event" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        LoginViewController *loginVC = [LoginViewController new];
+        [self presentViewController:loginVC animated:true completion:nil];
+        [self.navigationController pushViewController:loginVC animated:YES];
+        loginVC.userEventLocation = eventLocation;
+    }];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+    }];
+    [userEventAlert addAction:addAction];
+    [userEventAlert addAction:cancelAction];
+    [self presentViewController:userEventAlert animated:YES completion:nil];
 }
 
 - (void)handleLongPress:(UIGestureRecognizer *)gestureRecognizer {
@@ -56,11 +74,14 @@
 
     MKPointAnnotation *annot = [[MKPointAnnotation alloc] init];
     annot.coordinate = touchMapCoordinate;
+    [self notifyUserWhenPinDroppedAtLocation:touchMapCoordinate];
     [self.mapView addAnnotation:annot];
+//
+//    [self notifyUserWhenPinDroppedAtLocation:annot.coordinate];
 
 //  store & persist the following values:
-    double latitude = annot.coordinate.latitude;
-    double longitude = annot.coordinate.longitude;
+//    double latitude = annot.coordinate.latitude;
+//    double longitude = annot.coordinate.longitude;
 }
 
 
@@ -85,14 +106,9 @@
 #pragma mark -
 
 -(void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control {
+
     MKPlacemark *placemark = [[MKPlacemark alloc] initWithCoordinate:view.annotation.coordinate addressDictionary:nil];
     self.mapLocation = [[MKMapItem alloc] initWithPlacemark:placemark];
-
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Something Happened!" message:nil preferredStyle:UIAlertControllerStyleAlert];
-
-//  display information about event
-
-    [self presentViewController:alert animated:YES completion:nil];
 }
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation {
@@ -113,6 +129,10 @@
     pin.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
 
     return pin;
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+
 }
 
 @end

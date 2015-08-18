@@ -36,6 +36,7 @@
 		C42DDBE81B82944D00CAAD15 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C42DDBE71B82944D00CAAD15 /* libsqlite3.dylib */; };
 		C42DDBEA1B82945900CAAD15 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C42DDBE91B82945900CAAD15 /* Accounts.framework */; };
 		C42DDBEC1B82946000CAAD15 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C42DDBEB1B82946000CAAD15 /* Social.framework */; };
+		C4C9E8121B83880B002092E1 /* NewUserPinAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C9E8111B83880B002092E1 /* NewUserPinAnnotationView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -86,6 +87,8 @@
 		C42DDBE71B82944D00CAAD15 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		C42DDBE91B82945900CAAD15 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		C42DDBEB1B82946000CAAD15 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
+		C4C9E8101B83880B002092E1 /* NewUserPinAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewUserPinAnnotationView.h; sourceTree = "<group>"; };
+		C4C9E8111B83880B002092E1 /* NewUserPinAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewUserPinAnnotationView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -172,6 +175,8 @@
 				C42DDB961B82454300CAAD15 /* MapViewController.m */,
 				C42DDBC11B82851500CAAD15 /* UserEventAnnotationView.h */,
 				C42DDBC21B82851500CAAD15 /* UserEventAnnotationView.m */,
+				C4C9E8101B83880B002092E1 /* NewUserPinAnnotationView.h */,
+				C4C9E8111B83880B002092E1 /* NewUserPinAnnotationView.m */,
 				C42DDB981B82454300CAAD15 /* Main.storyboard */,
 				C42DDB9B1B82454300CAAD15 /* Images.xcassets */,
 				C42DDB9D1B82454300CAAD15 /* LaunchScreen.xib */,
@@ -327,6 +332,7 @@
 			files = (
 				C42DDBD21B828DC900CAAD15 /* LoginViewController.m in Sources */,
 				C42DDB911B82454300CAAD15 /* AppDelegate.m in Sources */,
+				C4C9E8121B83880B002092E1 /* NewUserPinAnnotationView.m in Sources */,
 				C42DDB941B82454300CAAD15 /* PlaceInTime.xcdatamodeld in Sources */,
 				C42DDB971B82454300CAAD15 /* MapViewController.m in Sources */,
 				C42DDBC31B82851500CAAD15 /* UserEventAnnotationView.m in Sources */,

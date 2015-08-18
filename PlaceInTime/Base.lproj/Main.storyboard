@@ -40,7 +40,7 @@
         <!--Login View Controller-->
         <scene sceneID="8Hi-MS-XjJ">
             <objects>
-                <viewController id="NXr-Ra-BpJ" customClass="LoginViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="loginVC" id="NXr-Ra-BpJ" customClass="LoginViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="425-Fo-vXW"/>
                         <viewControllerLayoutGuide type="bottom" id="tde-Zg-H77"/>
