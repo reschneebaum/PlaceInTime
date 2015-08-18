@@ -19,6 +19,8 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    [[Twitter sharedInstance] startWithConsumerKey:@"v0d9T4KnfyyNV6GXy12n9GvFP" consumerSecret:@"8d23KwU9IzPanEQ5scbEgeLyAZcgnzFbkUojhA8obFiIdosAAL"];
+    [Fabric with:@[[Twitter sharedInstance]]];
     [Fabric with:@[TwitterKit]];
 
     // [Optional] Power your app with Local Datastore. For more info, go to

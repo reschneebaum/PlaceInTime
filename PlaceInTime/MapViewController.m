@@ -43,15 +43,15 @@
                                           initWithTarget:self action:@selector(handleLongPress:)];
     lpgr.minimumPressDuration = 1.5; //length of user press
     [self.mapView addGestureRecognizer:lpgr];
-
-    PFObject *testObject = [PFObject objectWithClassName:@"TestObject"];
-    testObject[@"foo"] = @"bar";
-    [testObject saveInBackground];
+//
+//    PFObject *testObject = [PFObject objectWithClassName:@"TestObject"];
+//    testObject[@"foo"] = @"bar";
+//    [testObject saveInBackground];
 }
 
--(void)notifyUserWhenPinDroppedAtLocation:(CLLocationCoordinate2D)eventLocation {
-    UIAlertController *userEventAlert = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *addAction = [UIAlertAction actionWithTitle:@"Add New Event" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+-(void)promptSignInWhenPinDroppedAtLocation:(CLLocationCoordinate2D)eventLocation {
+    UIAlertController *userEventAlert = [UIAlertController alertControllerWithTitle:@"Authenticate" message:@"Please authenticate your existence in order to add a new event to the map." preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *addAction = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         LoginViewController *loginVC = [LoginViewController new];
         [self presentViewController:loginVC animated:true completion:nil];
 //        [self.navigationController pushViewController:loginVC animated:YES];
@@ -72,10 +72,10 @@
     CLLocationCoordinate2D touchMapCoordinate =
     [self.mapView convertPoint:touchPoint toCoordinateFromView:self.mapView];
 
-    MKPointAnnotation *annot = [[MKPointAnnotation alloc] init];
-    annot.coordinate = touchMapCoordinate;
-    [self notifyUserWhenPinDroppedAtLocation:touchMapCoordinate];
-    [self.mapView addAnnotation:annot];
+    MKPointAnnotation *newAnnotation = [[MKPointAnnotation alloc] init];
+    newAnnotation.coordinate = touchMapCoordinate;
+    [self promptSignInWhenPinDroppedAtLocation:touchMapCoordinate];
+    [self.mapView addAnnotation:newAnnotation];
 
 //  store & persist the following values:
 //    double latitude = annot.coordinate.latitude;

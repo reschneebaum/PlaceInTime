@@ -9,6 +9,7 @@
 #import <TwitterKit/TwitterKit.h>
 #import "LoginViewController.h"
 #import "AddEventViewController.h"
+#import "MapViewController.h"
 
 @interface LoginViewController ()
 
@@ -20,13 +21,17 @@
     [super viewDidLoad];
 
     TWTRLogInButton *logInButton = [TWTRLogInButton buttonWithLogInCompletion:^(TWTRSession *session, NSError *error) {
-        // play with Twitter session
+        [[Twitter sharedInstance] logInWithCompletion:^(TWTRSession *session, NSError *error) {
+            if (session) {
+                NSLog(@"signed in as %@", [session userName]);
+                [self dismissViewControllerAnimated:true completion:nil];
+            } else {
+                NSLog(@"error: %@", [error localizedDescription]);
+            }
+        }];
     }];
     logInButton.center = self.view.center;
     [self.view addSubview:logInButton];
-}
-
-- (IBAction)onTestButtonPress:(UIButton *)sender {
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
