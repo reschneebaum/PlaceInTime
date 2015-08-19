@@ -8,10 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
+#import "MapViewController.h"
 
 @protocol LoginViewControllerDelegate <NSObject>
 
--(void)loginViewController:(UIViewController *)loginVC willRecognizeLongPress:(UILongPressGestureRecognizer *)sender;
+-(void)isUserLoggedIn:(BOOL)userLoggedIn;
 
 @end
 
@@ -21,7 +22,5 @@
 @property CLLocationCoordinate2D userEventLocation;
 @property CLLocation *currentLocation;
 @property BOOL userLoggedIn;
-
--(void)onMapViewPressed:(UILongPressGestureRecognizer *)sender;
 
 @end

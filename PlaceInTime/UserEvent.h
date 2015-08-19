@@ -11,12 +11,12 @@
 @interface UserEvent : PFObject<PFSubclassing>
 
 @property (nonatomic, strong) NSString *name;
+@property (nonatomic, strong) NSString *date;
 @property (nonatomic, strong) NSString *textDescription;
 @property (nonatomic, strong) NSString *user;
 @property int valence;
 @property float latitude;
 @property float longitude;
-@property NSDate *date;
 
 +(NSString *)parseClassName;
 

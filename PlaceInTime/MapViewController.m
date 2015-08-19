@@ -13,6 +13,7 @@
 #import <TwitterKit/TwitterKit.h>
 #import "MapViewController.h"
 #import "LoginViewController.h"
+#import "AddEventViewController.h"
 #import "UserEvent.h"
 
 @interface MapViewController () <CLLocationManagerDelegate, MKMapViewDelegate, LoginViewControllerDelegate>
@@ -43,19 +44,15 @@
     self.mapView.layer.cornerRadius = 10.0;
     self.mapView.layer.borderWidth = 1.5;
     self.mapView.layer.borderColor = [[UIColor whiteColor]CGColor];
-}
 
--(void)loginViewController:(LoginViewController *)loginVC willRecognizeLongPress:(UILongPressGestureRecognizer *)sender {
-    sender = [[UILongPressGestureRecognizer alloc]
-                                               initWithTarget:self action:@selector(handleLongPress:)];
-    sender.minimumPressDuration = 1.2; //length of user press
-    [self.mapView addGestureRecognizer:sender];
+    UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc]
+              initWithTarget:self action:@selector(handleLongPress:)];
+    longPress.minimumPressDuration = 1.2; //length of user press
+    [self.mapView addGestureRecognizer:longPress];
 }
 
 -(void)promptTwitterAuthentication {
-    UIAlertController *userEventAlert = [UIAlertController alertControllerWithTitle:@"Authenticate"
-                                                                            message:@"Please authenticate your existence in order to add a new event to the map."
-                                                                     preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *userEventAlert = [UIAlertController alertControllerWithTitle:@"Authenticate" message:@"Please authenticate your existence in order to add a new event to the map." preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Ok"
                                                        style:UIAlertActionStyleDefault
                                                      handler:^(UIAlertAction *action) {
@@ -72,21 +69,31 @@
     [self presentViewController:userEventAlert animated:true completion:nil];
 }
 
+- (void)isUserLoggedIn:(BOOL)userLoggedIn {
+    NSLog(@"isUserLoggedIn: %i", userLoggedIn);
+    self.userLoggedIn = userLoggedIn;
+}
+
 - (void)handleLongPress:(UIGestureRecognizer *)gestureRecognizer {
     if (gestureRecognizer.state != UIGestureRecognizerStateBegan)
     return;
 
-    CGPoint touchPoint = [gestureRecognizer locationInView:self.mapView];
-    CLLocationCoordinate2D touchMapCoordinate =
-    [self.mapView convertPoint:touchPoint toCoordinateFromView:self.mapView];
-    MKPointAnnotation *newAnnotation = [MKPointAnnotation new];
-    newAnnotation.coordinate = touchMapCoordinate;
-    [self.mapView addAnnotation:newAnnotation];
-
-    UserEvent *event = [UserEvent object];
-    event.latitude = touchMapCoordinate.latitude;
-    event.longitude = touchMapCoordinate.longitude;
-    [event saveInBackground];
+    if (self.userLoggedIn) {
+        CGPoint touchPoint = [gestureRecognizer locationInView:self.mapView];
+        CLLocationCoordinate2D touchMapCoordinate =
+        [self.mapView convertPoint:touchPoint toCoordinateFromView:self.mapView];
+        MKPointAnnotation *newAnnotation = [MKPointAnnotation new];
+        UserEvent *event = [UserEvent object];
+        newAnnotation.coordinate = touchMapCoordinate;
+        newAnnotation.title = event.name;
+        newAnnotation.subtitle = event.date;
+        event.latitude = touchMapCoordinate.latitude;
+        event.longitude = touchMapCoordinate.longitude;
+        self.event = event;
+        [self.mapView addAnnotation:newAnnotation];
+        [self.event saveInBackground];
+        NSLog(@"%f", self.event.latitude);
+    }
 }
 
 
@@ -143,6 +150,14 @@
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     LoginViewController *loginVC = segue.destinationViewController;
     loginVC.currentLocation = self.currentLocation;
+    AddEventViewController *eventVC = [AddEventViewController new];
+    eventVC.event = self.event;
+}
+
+- (IBAction)onTestButtonPressed:(UIBarButtonItem *)sender {
+     AddEventViewController *eventVC = [AddEventViewController new];
+    eventVC.event = self.event;
+    [self presentViewController:eventVC animated:true completion:nil];
 }
 
 - (IBAction)unwindFromCancelAction:(UIStoryboardSegue *)segue {

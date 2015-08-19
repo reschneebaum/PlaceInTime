@@ -20,15 +20,15 @@
 -(void)viewDidLoad {
     [super viewDidLoad];
 
+    self.userLoggedIn = NO;
+
     TWTRLogInButton *logInButton = [TWTRLogInButton buttonWithLogInCompletion:^(TWTRSession *session, NSError *error) {
         [[Twitter sharedInstance] logInWithCompletion:^(TWTRSession *session, NSError *error) {
             if (session) {
                 NSLog(@"signed in as %@", [session userName]);
                 self.userLoggedIn = true;
-//                self.userLoggedIn = true;
-//                MapViewController *mapVC = [MapViewController new];
-//                mapVC.userLoggedIn = self.userLoggedIn;
-//                NSLog(@"%i", mapVC.userLoggedIn);
+                [self checkForLoggedInUser];
+                NSLog(@"%i", self.userLoggedIn);
                 [self dismissViewControllerAnimated:true completion:nil];
             } else {
                 NSLog(@"error: %@", [error localizedDescription]);
@@ -40,10 +40,8 @@
     [self.view addSubview:logInButton];
 }
 
--(IBAction)onMapViewPressed:(UILongPressGestureRecognizer *)sender {
-    if (self.userLoggedIn) {
-        [self.delegate loginViewController:self willRecognizeLongPress:sender];
-    }
+-(void)checkForLoggedInUser {
+    [self.delegate isUserLoggedIn:self.userLoggedIn];
 }
 
 @end

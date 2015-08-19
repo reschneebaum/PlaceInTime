@@ -18,6 +18,7 @@
 
 @property (weak, nonatomic) IBOutlet MKMapView *bgMapView;
 @property (weak, nonatomic) IBOutlet UITextField *eventNameTextField;
+@property (weak, nonatomic) IBOutlet UITextField *eventDateTextField;
 @property (weak, nonatomic) IBOutlet UITextView *eventDescriptionTextView;
 @property (weak, nonatomic) IBOutlet UISlider *eventValenceSlider;
 @property (weak, nonatomic) IBOutlet UITextView *valenceDescriptionTextView;
@@ -81,13 +82,15 @@
 
 - (IBAction)onAddButtonTapped:(UIButton *)sender {
     self.event.name = self.eventNameTextField.text;
+    self.event.date = self.eventDateTextField.text;
     self.event.textDescription = self.eventDescriptionTextView.text;
     self.event.valence = (int)self.eventValenceSlider.value;
     [self.event saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (succeeded) {
             NSLog(@"The object has been saved.");
-            MapViewController *mapVC = [self.storyboard instantiateViewControllerWithIdentifier:@"mapVC"];
-            [self presentViewController:mapVC animated:false completion:nil];
+            [self dismissViewControllerAnimated:true completion:nil];
+//            MapViewController *mapVC = [self.storyboard instantiateViewControllerWithIdentifier:@"mapVC"];
+//            [self presentViewController:mapVC animated:false completion:nil];
         } else {
             NSLog(@"There was a problem, check error.description");
         }

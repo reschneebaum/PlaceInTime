@@ -37,7 +37,6 @@
 		C4A91C9E1B83BD1C007C26CA /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A91C9D1B83BD1C007C26CA /* LoginViewController.m */; };
 		C4A91CA11B83BD2B007C26CA /* AddEventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A91CA01B83BD2B007C26CA /* AddEventViewController.m */; };
 		C4A91CA41B83BD5A007C26CA /* UserEventAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A91CA31B83BD5A007C26CA /* UserEventAnnotationView.m */; };
-		C4A91CA71B84C43D007C26CA /* LoginView.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A91CA61B84C43D007C26CA /* LoginView.m */; };
 		C4A91CAA1B84C815007C26CA /* UserEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A91CA91B84C815007C26CA /* UserEvent.m */; };
 /* End PBXBuildFile section */
 
@@ -91,8 +90,6 @@
 		C4A91CA01B83BD2B007C26CA /* AddEventViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddEventViewController.m; sourceTree = "<group>"; };
 		C4A91CA21B83BD5A007C26CA /* UserEventAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserEventAnnotationView.h; sourceTree = "<group>"; };
 		C4A91CA31B83BD5A007C26CA /* UserEventAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserEventAnnotationView.m; sourceTree = "<group>"; };
-		C4A91CA51B84C43D007C26CA /* LoginView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginView.h; sourceTree = "<group>"; };
-		C4A91CA61B84C43D007C26CA /* LoginView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginView.m; sourceTree = "<group>"; };
 		C4A91CA81B84C815007C26CA /* UserEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserEvent.h; sourceTree = "<group>"; };
 		C4A91CA91B84C815007C26CA /* UserEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserEvent.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -186,8 +183,6 @@
 				C42DDB981B82454300CAAD15 /* Main.storyboard */,
 				C4A91CA81B84C815007C26CA /* UserEvent.h */,
 				C4A91CA91B84C815007C26CA /* UserEvent.m */,
-				C4A91CA51B84C43D007C26CA /* LoginView.h */,
-				C4A91CA61B84C43D007C26CA /* LoginView.m */,
 				C42DDB9B1B82454300CAAD15 /* Images.xcassets */,
 				C42DDB9D1B82454300CAAD15 /* LaunchScreen.xib */,
 				C42DDB921B82454300CAAD15 /* PlaceInTime.xcdatamodeld */,
@@ -343,7 +338,6 @@
 				C4A91CA41B83BD5A007C26CA /* UserEventAnnotationView.m in Sources */,
 				C42DDB911B82454300CAAD15 /* AppDelegate.m in Sources */,
 				C42DDB941B82454300CAAD15 /* PlaceInTime.xcdatamodeld in Sources */,
-				C4A91CA71B84C43D007C26CA /* LoginView.m in Sources */,
 				C42DDB971B82454300CAAD15 /* MapViewController.m in Sources */,
 				C4A91C9E1B83BD1C007C26CA /* LoginViewController.m in Sources */,
 				C4A91CA11B83BD2B007C26CA /* AddEventViewController.m in Sources */,
