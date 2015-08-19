@@ -13,5 +13,6 @@
 
 @property CLLocationCoordinate2D userEventLocation;
 @property CLLocation *currentLocation;
+@property BOOL userLoggedIn;
 
 @end

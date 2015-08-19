@@ -34,10 +34,11 @@
 		C42DDBE81B82944D00CAAD15 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C42DDBE71B82944D00CAAD15 /* libsqlite3.dylib */; };
 		C42DDBEA1B82945900CAAD15 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C42DDBE91B82945900CAAD15 /* Accounts.framework */; };
 		C42DDBEC1B82946000CAAD15 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C42DDBEB1B82946000CAAD15 /* Social.framework */; };
-		C4A91C9B1B83BCA5007C26CA /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A91C9A1B83BCA5007C26CA /* Event.m */; };
 		C4A91C9E1B83BD1C007C26CA /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A91C9D1B83BD1C007C26CA /* LoginViewController.m */; };
 		C4A91CA11B83BD2B007C26CA /* AddEventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A91CA01B83BD2B007C26CA /* AddEventViewController.m */; };
 		C4A91CA41B83BD5A007C26CA /* UserEventAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A91CA31B83BD5A007C26CA /* UserEventAnnotationView.m */; };
+		C4A91CA71B84C43D007C26CA /* LoginView.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A91CA61B84C43D007C26CA /* LoginView.m */; };
+		C4A91CAA1B84C815007C26CA /* UserEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A91CA91B84C815007C26CA /* UserEvent.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -84,14 +85,16 @@
 		C42DDBE71B82944D00CAAD15 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		C42DDBE91B82945900CAAD15 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		C42DDBEB1B82946000CAAD15 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
-		C4A91C991B83BCA5007C26CA /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
-		C4A91C9A1B83BCA5007C26CA /* Event.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Event.m; sourceTree = "<group>"; };
 		C4A91C9C1B83BD1C007C26CA /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		C4A91C9D1B83BD1C007C26CA /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		C4A91C9F1B83BD2B007C26CA /* AddEventViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddEventViewController.h; sourceTree = "<group>"; };
 		C4A91CA01B83BD2B007C26CA /* AddEventViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddEventViewController.m; sourceTree = "<group>"; };
 		C4A91CA21B83BD5A007C26CA /* UserEventAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserEventAnnotationView.h; sourceTree = "<group>"; };
 		C4A91CA31B83BD5A007C26CA /* UserEventAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserEventAnnotationView.m; sourceTree = "<group>"; };
+		C4A91CA51B84C43D007C26CA /* LoginView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginView.h; sourceTree = "<group>"; };
+		C4A91CA61B84C43D007C26CA /* LoginView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginView.m; sourceTree = "<group>"; };
+		C4A91CA81B84C815007C26CA /* UserEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserEvent.h; sourceTree = "<group>"; };
+		C4A91CA91B84C815007C26CA /* UserEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserEvent.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -181,8 +184,10 @@
 				C4A91CA21B83BD5A007C26CA /* UserEventAnnotationView.h */,
 				C4A91CA31B83BD5A007C26CA /* UserEventAnnotationView.m */,
 				C42DDB981B82454300CAAD15 /* Main.storyboard */,
-				C4A91C991B83BCA5007C26CA /* Event.h */,
-				C4A91C9A1B83BCA5007C26CA /* Event.m */,
+				C4A91CA81B84C815007C26CA /* UserEvent.h */,
+				C4A91CA91B84C815007C26CA /* UserEvent.m */,
+				C4A91CA51B84C43D007C26CA /* LoginView.h */,
+				C4A91CA61B84C43D007C26CA /* LoginView.m */,
 				C42DDB9B1B82454300CAAD15 /* Images.xcassets */,
 				C42DDB9D1B82454300CAAD15 /* LaunchScreen.xib */,
 				C42DDB921B82454300CAAD15 /* PlaceInTime.xcdatamodeld */,
@@ -338,11 +343,12 @@
 				C4A91CA41B83BD5A007C26CA /* UserEventAnnotationView.m in Sources */,
 				C42DDB911B82454300CAAD15 /* AppDelegate.m in Sources */,
 				C42DDB941B82454300CAAD15 /* PlaceInTime.xcdatamodeld in Sources */,
+				C4A91CA71B84C43D007C26CA /* LoginView.m in Sources */,
 				C42DDB971B82454300CAAD15 /* MapViewController.m in Sources */,
 				C4A91C9E1B83BD1C007C26CA /* LoginViewController.m in Sources */,
 				C4A91CA11B83BD2B007C26CA /* AddEventViewController.m in Sources */,
 				C42DDB8E1B82454300CAAD15 /* main.m in Sources */,
-				C4A91C9B1B83BCA5007C26CA /* Event.m in Sources */,
+				C4A91CAA1B84C815007C26CA /* UserEvent.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

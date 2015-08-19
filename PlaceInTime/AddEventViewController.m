@@ -11,7 +11,6 @@
 #import <Parse/Parse.h>
 #import "AddEventViewController.h"
 #import "MapViewController.h"
-#import "Event.h"
 
 @interface AddEventViewController () <CLLocationManagerDelegate, UITextViewDelegate>
 

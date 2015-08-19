@@ -9,9 +9,11 @@
 #import <MapKit/MapKit.h>
 #import <CoreLocation/CoreLocation.h>
 #import <Parse/Parse.h>
+#import <Parse/PFObject+Subclass.h>
 #import <TwitterKit/TwitterKit.h>
 #import "MapViewController.h"
 #import "LoginViewController.h"
+#import "UserEvent.h"
 
 @interface MapViewController () <CLLocationManagerDelegate, MKMapViewDelegate>
 
@@ -38,47 +40,49 @@
     [self.mapView showsUserLocation];
     [self.mapView showsBuildings];
     self.mapView.delegate = self;
+    self.mapView.layer.cornerRadius = 10.0;
+    self.mapView.layer.borderWidth = 1.5;
+    self.mapView.layer.borderColor = [[UIColor whiteColor]CGColor];
 
     UILongPressGestureRecognizer *lpgr = [[UILongPressGestureRecognizer alloc]
                                           initWithTarget:self action:@selector(handleLongPress:)];
-    lpgr.minimumPressDuration = 1.5; //length of user press
+    lpgr.minimumPressDuration = 1.2; //length of user press
     [self.mapView addGestureRecognizer:lpgr];
-//
-//    PFObject *testObject = [PFObject objectWithClassName:@"TestObject"];
-//    testObject[@"foo"] = @"bar";
-//    [testObject saveInBackground];
 }
 
--(void)promptSignInWhenPinDropped:(MKPointAnnotation *)annotation atLocation:(CLLocationCoordinate2D)eventLocation {
+-(void)promptTwitterAuthentication {
     UIAlertController *userEventAlert = [UIAlertController alertControllerWithTitle:@"Authenticate" message:@"Please authenticate your existence in order to add a new event to the map." preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *addAction = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         LoginViewController *loginVC = [LoginViewController new];
         [self presentViewController:loginVC animated:true completion:nil];
-        loginVC.userEventLocation = eventLocation;
-        [self.mapView addAnnotation:annotation];
     }];
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
     }];
-    [userEventAlert addAction:addAction];
+    [userEventAlert addAction:okAction];
     [userEventAlert addAction:cancelAction];
-    [self presentViewController:userEventAlert animated:YES completion:nil];
+    [self presentViewController:userEventAlert animated:true completion:nil];
 }
 
 - (void)handleLongPress:(UIGestureRecognizer *)gestureRecognizer {
-    if (gestureRecognizer.state != UIGestureRecognizerStateBegan)
+//    if (self.userLoggedIn == true) {
+    NSLog(@"%i", self.userLoggedIn);
+        if (gestureRecognizer.state != UIGestureRecognizerStateBegan)
         return;
 
-    CGPoint touchPoint = [gestureRecognizer locationInView:self.mapView];
-    CLLocationCoordinate2D touchMapCoordinate =
-    [self.mapView convertPoint:touchPoint toCoordinateFromView:self.mapView];
+        CGPoint touchPoint = [gestureRecognizer locationInView:self.mapView];
+        CLLocationCoordinate2D touchMapCoordinate =
+        [self.mapView convertPoint:touchPoint toCoordinateFromView:self.mapView];
+        MKPointAnnotation *newAnnotation = [MKPointAnnotation new];
+        newAnnotation.coordinate = touchMapCoordinate;
+        [self.mapView addAnnotation:newAnnotation];
 
-    MKPointAnnotation *newAnnotation = [[MKPointAnnotation alloc] init];
-    newAnnotation.coordinate = touchMapCoordinate;
-    [self promptSignInWhenPinDropped:newAnnotation atLocation:touchMapCoordinate];
-
-//  store & persist the following values:
-//    double latitude = annot.coordinate.latitude;
-//    double longitude = annot.coordinate.longitude;
+        UserEvent *event = [UserEvent object];
+        event.latitude = touchMapCoordinate.latitude;
+        event.longitude = touchMapCoordinate.longitude;
+    NSLog(@"%f", event.latitude);
+//    } else {
+//        NSLog(@"uh oh");
+//    }
 }
 
 
@@ -126,6 +130,10 @@
     pin.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
 
     return pin;
+}
+
+- (IBAction)onAddButtonPressed:(UIBarButtonItem *)sender {
+    [self promptTwitterAuthentication];
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {

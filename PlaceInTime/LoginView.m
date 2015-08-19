@@ -7,37 +7,38 @@
 //
 
 #import <TwitterKit/TwitterKit.h>
+#import "LoginView.h"
 #import "LoginViewController.h"
 #import "AddEventViewController.h"
 #import "MapViewController.h"
 
-@interface LoginViewController ()
+@interface LoginView ()
 
 @end
 
-@implementation LoginViewController
+@implementation LoginView
 
 -(void)viewDidLoad {
-    [super viewDidLoad];
-    self.userLoggedIn = false;
-
     TWTRLogInButton *logInButton = [TWTRLogInButton buttonWithLogInCompletion:^(TWTRSession *session, NSError *error) {
         [[Twitter sharedInstance] logInWithCompletion:^(TWTRSession *session, NSError *error) {
             if (session) {
                 NSLog(@"signed in as %@", [session userName]);
-                self.userLoggedIn = true;
-                MapViewController *mapVC = [MapViewController new];
-                mapVC.userLoggedIn = self.userLoggedIn;
-                NSLog(@"%i", mapVC.userLoggedIn);
-                [self dismissViewControllerAnimated:true completion:nil];
+                AddEventViewController *eventVC = [AddEventViewController new];
+                [self removeFromSuperview];
+                LoginViewController *loginVC = [LoginViewController new];
+                [loginVC presentViewController:eventVC animated:true completion:nil];
             } else {
                 NSLog(@"error: %@", [error localizedDescription]);
-                self.userLoggedIn = false;
             }
         }];
     }];
-    logInButton.center = self.view.center;
-    [self.view addSubview:logInButton];
+    logInButton.center = self.center;
+    [self addSubview:logInButton];
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    AddEventViewController *eventVC = segue.destinationViewController;
+    eventVC.currentLocation = self.currentLocation;
 }
 
 @end
