@@ -7,12 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <Parse/Parse.h>
+#import "UserEvent.h"
 
 @interface AddEventViewController : UIViewController
 
 @property CLLocationManager *locationManager;
 @property CLLocation *currentLocation;
-@property PFObject *event;
+@property UserEvent *event;
 
 @end

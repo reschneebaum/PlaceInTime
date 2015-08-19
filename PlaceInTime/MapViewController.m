@@ -15,7 +15,7 @@
 #import "LoginViewController.h"
 #import "UserEvent.h"
 
-@interface MapViewController () <CLLocationManagerDelegate, MKMapViewDelegate>
+@interface MapViewController () <CLLocationManagerDelegate, MKMapViewDelegate, LoginViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property CLLocationManager *locationManager;
@@ -43,20 +43,29 @@
     self.mapView.layer.cornerRadius = 10.0;
     self.mapView.layer.borderWidth = 1.5;
     self.mapView.layer.borderColor = [[UIColor whiteColor]CGColor];
+}
 
-    UILongPressGestureRecognizer *lpgr = [[UILongPressGestureRecognizer alloc]
-                                          initWithTarget:self action:@selector(handleLongPress:)];
-    lpgr.minimumPressDuration = 1.2; //length of user press
-    [self.mapView addGestureRecognizer:lpgr];
+-(void)loginViewController:(LoginViewController *)loginVC willRecognizeLongPress:(UILongPressGestureRecognizer *)sender {
+    sender = [[UILongPressGestureRecognizer alloc]
+                                               initWithTarget:self action:@selector(handleLongPress:)];
+    sender.minimumPressDuration = 1.2; //length of user press
+    [self.mapView addGestureRecognizer:sender];
 }
 
 -(void)promptTwitterAuthentication {
-    UIAlertController *userEventAlert = [UIAlertController alertControllerWithTitle:@"Authenticate" message:@"Please authenticate your existence in order to add a new event to the map." preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+    UIAlertController *userEventAlert = [UIAlertController alertControllerWithTitle:@"Authenticate"
+                                                                            message:@"Please authenticate your existence in order to add a new event to the map."
+                                                                     preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Ok"
+                                                       style:UIAlertActionStyleDefault
+                                                     handler:^(UIAlertAction *action) {
         LoginViewController *loginVC = [LoginViewController new];
+        loginVC.delegate = self;
         [self presentViewController:loginVC animated:true completion:nil];
     }];
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel"
+                                                           style:UIAlertActionStyleCancel
+                                                         handler:^(UIAlertAction *action) {
     }];
     [userEventAlert addAction:okAction];
     [userEventAlert addAction:cancelAction];
@@ -64,25 +73,20 @@
 }
 
 - (void)handleLongPress:(UIGestureRecognizer *)gestureRecognizer {
-//    if (self.userLoggedIn == true) {
-    NSLog(@"%i", self.userLoggedIn);
-        if (gestureRecognizer.state != UIGestureRecognizerStateBegan)
-        return;
+    if (gestureRecognizer.state != UIGestureRecognizerStateBegan)
+    return;
 
-        CGPoint touchPoint = [gestureRecognizer locationInView:self.mapView];
-        CLLocationCoordinate2D touchMapCoordinate =
-        [self.mapView convertPoint:touchPoint toCoordinateFromView:self.mapView];
-        MKPointAnnotation *newAnnotation = [MKPointAnnotation new];
-        newAnnotation.coordinate = touchMapCoordinate;
-        [self.mapView addAnnotation:newAnnotation];
+    CGPoint touchPoint = [gestureRecognizer locationInView:self.mapView];
+    CLLocationCoordinate2D touchMapCoordinate =
+    [self.mapView convertPoint:touchPoint toCoordinateFromView:self.mapView];
+    MKPointAnnotation *newAnnotation = [MKPointAnnotation new];
+    newAnnotation.coordinate = touchMapCoordinate;
+    [self.mapView addAnnotation:newAnnotation];
 
-        UserEvent *event = [UserEvent object];
-        event.latitude = touchMapCoordinate.latitude;
-        event.longitude = touchMapCoordinate.longitude;
-    NSLog(@"%f", event.latitude);
-//    } else {
-//        NSLog(@"uh oh");
-//    }
+    UserEvent *event = [UserEvent object];
+    event.latitude = touchMapCoordinate.latitude;
+    event.longitude = touchMapCoordinate.longitude;
+    [event saveInBackground];
 }
 
 

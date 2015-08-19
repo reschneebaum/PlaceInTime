@@ -9,8 +9,10 @@
 #import <MapKit/MapKit.h>
 #import <CoreLocation/CoreLocation.h>
 #import <Parse/Parse.h>
+#import <Parse/PFObject+Subclass.h>
 #import "AddEventViewController.h"
 #import "MapViewController.h"
+#import "UserEvent.h"
 
 @interface AddEventViewController () <CLLocationManagerDelegate, UITextViewDelegate>
 
@@ -78,11 +80,10 @@
 }
 
 - (IBAction)onAddButtonTapped:(UIButton *)sender {
-    PFObject *userEvent = [PFObject objectWithClassName:@"UserEvent"];
-    userEvent[@"name"] = self.eventNameTextField.text;
-    userEvent[@"textDescription"] = self.eventDescriptionTextView.text;
-    userEvent[@"valence"] = [NSString stringWithFormat:@"%.0f", self.eventValenceSlider.value];
-    [userEvent saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+    self.event.name = self.eventNameTextField.text;
+    self.event.textDescription = self.eventDescriptionTextView.text;
+    self.event.valence = (int)self.eventValenceSlider.value;
+    [self.event saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (succeeded) {
             NSLog(@"The object has been saved.");
             MapViewController *mapVC = [self.storyboard instantiateViewControllerWithIdentifier:@"mapVC"];
