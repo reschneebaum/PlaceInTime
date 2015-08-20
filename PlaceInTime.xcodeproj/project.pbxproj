@@ -227,7 +227,7 @@
 				C42DDB841B82454300CAAD15 /* Sources */,
 				C42DDB851B82454300CAAD15 /* Frameworks */,
 				C42DDB861B82454300CAAD15 /* Resources */,
-				C42DDBC71B828CF800CAAD15 /* ShellScript */,
+				8FE274991B8671E7005B2E9D /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -315,7 +315,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		C42DDBC71B828CF800CAAD15 /* ShellScript */ = {
+		8FE274991B8671E7005B2E9D /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -326,7 +326,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "./Fabric.framework/run 9cc60370a37258d038971b7142a3ebf98ba7a2e3 384791db7ba122412984891d4b5d6dbbd34561197698373b3a6e9a97d7ba2cbd";
+			shellScript = "./Fabric.framework/run 279db9fcfed20e8f868819202959d3c9436f7055 01689d3c1cde149b625d42f3b1212e58574c1f959e94a341c8fdc5f18d71decf";
 		};
 /* End PBXShellScriptBuildPhase section */
 

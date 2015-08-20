@@ -49,6 +49,17 @@
               initWithTarget:self action:@selector(handleLongPress:)];
     longPress.minimumPressDuration = 1.2; //length of user press
     [self.mapView addGestureRecognizer:longPress];
+
+    [self geocodeLocation:@"Wrigley field"];
+    [self geocodeLocation:@"Willis Tower"];
+    [self geocodeLocation:@"Chicago Board of Trade"];
+    [self geocodeLocation:@"Uptown Theatre Chicago"];
+    [self geocodeLocation:@"Merchandise Mart Chicago"];
+    [self geocodeLocation:@"O'Hare International Airport"];
+    [self geocodeLocation:@"Navy Pier"];
+    [self geocodeLocation:@"Buckingham Fountain"];
+    [self geocodeLocation:@"Chicago Riverwalk"];
+    [self geocodeLocation:@"AON Center"];
 }
 
 -(void)promptTwitterAuthentication {
@@ -119,6 +130,8 @@
 
 -(void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control {
 
+    [self.mapView setRegion:MKCoordinateRegionMake(view.annotation.coordinate, MKCoordinateSpanMake(0.1f, 0.1f)) animated:YES];
+
     MKPlacemark *placemark = [[MKPlacemark alloc] initWithCoordinate:view.annotation.coordinate addressDictionary:nil];
     self.mapLocation = [[MKMapItem alloc] initWithPlacemark:placemark];
 }
@@ -138,6 +151,7 @@
         pin.pinColor = MKPinAnnotationColorRed;
     }
     pin.canShowCallout = true;
+    pin.image = [UIImage imageNamed:@"star_gold"];
     pin.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
 
     return pin;
@@ -167,5 +181,23 @@
 - (IBAction)unwindFromAddAction:(UIStoryboardSegue *)segue {
 
 }
+
+-(void)geocodeLocation:(NSString *)addressString{
+    NSString *address = addressString;
+    CLGeocoder *geocoder = [CLGeocoder new];
+
+    [geocoder geocodeAddressString:address completionHandler:^(NSArray *placemarks, NSError *error) {
+        for (CLPlacemark *place in placemarks) {
+            MKPointAnnotation *annotation = [MKPointAnnotation new];
+            annotation.title = addressString;
+            annotation.subtitle = @"Chicago Landmark";
+            annotation.coordinate = place.location.coordinate;
+            [self.mapView addAnnotation:annotation];
+        }
+    }];
+
+}
+
+
 
 @end
