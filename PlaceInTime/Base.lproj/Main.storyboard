@@ -36,7 +36,7 @@
                                 </items>
                             </toolbar>
                         </subviews>
-                        <color key="backgroundColor" red="0.26226384266394659" green="0.35893040895095424" blue="0.50261185566666677" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.38442769603433868" green="0.52652718140977794" blue="0.73882160945454556" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="DmG-cd-XWW" firstAttribute="top" secondItem="kh9-bI-dsS" secondAttribute="topMargin" constant="16" id="24w-ch-aQG"/>
                             <constraint firstAttribute="trailingMargin" secondItem="DmG-cd-XWW" secondAttribute="trailing" id="2Ed-d5-SlG"/>
@@ -104,16 +104,16 @@
                                     <constraint firstAttribute="height" constant="30" id="VKu-GF-ysq"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="16"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="next" enablesReturnKeyAutomatically="YES"/>
                                 <connections>
                                     <action selector="onEventNameChanged:" destination="ibc-ge-Fzv" eventType="editingChanged" id="EBv-SY-KaJ"/>
                                 </connections>
                             </textField>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.79999999999999982" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7it-lz-RgV">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.79999999999999982" contentMode="scaleToFill" keyboardDismissMode="onDrag" translatesAutoresizingMaskIntoConstraints="NO" id="7it-lz-RgV">
                                 <rect key="frame" x="16" y="203" width="288" height="115"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="next" enablesReturnKeyAutomatically="YES"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
                                 <connections>
                                     <outlet property="delegate" destination="ibc-ge-Fzv" id="HaL-ZF-Idh"/>
                                 </connections>
@@ -180,7 +180,7 @@
                                     <constraint firstAttribute="height" constant="30" id="Be3-aC-OUF"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="16"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="next" enablesReturnKeyAutomatically="YES"/>
                                 <connections>
                                     <action selector="onEventDateChanged:" destination="ibc-ge-Fzv" eventType="editingChanged" id="7Uj-1C-uPk"/>
                                 </connections>

@@ -87,6 +87,15 @@
     }
 }
 
+-(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    textView = self.eventDescriptionTextView;
+    if([text isEqualToString:@"\n"]) {
+        [textView resignFirstResponder];
+        return false;
+    }
+    return true;
+}
+
 - (IBAction)onAddButtonTapped:(UIButton *)sender {
     UserEvent *event = [UserEvent object];
     event.name = self.eventNameTextField.text;
