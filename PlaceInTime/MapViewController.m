@@ -86,6 +86,8 @@
                 NSLog(@"%@", object.objectId);
                 MKPointAnnotation *annot = [MKPointAnnotation new];
                 annot.coordinate = CLLocationCoordinate2DMake([object[@"latitude"]doubleValue], [object[@"longitude"]doubleValue]);
+                annot.title = object[@"name"];
+                annot.subtitle = object[@"date"];
                 [self.mapView addAnnotation:annot];
             }
         } else {
@@ -157,14 +159,9 @@
     }
 }
 
+
 #pragma mark - MKMapView methods
 #pragma mark -
-
--(void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control {
-
-    MKPlacemark *placemark = [[MKPlacemark alloc] initWithCoordinate:view.annotation.coordinate addressDictionary:nil];
-    self.mapLocation = [[MKMapItem alloc] initWithPlacemark:placemark];
-}
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation {
     MKPinAnnotationView *pin = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:nil];
@@ -177,6 +174,13 @@
 
     return pin;
 }
+
+-(void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control {
+
+    MKPlacemark *placemark = [[MKPlacemark alloc] initWithCoordinate:view.annotation.coordinate addressDictionary:nil];
+    self.mapLocation = [[MKMapItem alloc] initWithPlacemark:placemark];
+}
+
 
 - (IBAction)onAddButtonPressed:(UIBarButtonItem *)sender {
     [self promptTwitterAuthentication];

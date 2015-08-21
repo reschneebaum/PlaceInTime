@@ -87,6 +87,9 @@
     }
 }
 
+<<<<<<< HEAD
+
+=======
 -(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
     textView = self.eventDescriptionTextView;
     if([text isEqualToString:@"\n"]) {
@@ -95,6 +98,7 @@
     }
     return true;
 }
+>>>>>>> f67ac7866a8d3a2350667cc26b0edcd87a9378f2
 
 - (IBAction)onAddButtonTapped:(UIButton *)sender {
     UserEvent *event = [UserEvent object];
