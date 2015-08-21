@@ -10,4 +10,6 @@
 
 @interface EventDetailViewController : UIViewController
 
+@property CLLocationCoordinate2D location;
+
 @end

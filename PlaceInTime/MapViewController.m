@@ -14,6 +14,7 @@
 #import "MapViewController.h"
 #import "LoginViewController.h"
 #import "AddEventViewController.h"
+#import "EventDetailViewController.h"
 #import "UserEvent.h"
 
 @interface MapViewController () <CLLocationManagerDelegate, MKMapViewDelegate, LoginViewControllerDelegate>
@@ -145,9 +146,10 @@
 }
 
 -(void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control {
-
-    MKPlacemark *placemark = [[MKPlacemark alloc] initWithCoordinate:view.annotation.coordinate addressDictionary:nil];
-    self.mapLocation = [[MKMapItem alloc] initWithPlacemark:placemark];
+    MKPointAnnotation *annot = (MKPointAnnotation *)view.annotation;
+    EventDetailViewController *detailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"detailVC"];
+    detailVC.location = annot.coordinate;
+    [self presentViewController:detailVC animated:true completion:nil];
 }
 
 
@@ -155,12 +157,13 @@
     [self promptTwitterAuthentication];
 }
 
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    LoginViewController *loginVC = segue.destinationViewController;
-    loginVC.currentLocation = self.currentLocation;
-    AddEventViewController *eventVC = [AddEventViewController new];
-    eventVC.event = self.event;
-}
+//-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+//    LoginViewController *loginVC = segue.destinationViewController;
+//    loginVC.currentLocation = self.currentLocation;
+//    AddEventViewController *eventVC = segue.destinationViewController;
+//    eventVC.event = self.event;
+//    EventDetailViewController *detailVC =segue.destinationViewController;
+//}
 
 - (IBAction)unwindFromCancelAction:(UIStoryboardSegue *)segue {
 
