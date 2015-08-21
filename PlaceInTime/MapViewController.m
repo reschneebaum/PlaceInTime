@@ -8,9 +8,15 @@
 
 #import <MapKit/MapKit.h>
 #import <CoreLocation/CoreLocation.h>
+#import <Parse/Parse.h>
+#import <Parse/PFObject+Subclass.h>
+#import <TwitterKit/TwitterKit.h>
 #import "MapViewController.h"
+#import "LoginViewController.h"
+#import "AddEventViewController.h"
+#import "UserEvent.h"
 
-@interface MapViewController () <CLLocationManagerDelegate>
+@interface MapViewController () <CLLocationManagerDelegate, MKMapViewDelegate, LoginViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property CLLocationManager *locationManager;
@@ -34,28 +40,75 @@
     [self.locationManager startUpdatingLocation];
     [self.mapView showsUserLocation];
     [self.mapView showsBuildings];
+    self.mapView.delegate = self;
+    self.mapView.layer.cornerRadius = 10.0;
+    self.mapView.layer.borderWidth = 1.5;
+    self.mapView.layer.borderColor = [[UIColor whiteColor]CGColor];
 
-    UILongPressGestureRecognizer *lpgr = [[UILongPressGestureRecognizer alloc]
-                                          initWithTarget:self action:@selector(handleLongPress:)];
-    lpgr.minimumPressDuration = 1.5; //length of user press
-    [self.mapView addGestureRecognizer:lpgr];
+    UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc]
+              initWithTarget:self action:@selector(handleLongPress:)];
+    longPress.minimumPressDuration = 1.2; //length of user press
+    [self.mapView addGestureRecognizer:longPress];
+}
+
+-(void)viewWillAppear:(BOOL)animated {
+    PFQuery *query = [PFQuery queryWithClassName:@"UserEvent"];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            // The find succeeded.
+            NSLog(@"Successfully retrieved %lu events.", (unsigned long)objects.count);
+            for (PFObject *object in objects) {
+                NSLog(@"%@", object.objectId);
+                MKPointAnnotation *annot = [MKPointAnnotation new];
+                annot.coordinate = CLLocationCoordinate2DMake([object[@"latitude"]doubleValue], [object[@"longitude"]doubleValue]);
+                [self.mapView addAnnotation:annot];
+            }
+        } else {
+            // Log details of the failure
+            NSLog(@"Error: %@ %@", error, [error userInfo]);
+        }
+    }];
+}
+
+-(void)promptTwitterAuthentication {
+    UIAlertController *userEventAlert = [UIAlertController alertControllerWithTitle:@"Authenticate" message:@"Please authenticate your existence in order to add a new event to the map." preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Ok"
+                                                       style:UIAlertActionStyleDefault
+                                                     handler:^(UIAlertAction *action) {
+        LoginViewController *loginVC = [LoginViewController new];
+        loginVC.delegate = self;
+        [self presentViewController:loginVC animated:true completion:nil];
+    }];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel"
+                                                           style:UIAlertActionStyleCancel
+                                                         handler:^(UIAlertAction *action) {
+    }];
+    [userEventAlert addAction:okAction];
+    [userEventAlert addAction:cancelAction];
+    [self presentViewController:userEventAlert animated:true completion:nil];
+}
+
+- (void)isUserLoggedIn:(BOOL)userLoggedIn {
+    NSLog(@"isUserLoggedIn: %i", userLoggedIn);
+    self.userLoggedIn = userLoggedIn;
 }
 
 - (void)handleLongPress:(UIGestureRecognizer *)gestureRecognizer {
     if (gestureRecognizer.state != UIGestureRecognizerStateBegan)
-        return;
+    return;
 
-    CGPoint touchPoint = [gestureRecognizer locationInView:self.mapView];
-    CLLocationCoordinate2D touchMapCoordinate =
-    [self.mapView convertPoint:touchPoint toCoordinateFromView:self.mapView];
-
-    MKPointAnnotation *annot = [[MKPointAnnotation alloc] init];
-    annot.coordinate = touchMapCoordinate;
-    [self.mapView addAnnotation:annot];
-
-//  store & persist the following values:
-    double latitude = annot.coordinate.latitude;
-    double longitude = annot.coordinate.longitude;
+    if (self.userLoggedIn) {
+        CGPoint touchPoint = [gestureRecognizer locationInView:self.mapView];
+        CLLocationCoordinate2D touchMapCoordinate =
+        [self.mapView convertPoint:touchPoint toCoordinateFromView:self.mapView];
+        MKPointAnnotation *newAnnotation = [MKPointAnnotation new];
+        newAnnotation.coordinate = touchMapCoordinate;
+        [self.mapView addAnnotation:newAnnotation];
+        AddEventViewController *eventVC = [self.storyboard instantiateViewControllerWithIdentifier:@"eventVC"];
+        eventVC.location = newAnnotation.coordinate;
+        [self presentViewController:eventVC animated:true completion:nil];
+        NSLog(@"event: %g, %g", eventVC.location.latitude, eventVC.location.longitude);
+    }
 }
 
 
@@ -80,14 +133,9 @@
 #pragma mark -
 
 -(void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control {
+
     MKPlacemark *placemark = [[MKPlacemark alloc] initWithCoordinate:view.annotation.coordinate addressDictionary:nil];
     self.mapLocation = [[MKMapItem alloc] initWithPlacemark:placemark];
-
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Something Happened!" message:nil preferredStyle:UIAlertControllerStyleAlert];
-
-//  display information about event
-
-    [self presentViewController:alert animated:YES completion:nil];
 }
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation {
@@ -108,6 +156,32 @@
     pin.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
 
     return pin;
+}
+
+- (IBAction)onAddButtonPressed:(UIBarButtonItem *)sender {
+    [self promptTwitterAuthentication];
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    LoginViewController *loginVC = segue.destinationViewController;
+    loginVC.currentLocation = self.currentLocation;
+    AddEventViewController *eventVC = [AddEventViewController new];
+    eventVC.event = self.event;
+}
+
+- (IBAction)onTestButtonPressed:(UIBarButtonItem *)sender {
+     AddEventViewController *eventVC = [AddEventViewController new];
+    eventVC.event = self.event;
+    NSLog(@"%f", eventVC.event.latitude);
+    [self presentViewController:eventVC animated:true completion:nil];
+}
+
+- (IBAction)unwindFromCancelAction:(UIStoryboardSegue *)segue {
+
+}
+
+- (IBAction)unwindFromAddAction:(UIStoryboardSegue *)segue {
+
 }
 
 @end

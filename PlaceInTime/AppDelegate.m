@@ -6,9 +6,11 @@
 //  Copyright (c) 2015 Rachel Schneebaum. All rights reserved.
 //
 
-#import "AppDelegate.h"
 #import <Fabric/Fabric.h>
 #import <TwitterKit/TwitterKit.h>
+#import <Crashlytics/Crashlytics.h>
+#import <Parse/Parse.h>
+#import "AppDelegate.h"
 
 @interface AppDelegate ()
 
@@ -18,7 +20,21 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    [Fabric with:@[TwitterKit]];
+    [[Twitter sharedInstance] startWithConsumerKey:@"v0d9T4KnfyyNV6GXy12n9GvFP" consumerSecret:@"8d23KwU9IzPanEQ5scbEgeLyAZcgnzFbkUojhA8obFiIdosAAL"];
+    [Fabric with:@[[Twitter sharedInstance]]];
+    [Fabric with:@[TwitterKit, CrashlyticsKit]];
+
+    // [Optional] Power your app with Local Datastore. For more info, go to
+    // https://parse.com/docs/ios_guide#localdatastore/iOS
+    [Parse enableLocalDatastore];
+
+    // Initialize Parse.
+    [Parse setApplicationId:@"tLg8NdVRRSie7XTjk5N3w3Kpt2IuJ6vnllrtDyCb"
+                  clientKey:@"erLoiCZB1aP7PweMw5B0if2DtE54ozPHLxQEdooE"];
+
+    // [Optional] Track statistics around application opens.
+    [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
+    
     return YES;
 }
 

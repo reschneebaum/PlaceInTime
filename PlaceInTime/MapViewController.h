@@ -7,9 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UserEvent.h"
 
 @interface MapViewController : UIViewController
 
+@property BOOL userLoggedIn;
+@property UserEvent *event;
+@property NSArray *events;
 
 @end
 
