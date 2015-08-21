@@ -9,10 +9,11 @@
 #import <Parse/Parse.h>
 #import <Parse/PFObject+Subclass.h>
 #import <CoreLocation/CoreLocation.h>
+#import <MapKit/MapKit.h>
 #import "EventDetailViewController.h"
 #import "UserEvent.h"
 
-@interface EventDetailViewController ()
+@interface EventDetailViewController () <CLLocationManagerDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextView *descriptionTextView;
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
@@ -26,11 +27,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     NSLog(@"%f, %f", self.location.latitude, self.location.longitude);
+    [self loadSelectedEvent];
 }
 
 -(void)loadSelectedEvent {
     PFQuery *query = [PFQuery queryWithClassName:@"UserEvent"];
-    [query whereKey:@"latitude" equalTo:@"self.location.latitude"];
+//    [query whereKey:@"latitude" equalTo:self.location.latitude];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
             // The find succeeded.
@@ -39,6 +41,7 @@
                 NSLog(@"error!");
             } else {
                 self.event = objects.firstObject;
+                NSLog(@"%@", self.event);
                 self.descriptionTextView.text = self.event.textDescription;
                 self.navigationItem.title = self.event.name;
                 self.dateLabel.text = self.event.date;
