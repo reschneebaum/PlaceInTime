@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C42D7FCF1B8782AA00B56AFC /* EventDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C42D7FCE1B8782AA00B56AFC /* EventDetailViewController.m */; };
 		C42DDB8E1B82454300CAAD15 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C42DDB8D1B82454300CAAD15 /* main.m */; };
 		C42DDB911B82454300CAAD15 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C42DDB901B82454300CAAD15 /* AppDelegate.m */; };
 		C42DDB941B82454300CAAD15 /* PlaceInTime.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C42DDB921B82454300CAAD15 /* PlaceInTime.xcdatamodeld */; };
@@ -72,6 +73,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C42D7FCD1B8782AA00B56AFC /* EventDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventDetailViewController.h; sourceTree = "<group>"; };
+		C42D7FCE1B8782AA00B56AFC /* EventDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventDetailViewController.m; sourceTree = "<group>"; };
 		C42DDB881B82454300CAAD15 /* PlaceInTime.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlaceInTime.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C42DDB8C1B82454300CAAD15 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C42DDB8D1B82454300CAAD15 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -239,10 +242,12 @@
 				C42DDB901B82454300CAAD15 /* AppDelegate.m */,
 				C4A91C9C1B83BD1C007C26CA /* LoginViewController.h */,
 				C4A91C9D1B83BD1C007C26CA /* LoginViewController.m */,
-				C4A91C9F1B83BD2B007C26CA /* AddEventViewController.h */,
-				C4A91CA01B83BD2B007C26CA /* AddEventViewController.m */,
 				C42DDB951B82454300CAAD15 /* MapViewController.h */,
 				C42DDB961B82454300CAAD15 /* MapViewController.m */,
+				C4A91C9F1B83BD2B007C26CA /* AddEventViewController.h */,
+				C4A91CA01B83BD2B007C26CA /* AddEventViewController.m */,
+				C42D7FCD1B8782AA00B56AFC /* EventDetailViewController.h */,
+				C42D7FCE1B8782AA00B56AFC /* EventDetailViewController.m */,
 				C4A91CA21B83BD5A007C26CA /* UserEventAnnotationView.h */,
 				C4A91CA31B83BD5A007C26CA /* UserEventAnnotationView.m */,
 				C42DDB981B82454300CAAD15 /* Main.storyboard */,
@@ -395,6 +400,7 @@
 				TargetAttributes = {
 					C42DDB871B82454300CAAD15 = {
 						CreatedOnToolsVersion = 6.4;
+						DevelopmentTeam = 8K928H3KGT;
 					};
 					C42DDBA31B82454300CAAD15 = {
 						CreatedOnToolsVersion = 6.4;
@@ -470,6 +476,7 @@
 				C4A91CE01B8630A6007C26CA /* AFSecurityPolicy.m in Sources */,
 				C4A91CE71B8630A6007C26CA /* AFNetworkActivityIndicatorManager.m in Sources */,
 				C4A91CDD1B8630A6007C26CA /* AFHTTPRequestOperationManager.m in Sources */,
+				C42D7FCF1B8782AA00B56AFC /* EventDetailViewController.m in Sources */,
 				C42DDB911B82454300CAAD15 /* AppDelegate.m in Sources */,
 				C42DDB941B82454300CAAD15 /* PlaceInTime.xcdatamodeld in Sources */,
 				C42DDB971B82454300CAAD15 /* MapViewController.m in Sources */,
@@ -616,6 +623,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -623,6 +632,7 @@
 				INFOPLIST_FILE = PlaceInTime/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -630,6 +640,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -637,6 +649,7 @@
 				INFOPLIST_FILE = PlaceInTime/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
