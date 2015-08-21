@@ -51,6 +51,25 @@
     [self.mapView addGestureRecognizer:longPress];
 }
 
+-(void)viewWillAppear:(BOOL)animated {
+    PFQuery *query = [PFQuery queryWithClassName:@"UserEvent"];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            // The find succeeded.
+            NSLog(@"Successfully retrieved %lu events.", (unsigned long)objects.count);
+            for (PFObject *object in objects) {
+                NSLog(@"%@", object.objectId);
+                MKPointAnnotation *annot = [MKPointAnnotation new];
+                annot.coordinate = CLLocationCoordinate2DMake([object[@"latitude"]doubleValue], [object[@"longitude"]doubleValue]);
+                [self.mapView addAnnotation:annot];
+            }
+        } else {
+            // Log details of the failure
+            NSLog(@"Error: %@ %@", error, [error userInfo]);
+        }
+    }];
+}
+
 -(void)promptTwitterAuthentication {
     UIAlertController *userEventAlert = [UIAlertController alertControllerWithTitle:@"Authenticate" message:@"Please authenticate your existence in order to add a new event to the map." preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Ok"
@@ -83,16 +102,12 @@
         CLLocationCoordinate2D touchMapCoordinate =
         [self.mapView convertPoint:touchPoint toCoordinateFromView:self.mapView];
         MKPointAnnotation *newAnnotation = [MKPointAnnotation new];
-        UserEvent *event = [UserEvent object];
         newAnnotation.coordinate = touchMapCoordinate;
-        newAnnotation.title = event.name;
-        newAnnotation.subtitle = event.date;
-        event.latitude = touchMapCoordinate.latitude;
-        event.longitude = touchMapCoordinate.longitude;
-        self.event = event;
         [self.mapView addAnnotation:newAnnotation];
-        [self.event saveInBackground];
-        NSLog(@"%f", self.event.latitude);
+        AddEventViewController *eventVC = [self.storyboard instantiateViewControllerWithIdentifier:@"eventVC"];
+        eventVC.location = newAnnotation.coordinate;
+        [self presentViewController:eventVC animated:true completion:nil];
+        NSLog(@"event: %g, %g", eventVC.location.latitude, eventVC.location.longitude);
     }
 }
 
@@ -157,6 +172,7 @@
 - (IBAction)onTestButtonPressed:(UIBarButtonItem *)sender {
      AddEventViewController *eventVC = [AddEventViewController new];
     eventVC.event = self.event;
+    NSLog(@"%f", eventVC.event.latitude);
     [self presentViewController:eventVC animated:true completion:nil];
 }
 

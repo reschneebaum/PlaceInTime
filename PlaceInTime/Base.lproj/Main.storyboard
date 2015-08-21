@@ -83,7 +83,7 @@
         <!--eventVC-->
         <scene sceneID="K1T-ba-D25">
             <objects>
-                <viewController storyboardIdentifier="infoVC" title="eventVC" id="ibc-ge-Fzv" customClass="AddEventViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="eventVC" title="eventVC" id="ibc-ge-Fzv" customClass="AddEventViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ihO-1e-syI"/>
                         <viewControllerLayoutGuide type="bottom" id="Qfq-1c-2DP"/>
@@ -177,7 +177,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="onAddButtonTapped:" destination="ibc-ge-Fzv" eventType="touchUpInside" id="YN8-fu-WRH"/>
+                                    <action selector="onAddButtonTapped:" destination="ibc-ge-Fzv" eventType="touchUpInside" id="1Ne-hm-eLK"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" alpha="0.89999999999999991" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Event Date" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="5If-v2-FFL">
@@ -187,6 +187,9 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="16"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="onEventDateChanged:" destination="ibc-ge-Fzv" eventType="editingChanged" id="7Uj-1C-uPk"/>
+                                </connections>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What happened?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aUs-NH-0OA">
                                 <rect key="frame" x="16" y="168" width="135" height="21"/>
@@ -236,7 +239,7 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="addButton" destination="Wmi-M9-tcc" id="BoK-Yh-eeW"/>
+                        <outlet property="addButton" destination="Wmi-M9-tcc" id="6wq-M4-qcY"/>
                         <outlet property="bgMapView" destination="vvd-6U-8E3" id="QoS-LJ-PyN"/>
                         <outlet property="eventDateTextField" destination="5If-v2-FFL" id="OVw-d0-upl"/>
                         <outlet property="eventDescriptionTextView" destination="7it-lz-RgV" id="Pt2-CD-UbG"/>

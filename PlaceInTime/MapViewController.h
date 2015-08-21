@@ -13,6 +13,7 @@
 
 @property BOOL userLoggedIn;
 @property UserEvent *event;
+@property NSArray *events;
 
 @end
 

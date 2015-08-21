@@ -14,7 +14,7 @@
 @property (nonatomic, strong) NSString *date;
 @property (nonatomic, strong) NSString *textDescription;
 @property (nonatomic, strong) NSString *user;
-@property int valence;
+@property float valence;
 @property float latitude;
 @property float longitude;
 

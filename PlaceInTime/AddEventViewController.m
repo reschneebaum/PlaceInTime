@@ -37,6 +37,8 @@
     [self.bgMapView showsUserLocation];
     [self.bgMapView showsBuildings];
     [self configureStoryboardObjects];
+    NSLog(@"self: %g, %g", self.location.latitude, self.location.longitude);
+
 }
 
 -(void)configureStoryboardObjects {
@@ -68,24 +70,32 @@
 }
 
 - (IBAction)onEventNameChanged:(UITextField *)sender {
-    if ([self.eventNameTextField hasText] && [self.eventDescriptionTextView hasText]) {
+    if ([self.eventNameTextField hasText] && [self.eventDateTextField hasText] && [self.eventDescriptionTextView hasText]) {
+        self.addButton.enabled = true;
+    }
+}
+- (IBAction)onEventDateChanged:(UITextField *)sender {
+    if ([self.eventNameTextField hasText] && [self.eventDateTextField hasText] && [self.eventDescriptionTextView hasText]) {
         self.addButton.enabled = true;
     }
 }
 
 -(IBAction)textViewDidChange:(UITextView *)textView {
     textView = self.eventDescriptionTextView;
-    if ([self.eventNameTextField hasText] && [self.eventDescriptionTextView hasText]) {
+    if ([self.eventNameTextField hasText] && [self.eventDateTextField hasText] && [self.eventDescriptionTextView hasText]) {
         self.addButton.enabled = true;
     }
 }
 
 - (IBAction)onAddButtonTapped:(UIButton *)sender {
-    self.event.name = self.eventNameTextField.text;
-    self.event.date = self.eventDateTextField.text;
-    self.event.textDescription = self.eventDescriptionTextView.text;
-    self.event.valence = (int)self.eventValenceSlider.value;
-    [self.event saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+    UserEvent *event = [UserEvent object];
+    event.name = self.eventNameTextField.text;
+    event.date = self.eventDateTextField.text;
+    event.textDescription = self.eventDescriptionTextView.text;
+    event.valence = self.eventValenceSlider.value;
+    event.latitude = self.location.latitude;
+    event.longitude = self.location.longitude;
+    [event saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (succeeded) {
             NSLog(@"The object has been saved.");
             [self dismissViewControllerAnimated:true completion:nil];
