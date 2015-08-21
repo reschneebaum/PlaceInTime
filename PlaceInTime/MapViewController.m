@@ -15,6 +15,7 @@
 #import "LoginViewController.h"
 #import "AddEventViewController.h"
 #import "UserEvent.h"
+#import "HistoryEvent.h"
 
 @interface MapViewController () <CLLocationManagerDelegate, MKMapViewDelegate, LoginViewControllerDelegate>
 
@@ -31,6 +32,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+//    [self loadHistoryEvents];
     self.locationManager = [CLLocationManager new];
     [self.locationManager requestWhenInUseAuthorization];
     self.locationManager.delegate = self;
@@ -48,7 +50,33 @@
     [self.mapView addGestureRecognizer:longPress];
 }
 
+-(void)loadHistoryEvents{
+    NSString *filePath = [[NSBundle mainBundle] pathForResource:@"timeplaces" ofType:@"plist"];
+    NSArray *array = [[NSArray alloc] initWithContentsOfFile:filePath];
+    //    NSArray *array = [NSArray arrayWithArray:[dict objectForKey:@"Root"]];
+    NSLog(@"%@", array);
+
+    for (NSDictionary *dictionary in array) {
+        HistoryEvent *event = [HistoryEvent object];
+        event.name = dictionary[@"name"];
+        event.date = [NSString stringWithFormat:@"%@", dictionary[@"date"]];
+        event.textDescription = @"";
+        event.latitude = [dictionary[@"latitude"] floatValue];
+        event.longitude = [dictionary[@"longitude"] floatValue];
+        [event saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            if (succeeded) {
+                NSLog(@"The object has been saved.");
+                [self dismissViewControllerAnimated:true completion:nil];
+            } else {
+                NSLog(@"There was a problem, check error.description");
+            }
+        }];
+    }
+
+}
+
 -(void)viewWillAppear:(BOOL)animated {
+
     PFQuery *query = [PFQuery queryWithClassName:@"UserEvent"];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
@@ -66,6 +94,8 @@
         }
     }];
 }
+
+
 
 -(void)promptTwitterAuthentication {
     UIAlertController *userEventAlert = [UIAlertController alertControllerWithTitle:@"Authenticate" message:@"Please authenticate your existence in order to add a new event to the map." preferredStyle:UIAlertControllerStyleAlert];
@@ -88,6 +118,7 @@
 - (void)isUserLoggedIn:(BOOL)userLoggedIn {
     NSLog(@"isUserLoggedIn: %i", userLoggedIn);
     self.userLoggedIn = userLoggedIn;
+
 }
 
 - (void)handleLongPress:(UIGestureRecognizer *)gestureRecognizer {

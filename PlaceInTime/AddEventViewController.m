@@ -87,6 +87,8 @@
     }
 }
 
+
+
 - (IBAction)onAddButtonTapped:(UIButton *)sender {
     UserEvent *event = [UserEvent object];
     event.name = self.eventNameTextField.text;
