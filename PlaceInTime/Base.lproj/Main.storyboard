@@ -33,12 +33,6 @@
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="4vY-VN-gIa"/>
-                                    <barButtonItem title="test" id="u9F-yW-lLC">
-                                        <connections>
-                                            <action selector="onTestButtonPressed:" destination="vXZ-lx-hvc" id="Qle-wd-FAf"/>
-                                            <segue destination="ibc-ge-Fzv" kind="modal" id="AN7-lX-3az"/>
-                                        </connections>
-                                    </barButtonItem>
                                 </items>
                             </toolbar>
                         </subviews>

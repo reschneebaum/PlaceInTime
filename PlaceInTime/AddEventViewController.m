@@ -99,8 +99,6 @@
         if (succeeded) {
             NSLog(@"The object has been saved.");
             [self dismissViewControllerAnimated:true completion:nil];
-//            MapViewController *mapVC = [self.storyboard instantiateViewControllerWithIdentifier:@"mapVC"];
-//            [self presentViewController:mapVC animated:false completion:nil];
         } else {
             NSLog(@"There was a problem, check error.description");
         }

@@ -23,9 +23,6 @@
 @property MKPointAnnotation *point;
 @property CLLocation *currentLocation;
 @property MKMapItem *mapLocation;
-@property MKMapItem *sadPinLocation;
-@property MKMapItem *neutralPinLocation;
-@property MKMapItem *happyPinLocation;
 
 @end
 
@@ -143,15 +140,7 @@
     if ([annotation isEqual:mapView.userLocation]) {
         return nil;
     }
-    if ([annotation isEqual:self.sadPinLocation]) {
-        pin.pinColor = MKPinAnnotationColorPurple;
-    }
-    if ([annotation isEqual:self.neutralPinLocation]) {
-        pin.pinColor = MKPinAnnotationColorGreen;
-    }
-    if ([annotation isEqual:self.happyPinLocation]) {
-        pin.pinColor = MKPinAnnotationColorRed;
-    }
+
     pin.canShowCallout = true;
     pin.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
 
@@ -169,18 +158,7 @@
     eventVC.event = self.event;
 }
 
-- (IBAction)onTestButtonPressed:(UIBarButtonItem *)sender {
-     AddEventViewController *eventVC = [AddEventViewController new];
-    eventVC.event = self.event;
-    NSLog(@"%f", eventVC.event.latitude);
-    [self presentViewController:eventVC animated:true completion:nil];
-}
-
 - (IBAction)unwindFromCancelAction:(UIStoryboardSegue *)segue {
-
-}
-
-- (IBAction)unwindFromAddAction:(UIStoryboardSegue *)segue {
 
 }
 

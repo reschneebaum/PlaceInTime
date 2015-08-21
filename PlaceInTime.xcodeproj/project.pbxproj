@@ -39,7 +39,6 @@
 		C4A91CA41B83BD5A007C26CA /* UserEventAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A91CA31B83BD5A007C26CA /* UserEventAnnotationView.m */; };
 		C4A91CAA1B84C815007C26CA /* UserEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A91CA91B84C815007C26CA /* UserEvent.m */; };
 		C4A91CAC1B861521007C26CA /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4A91CAB1B861521007C26CA /* Crashlytics.framework */; };
-		C4A91CAF1B86270A007C26CA /* CreateHistoryJson.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A91CAE1B86270A007C26CA /* CreateHistoryJson.m */; };
 		C4A91CB21B862C2D007C26CA /* WikipediaHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A91CB11B862C2D007C26CA /* WikipediaHelper.m */; };
 		C4A91CDC1B8630A6007C26CA /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A91CB61B8630A6007C26CA /* AFHTTPRequestOperation.m */; };
 		C4A91CDD1B8630A6007C26CA /* AFHTTPRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A91CB81B8630A6007C26CA /* AFHTTPRequestOperationManager.m */; };
@@ -115,8 +114,6 @@
 		C4A91CA81B84C815007C26CA /* UserEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserEvent.h; sourceTree = "<group>"; };
 		C4A91CA91B84C815007C26CA /* UserEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserEvent.m; sourceTree = "<group>"; };
 		C4A91CAB1B861521007C26CA /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
-		C4A91CAD1B86270A007C26CA /* CreateHistoryJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateHistoryJson.h; sourceTree = "<group>"; };
-		C4A91CAE1B86270A007C26CA /* CreateHistoryJson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateHistoryJson.m; sourceTree = "<group>"; };
 		C4A91CB01B862C20007C26CA /* WikipediaHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WikipediaHelper.h; sourceTree = "<group>"; };
 		C4A91CB11B862C2D007C26CA /* WikipediaHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WikipediaHelper.m; sourceTree = "<group>"; };
 		C4A91CB51B8630A6007C26CA /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
@@ -251,8 +248,6 @@
 				C42DDB981B82454300CAAD15 /* Main.storyboard */,
 				C4A91CA81B84C815007C26CA /* UserEvent.h */,
 				C4A91CA91B84C815007C26CA /* UserEvent.m */,
-				C4A91CAD1B86270A007C26CA /* CreateHistoryJson.h */,
-				C4A91CAE1B86270A007C26CA /* CreateHistoryJson.m */,
 				C4A91CB01B862C20007C26CA /* WikipediaHelper.h */,
 				C4A91CB11B862C2D007C26CA /* WikipediaHelper.m */,
 				C42DDB9B1B82454300CAAD15 /* Images.xcassets */,
@@ -473,7 +468,6 @@
 				C4A91CA41B83BD5A007C26CA /* UserEventAnnotationView.m in Sources */,
 				C4A91CE61B8630A6007C26CA /* README.md in Sources */,
 				C4A91CE01B8630A6007C26CA /* AFSecurityPolicy.m in Sources */,
-				C4A91CAF1B86270A007C26CA /* CreateHistoryJson.m in Sources */,
 				C4A91CE71B8630A6007C26CA /* AFNetworkActivityIndicatorManager.m in Sources */,
 				C4A91CDD1B8630A6007C26CA /* AFHTTPRequestOperationManager.m in Sources */,
 				C42DDB911B82454300CAAD15 /* AppDelegate.m in Sources */,
