@@ -28,6 +28,7 @@
                                 <items>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="dOi-Rq-xr5"/>
                                     <barButtonItem systemItem="add" id="gXR-oj-cuI">
+                                        <color key="tintColor" red="0.38442769599999999" green="0.52652718139999999" blue="0.73882160949999998" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
                                             <action selector="onAddButtonPressed:" destination="vXZ-lx-hvc" id="jfr-RQ-QdV"/>
                                         </connections>
@@ -36,7 +37,7 @@
                                 </items>
                             </toolbar>
                         </subviews>
-                        <color key="backgroundColor" red="0.38442769603433868" green="0.52652718140977794" blue="0.73882160945454556" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="DmG-cd-XWW" firstAttribute="top" secondItem="kh9-bI-dsS" secondAttribute="topMargin" constant="16" id="24w-ch-aQG"/>
                             <constraint firstAttribute="trailingMargin" secondItem="DmG-cd-XWW" secondAttribute="trailing" id="2Ed-d5-SlG"/>
@@ -74,10 +75,10 @@
             </objects>
             <point key="canvasLocation" x="1024" y="309"/>
         </scene>
-        <!--eventVC-->
+        <!--Add Event View Controller-->
         <scene sceneID="K1T-ba-D25">
             <objects>
-                <viewController storyboardIdentifier="eventVC" title="eventVC" id="ibc-ge-Fzv" customClass="AddEventViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="eventVC" id="ibc-ge-Fzv" customClass="AddEventViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ihO-1e-syI"/>
                         <viewControllerLayoutGuide type="bottom" id="Qfq-1c-2DP"/>
@@ -125,7 +126,7 @@
                                     <constraint firstAttribute="height" constant="21" id="FOx-SQ-pyz"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="16"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                                 <color key="shadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </label>
@@ -158,6 +159,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
+                                    <action selector="onCancelButtonPressed:" destination="ibc-ge-Fzv" eventType="touchUpInside" id="riw-hc-8vM"/>
                                     <segue destination="I6s-wg-dUq" kind="unwind" unwindAction="unwindFromCancelAction:" id="iey-zQ-ukw"/>
                                 </connections>
                             </button>
@@ -192,7 +194,7 @@
                                     <constraint firstAttribute="height" constant="21" id="c1C-AH-us7"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="16"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                                 <color key="shadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </label>
@@ -246,6 +248,104 @@
                 <exit id="I6s-wg-dUq" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1387" y="309"/>
+        </scene>
+        <!--Event Detail View Controller-->
+        <scene sceneID="6nZ-9Z-hyX">
+            <objects>
+                <viewController storyboardIdentifier="detailVC" id="hsv-ml-pC8" customClass="EventDetailViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="DJG-Mi-aYQ"/>
+                        <viewControllerLayoutGuide type="bottom" id="A7J-N9-Km5"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="eF9-mf-lv2">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UNK-rD-gNA">
+                                <rect key="frame" x="0.0" y="524" width="320" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="WJr-4M-Bdz"/>
+                                </constraints>
+                                <items>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="wXl-qV-2Qi"/>
+                                    <barButtonItem title="X" id="cjK-Ir-GOm">
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <connections>
+                                            <action selector="onDismissButtonTapped:" destination="hsv-ml-pC8" id="1Qs-3U-Bur"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="B4U-bz-G4G"/>
+                                </items>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="barTintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                            </toolbar>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kCe-Au-3wO">
+                                <rect key="frame" x="16" y="434" width="288" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="Hjg-a6-BH9"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4nd-pr-MGl">
+                                <rect key="frame" x="16" y="392" width="288" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="bE2-iU-hsT"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yop-ch-91L">
+                                <rect key="frame" x="0.0" y="28" width="320" height="44"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="MJe-tk-OgR"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZL5-zA-pTk">
+                                <rect key="frame" x="16" y="109" width="288" height="275"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES" address="YES"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="ZL5-zA-pTk" firstAttribute="leading" secondItem="eF9-mf-lv2" secondAttribute="leadingMargin" id="3hX-cc-HZC"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="UNK-rD-gNA" secondAttribute="trailing" constant="-16" id="4b0-eg-Chi"/>
+                            <constraint firstItem="yop-ch-91L" firstAttribute="top" secondItem="DJG-Mi-aYQ" secondAttribute="bottom" constant="8" id="BJi-BM-UXV"/>
+                            <constraint firstItem="ZL5-zA-pTk" firstAttribute="trailing" secondItem="eF9-mf-lv2" secondAttribute="trailingMargin" id="ON5-hD-SU2"/>
+                            <constraint firstItem="ZL5-zA-pTk" firstAttribute="top" secondItem="yop-ch-91L" secondAttribute="bottom" constant="37" id="Oia-IK-k4t"/>
+                            <constraint firstItem="kCe-Au-3wO" firstAttribute="top" secondItem="4nd-pr-MGl" secondAttribute="bottom" constant="21" id="TIA-Y1-rPw"/>
+                            <constraint firstItem="kCe-Au-3wO" firstAttribute="leading" secondItem="eF9-mf-lv2" secondAttribute="leadingMargin" id="Zsn-p8-kh5"/>
+                            <constraint firstItem="kCe-Au-3wO" firstAttribute="trailing" secondItem="eF9-mf-lv2" secondAttribute="trailingMargin" id="e6M-8D-mVz"/>
+                            <constraint firstItem="4nd-pr-MGl" firstAttribute="leading" secondItem="eF9-mf-lv2" secondAttribute="leadingMargin" id="eYv-4X-kxX"/>
+                            <constraint firstItem="4nd-pr-MGl" firstAttribute="top" secondItem="ZL5-zA-pTk" secondAttribute="bottom" constant="8" id="ffV-TH-LZg"/>
+                            <constraint firstItem="4nd-pr-MGl" firstAttribute="trailing" secondItem="eF9-mf-lv2" secondAttribute="trailingMargin" id="gyi-5L-RqQ"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="yop-ch-91L" secondAttribute="trailing" constant="-16" id="srv-tf-XCi"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="kCe-Au-3wO" secondAttribute="bottom" constant="113" id="xRO-wP-YkL"/>
+                            <constraint firstItem="yop-ch-91L" firstAttribute="leading" secondItem="eF9-mf-lv2" secondAttribute="leadingMargin" constant="-16" id="xX0-ku-L0d"/>
+                            <constraint firstItem="UNK-rD-gNA" firstAttribute="leading" secondItem="eF9-mf-lv2" secondAttribute="leadingMargin" constant="-16" id="xfc-VU-DSt"/>
+                            <constraint firstItem="A7J-N9-Km5" firstAttribute="top" secondItem="UNK-rD-gNA" secondAttribute="bottom" id="yYO-YS-ZBE"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="6Ze-7f-9x0"/>
+                    <connections>
+                        <outlet property="dateLabel" destination="4nd-pr-MGl" id="eFE-wF-yqJ"/>
+                        <outlet property="descriptionTextView" destination="ZL5-zA-pTk" id="mDT-HN-OMP"/>
+                        <outlet property="locationLabel" destination="kCe-Au-3wO" id="bwS-05-rtj"/>
+                        <outlet property="nameLabel" destination="yop-ch-91L" id="cZX-Rt-FY7"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Q2l-Mx-W44" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1781" y="309"/>
         </scene>
     </scenes>
     <resources>

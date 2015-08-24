@@ -14,6 +14,7 @@
 #import "MapViewController.h"
 #import "LoginViewController.h"
 #import "AddEventViewController.h"
+#import "EventDetailViewController.h"
 #import "UserEvent.h"
 #import "HistoryEvent.h"
 
@@ -133,10 +134,10 @@
         [self.mapView convertPoint:touchPoint toCoordinateFromView:self.mapView];
         MKPointAnnotation *newAnnotation = [MKPointAnnotation new];
         newAnnotation.coordinate = touchMapCoordinate;
-        [self.mapView addAnnotation:newAnnotation];
         AddEventViewController *eventVC = [self.storyboard instantiateViewControllerWithIdentifier:@"eventVC"];
         eventVC.location = newAnnotation.coordinate;
         [self presentViewController:eventVC animated:true completion:nil];
+        [self.mapView addAnnotation:newAnnotation];
         NSLog(@"event: %g, %g", eventVC.location.latitude, eventVC.location.longitude);
     }
 }
@@ -176,9 +177,10 @@
 }
 
 -(void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control {
-
-    MKPlacemark *placemark = [[MKPlacemark alloc] initWithCoordinate:view.annotation.coordinate addressDictionary:nil];
-    self.mapLocation = [[MKMapItem alloc] initWithPlacemark:placemark];
+    MKPointAnnotation *annot = (MKPointAnnotation *)view.annotation;
+    EventDetailViewController *detailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"detailVC"];
+    detailVC.location = annot.coordinate;
+    [self presentViewController:detailVC animated:true completion:nil];
 }
 
 
@@ -186,15 +188,16 @@
     [self promptTwitterAuthentication];
 }
 
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    LoginViewController *loginVC = segue.destinationViewController;
-    loginVC.currentLocation = self.currentLocation;
-    AddEventViewController *eventVC = [AddEventViewController new];
-    eventVC.event = self.event;
-}
+//-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+//    LoginViewController *loginVC = segue.destinationViewController;
+//    loginVC.currentLocation = self.currentLocation;
+//    AddEventViewController *eventVC = segue.destinationViewController;
+//    eventVC.event = self.event;
+//    EventDetailViewController *detailVC =segue.destinationViewController;
+//}
 
 - (IBAction)unwindFromCancelAction:(UIStoryboardSegue *)segue {
-
+//    [self.mapView removeAnnotation:]
 }
 
 @end

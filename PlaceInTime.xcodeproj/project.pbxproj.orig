@@ -7,12 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-<<<<<<< HEAD
+		C42D7FCF1B8782AA00B56AFC /* EventDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C42D7FCE1B8782AA00B56AFC /* EventDetailViewController.m */; };
 		8F61B3AB1B87962D009023EB /* HistoryEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F61B3AA1B87962D009023EB /* HistoryEvent.m */; };
 		8FF95F4B1B87715800ED5D4B /* timeplaces.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8FF95F4A1B87715800ED5D4B /* timeplaces.plist */; };
-=======
-		C42D7FCF1B8782AA00B56AFC /* EventDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C42D7FCE1B8782AA00B56AFC /* EventDetailViewController.m */; };
->>>>>>> f67ac7866a8d3a2350667cc26b0edcd87a9378f2
 		C42DDB8E1B82454300CAAD15 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C42DDB8D1B82454300CAAD15 /* main.m */; };
 		C42DDB911B82454300CAAD15 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C42DDB901B82454300CAAD15 /* AppDelegate.m */; };
 		C42DDB941B82454300CAAD15 /* PlaceInTime.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C42DDB921B82454300CAAD15 /* PlaceInTime.xcdatamodeld */; };
@@ -58,14 +55,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-<<<<<<< HEAD
+		C42D7FCD1B8782AA00B56AFC /* EventDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventDetailViewController.h; sourceTree = "<group>"; };
+		C42D7FCE1B8782AA00B56AFC /* EventDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventDetailViewController.m; sourceTree = "<group>"; };
 		8F61B3A91B87962D009023EB /* HistoryEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryEvent.h; sourceTree = "<group>"; };
 		8F61B3AA1B87962D009023EB /* HistoryEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryEvent.m; sourceTree = "<group>"; };
 		8FF95F4A1B87715800ED5D4B /* timeplaces.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = timeplaces.plist; sourceTree = "<group>"; };
-=======
-		C42D7FCD1B8782AA00B56AFC /* EventDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventDetailViewController.h; sourceTree = "<group>"; };
-		C42D7FCE1B8782AA00B56AFC /* EventDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventDetailViewController.m; sourceTree = "<group>"; };
->>>>>>> f67ac7866a8d3a2350667cc26b0edcd87a9378f2
 		C42DDB881B82454300CAAD15 /* PlaceInTime.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlaceInTime.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C42DDB8C1B82454300CAAD15 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C42DDB8D1B82454300CAAD15 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -361,15 +355,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				C4A91CA41B83BD5A007C26CA /* UserEventAnnotationView.m in Sources */,
-<<<<<<< HEAD
-				8F61B3AB1B87962D009023EB /* HistoryEvent.m in Sources */,
-=======
-				C4A91CE61B8630A6007C26CA /* README.md in Sources */,
-				C4A91CE01B8630A6007C26CA /* AFSecurityPolicy.m in Sources */,
-				C4A91CE71B8630A6007C26CA /* AFNetworkActivityIndicatorManager.m in Sources */,
-				C4A91CDD1B8630A6007C26CA /* AFHTTPRequestOperationManager.m in Sources */,
 				C42D7FCF1B8782AA00B56AFC /* EventDetailViewController.m in Sources */,
->>>>>>> f67ac7866a8d3a2350667cc26b0edcd87a9378f2
+				8F61B3AB1B87962D009023EB /* HistoryEvent.m in Sources */,
 				C42DDB911B82454300CAAD15 /* AppDelegate.m in Sources */,
 				C42DDB941B82454300CAAD15 /* PlaceInTime.xcdatamodeld in Sources */,
 				C42DDB971B82454300CAAD15 /* MapViewController.m in Sources */,
