@@ -33,7 +33,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    [self loadHistoryEvents];
+//    [self loadHistoryEvents];
     self.locationManager = [CLLocationManager new];
     [self.locationManager requestWhenInUseAuthorization];
     self.locationManager.delegate = self;
@@ -92,9 +92,26 @@
             NSLog(@"Error: %@ %@", error, [error userInfo]);
         }
     }];
+
+    PFQuery *histQuery = [PFQuery queryWithClassName:@"HistoryEvent"];
+    [histQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            // The find succeeded.
+            NSLog(@"Successfully retrieved %lu events.", (unsigned long)objects.count);
+            for (PFObject *object in objects) {
+                NSLog(@"%@", object.objectId);
+                MKPointAnnotation *annot = [MKPointAnnotation new];
+                annot.coordinate = CLLocationCoordinate2DMake([object[@"latitude"]doubleValue], [object[@"longitude"]doubleValue]);
+                annot.title = object[@"name"];
+                annot.subtitle = object[@"date"];
+                [self.mapView addAnnotation:annot];
+            }
+        } else {
+            // Log details of the failure
+            NSLog(@"Error: %@ %@", error, [error userInfo]);
+        }
+    }];
 }
-
-
 
 -(void)promptTwitterAuthentication {
     UIAlertController *userEventAlert = [UIAlertController alertControllerWithTitle:@"Authenticate" message:@"Please authenticate your existence in order to add a new event to the map." preferredStyle:UIAlertControllerStyleAlert];
