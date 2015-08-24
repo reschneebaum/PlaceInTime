@@ -33,7 +33,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-//    [self loadHistoryEvents];
+    [self loadHistoryEvents];
     self.locationManager = [CLLocationManager new];
     [self.locationManager requestWhenInUseAuthorization];
     self.locationManager.delegate = self;
@@ -54,7 +54,6 @@
 -(void)loadHistoryEvents{
     NSString *filePath = [[NSBundle mainBundle] pathForResource:@"timeplaces" ofType:@"plist"];
     NSArray *array = [[NSArray alloc] initWithContentsOfFile:filePath];
-    //    NSArray *array = [NSArray arrayWithArray:[dict objectForKey:@"Root"]];
     NSLog(@"%@", array);
 
     for (NSDictionary *dictionary in array) {
@@ -64,16 +63,13 @@
         event.textDescription = @"";
         event.latitude = [dictionary[@"latitude"] floatValue];
         event.longitude = [dictionary[@"longitude"] floatValue];
-        [event saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-            if (succeeded) {
-                NSLog(@"The object has been saved.");
-                [self dismissViewControllerAnimated:true completion:nil];
-            } else {
-                NSLog(@"There was a problem, check error.description");
-            }
-        }];
+        [event saveInBackground];
+        MKPointAnnotation *annot = [MKPointAnnotation new];
+        annot.coordinate = CLLocationCoordinate2DMake(event.latitude, event.longitude);
+        annot.title = event.name;
+        annot.subtitle = event.date;
+        [self.mapView addAnnotation:annot];
     }
-
 }
 
 -(void)viewWillAppear:(BOOL)animated {
