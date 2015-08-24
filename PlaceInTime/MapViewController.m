@@ -103,10 +103,10 @@
         [self.mapView convertPoint:touchPoint toCoordinateFromView:self.mapView];
         MKPointAnnotation *newAnnotation = [MKPointAnnotation new];
         newAnnotation.coordinate = touchMapCoordinate;
-        [self.mapView addAnnotation:newAnnotation];
         AddEventViewController *eventVC = [self.storyboard instantiateViewControllerWithIdentifier:@"eventVC"];
         eventVC.location = newAnnotation.coordinate;
         [self presentViewController:eventVC animated:true completion:nil];
+        [self.mapView addAnnotation:newAnnotation];
         NSLog(@"event: %g, %g", eventVC.location.latitude, eventVC.location.longitude);
     }
 }
@@ -166,7 +166,7 @@
 //}
 
 - (IBAction)unwindFromCancelAction:(UIStoryboardSegue *)segue {
-
+//    [self.mapView removeAnnotation:]
 }
 
 @end

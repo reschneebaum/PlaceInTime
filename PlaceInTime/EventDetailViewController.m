@@ -18,6 +18,7 @@
 @property (weak, nonatomic) IBOutlet UITextView *descriptionTextView;
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (weak, nonatomic) IBOutlet UILabel *locationLabel;
+@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property UserEvent *event;
 
 @end
@@ -32,7 +33,7 @@
 
 -(void)loadSelectedEvent {
     PFQuery *query = [PFQuery queryWithClassName:@"UserEvent"];
-//    [query whereKey:@"latitude" equalTo:self.location.latitude];
+    [query whereKey:@"latitude" equalTo:@(self.location.latitude)];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
             // The find succeeded.
@@ -43,16 +44,25 @@
                 self.event = objects.firstObject;
                 NSLog(@"%@", self.event);
                 self.descriptionTextView.text = self.event.textDescription;
-                self.navigationItem.title = self.event.name;
+                self.nameLabel.text = self.event.name;
                 self.dateLabel.text = self.event.date;
+                CLLocation *location = [[CLLocation alloc] initWithLatitude:self.event.latitude longitude:self.event.longitude];
+                [self reverseGeocode:location];
             }
         } else {
             // Log details of the failure
             NSLog(@"Error: %@ %@", error, [error userInfo]);
         }
     }];
+}
 
-
+-(void)reverseGeocode:(CLLocation *)location {
+    CLGeocoder *geocoder = [CLGeocoder new];
+    [geocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error) {
+        CLPlacemark *placemark = placemarks.lastObject;
+        NSString *address = [NSString stringWithFormat:@"%@ %@, %@, %@ %@", placemark.subThoroughfare, placemark.thoroughfare, placemark.locality, placemark.administrativeArea, placemark.postalCode];
+        self.locationLabel.text = address;
+    }];
 }
 
 - (IBAction)onDismissButtonTapped:(UIBarButtonItem *)sender {
