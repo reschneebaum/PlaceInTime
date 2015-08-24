@@ -10,6 +10,7 @@
 #import <TwitterKit/TwitterKit.h>
 #import <Crashlytics/Crashlytics.h>
 #import <Parse/Parse.h>
+#import <ParseUI/ParseUI.h>
 #import "AppDelegate.h"
 
 @interface AppDelegate ()
