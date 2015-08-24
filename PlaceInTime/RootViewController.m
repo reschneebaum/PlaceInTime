@@ -9,8 +9,11 @@
 #import <ParseUI/ParseUI.h>
 #import <Parse/Parse.h>
 #import "RootViewController.h"
+#import "MapViewController.h"
 
-@interface RootViewController () <PFLogInViewControllerDelegate, PFSignUpViewControllerDelegate>
+@interface RootViewController () <PFLogInViewControllerDelegate, PFSignUpViewControllerDelegate, UITableViewDataSource, UITableViewDelegate>
+
+@property NSArray *options;
 
 @end
 
@@ -18,6 +21,26 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    self.options = [[NSArray alloc] initWithObjects:@"View/Edit My Trips", @"Start a New Trip", @"Share Trips", @"Download Available Trips", nil];
+
+    UIBarButtonItem *logoutButton = [[UIBarButtonItem alloc]
+                                   initWithTitle:@"Logout"
+                                   style:UIBarButtonItemStylePlain
+                                   target:self
+                                   action:@selector(logOutButtonTapAction:)];
+
+    self.navigationItem.rightBarButtonItem = logoutButton;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+
+    if ([PFUser currentUser]) {
+        self.navigationItem.title = [NSString stringWithFormat:NSLocalizedString(@"Welcome, %@!", nil), [[PFUser currentUser] username]];
+    } else {
+        NSLog(@"error");
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -43,6 +66,7 @@
 
 
 #pragma mark - PFLogInViewControllerDelegate
+#pragma mark -
 
 // Sent to the delegate to determine whether the log in request should be submitted to the server.
 - (BOOL)logInViewController:(PFLogInViewController *)logInController shouldBeginLogInWithUsername:(NSString *)username password:(NSString *)password {
@@ -72,6 +96,7 @@
 
 
 #pragma mark - PFSignUpViewControllerDelegate
+#pragma mark -
 
 // Sent to the delegate to determine whether the sign up request should be submitted to the server.
 - (BOOL)signUpViewController:(PFSignUpViewController *)signUpController shouldBeginSignUp:(NSDictionary *)info {
@@ -110,11 +135,33 @@
 }
 
 
-#pragma mark - ()
+#pragma mark - UITableView Data Source methods
+#pragma mark -
 
-- (IBAction)logOutButtonTapAction:(id)sender {
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return self.options.count;
+}
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CellID"];
+    cell.textLabel.text = [self.options objectAtIndex:indexPath.row];
+    return cell;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+//    MapViewController *mapVC = [MapViewController new];
+//    [self.navigationController pushViewController:mapVC animated:true];
+}
+
+#pragma mark - Navigation
+#pragma mark -
+
+- (IBAction)logOutButtonTapAction:(UIBarButtonItem *)sender {
     [PFUser logOut];
-    [self.navigationController popViewControllerAnimated:YES];
+    PFLogInViewController *login = [PFLogInViewController new];
+    [self presentViewController:login animated:true completion:nil];
+//    [self dismissViewControllerAnimated:true completion:nil];
 }
 
 @end
