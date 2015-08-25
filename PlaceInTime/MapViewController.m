@@ -18,9 +18,10 @@
 #import "UserEvent.h"
 #import "HistoryEvent.h"
 
-@interface MapViewController () <CLLocationManagerDelegate, MKMapViewDelegate, LoginViewControllerDelegate>
+@interface MapViewController () <CLLocationManagerDelegate, MKMapViewDelegate, LoginViewControllerDelegate, UITableViewDelegate, UITableViewDataSource>
 
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property CLLocationManager *locationManager;
 @property MKPointAnnotation *point;
 @property CLLocation *currentLocation;
@@ -44,6 +45,8 @@
     self.mapView.layer.cornerRadius = 10.0;
     self.mapView.layer.borderWidth = 1.5;
     self.mapView.layer.borderColor = [[UIColor whiteColor]CGColor];
+    self.mapView.hidden = false;
+    self.tableView.hidden = true;
 
     UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc]
               initWithTarget:self action:@selector(handleLongPress:)];
@@ -194,6 +197,20 @@
     EventDetailViewController *detailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"detailVC"];
     detailVC.location = annot.coordinate;
     [self presentViewController:detailVC animated:true completion:nil];
+}
+
+#pragma mark - UITableView datasource methods
+#pragma mark -
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return self.events.count;
+}
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CellID"];
+    cell.textLabel.text = self.events[indexPath.row];
+
+    return cell;
 }
 
 

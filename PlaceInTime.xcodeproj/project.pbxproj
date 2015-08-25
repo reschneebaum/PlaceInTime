@@ -48,6 +48,7 @@
 		C4B13F661B8BAE53005A6475 /* ParseTwitterUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4B13F611B8BAE53005A6475 /* ParseTwitterUtils.framework */; };
 		C4B13F671B8BAE53005A6475 /* ParseUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4B13F621B8BAE53005A6475 /* ParseUI.framework */; };
 		C4B13F6A1B8BAE80005A6475 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B13F691B8BAE80005A6475 /* RootViewController.m */; };
+		C4B13F6D1B8C8107005A6475 /* TripsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B13F6C1B8C8107005A6475 /* TripsViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -115,6 +116,8 @@
 		C4B13F621B8BAE53005A6475 /* ParseUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ParseUI.framework; path = "../../../../../../Downloads/parse-library-1.8.1/ParseUI.framework"; sourceTree = "<group>"; };
 		C4B13F681B8BAE80005A6475 /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
 		C4B13F691B8BAE80005A6475 /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
+		C4B13F6B1B8C8107005A6475 /* TripsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TripsViewController.h; sourceTree = "<group>"; };
+		C4B13F6C1B8C8107005A6475 /* TripsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TripsViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -188,6 +191,8 @@
 				C4A91C9D1B83BD1C007C26CA /* LoginViewController.m */,
 				C42DDB951B82454300CAAD15 /* MapViewController.h */,
 				C42DDB961B82454300CAAD15 /* MapViewController.m */,
+				C4B13F6B1B8C8107005A6475 /* TripsViewController.h */,
+				C4B13F6C1B8C8107005A6475 /* TripsViewController.m */,
 				C4A91C9F1B83BD2B007C26CA /* AddEventViewController.h */,
 				C4A91CA01B83BD2B007C26CA /* AddEventViewController.m */,
 				C42D7FCD1B8782AA00B56AFC /* EventDetailViewController.h */,
@@ -393,6 +398,7 @@
 				C42D7FCF1B8782AA00B56AFC /* EventDetailViewController.m in Sources */,
 				C42DDB911B82454300CAAD15 /* AppDelegate.m in Sources */,
 				C42DDB941B82454300CAAD15 /* PlaceInTime.xcdatamodeld in Sources */,
+				C4B13F6D1B8C8107005A6475 /* TripsViewController.m in Sources */,
 				C42DDB971B82454300CAAD15 /* MapViewController.m in Sources */,
 				C4A91C9E1B83BD1C007C26CA /* LoginViewController.m in Sources */,
 				C4B13F6A1B8BAE80005A6475 /* RootViewController.m in Sources */,

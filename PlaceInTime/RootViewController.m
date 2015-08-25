@@ -14,6 +14,7 @@
 @interface RootViewController () <PFLogInViewControllerDelegate, PFSignUpViewControllerDelegate, UITableViewDataSource, UITableViewDelegate>
 
 @property NSArray *options;
+@property NSArray *segues;
 
 @end
 
@@ -150,6 +151,8 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    self.segues = @[@"mapSegue1", @"mapSegue2", @"listSegue1", @"listSegue2"];
+    [self performSegueWithIdentifier:[NSString stringWithFormat:@"%@", self.segues[indexPath.row]] sender:self.navigationController];
 //    MapViewController *mapVC = [MapViewController new];
 //    [self.navigationController pushViewController:mapVC animated:true];
 }
