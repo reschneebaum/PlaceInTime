@@ -37,6 +37,9 @@
 		C42DDBE81B82944D00CAAD15 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C42DDBE71B82944D00CAAD15 /* libsqlite3.dylib */; };
 		C42DDBEA1B82945900CAAD15 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C42DDBE91B82945900CAAD15 /* Accounts.framework */; };
 		C42DDBEC1B82946000CAAD15 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C42DDBEB1B82946000CAAD15 /* Social.framework */; };
+		C4A30E0D1B8CCDBC006A39AC /* UserEventTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A30E0C1B8CCDBC006A39AC /* UserEventTableViewCell.m */; };
+		C4A30E101B8CCDD1006A39AC /* LandmarkTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A30E0F1B8CCDD1006A39AC /* LandmarkTableViewCell.m */; };
+		C4A30E131B8CD109006A39AC /* Landmark.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A30E121B8CD109006A39AC /* Landmark.m */; };
 		C4A91C9E1B83BD1C007C26CA /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A91C9D1B83BD1C007C26CA /* LoginViewController.m */; };
 		C4A91CA11B83BD2B007C26CA /* AddEventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A91CA01B83BD2B007C26CA /* AddEventViewController.m */; };
 		C4A91CA41B83BD5A007C26CA /* UserEventAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A91CA31B83BD5A007C26CA /* UserEventAnnotationView.m */; };
@@ -100,6 +103,12 @@
 		C42DDBE71B82944D00CAAD15 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		C42DDBE91B82945900CAAD15 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		C42DDBEB1B82946000CAAD15 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
+		C4A30E0B1B8CCDBC006A39AC /* UserEventTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserEventTableViewCell.h; sourceTree = "<group>"; };
+		C4A30E0C1B8CCDBC006A39AC /* UserEventTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserEventTableViewCell.m; sourceTree = "<group>"; };
+		C4A30E0E1B8CCDD1006A39AC /* LandmarkTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LandmarkTableViewCell.h; sourceTree = "<group>"; };
+		C4A30E0F1B8CCDD1006A39AC /* LandmarkTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LandmarkTableViewCell.m; sourceTree = "<group>"; };
+		C4A30E111B8CD109006A39AC /* Landmark.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Landmark.h; sourceTree = "<group>"; };
+		C4A30E121B8CD109006A39AC /* Landmark.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Landmark.m; sourceTree = "<group>"; };
 		C4A91C9C1B83BD1C007C26CA /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		C4A91C9D1B83BD1C007C26CA /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		C4A91C9F1B83BD2B007C26CA /* AddEventViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddEventViewController.h; sourceTree = "<group>"; };
@@ -196,10 +205,16 @@
 				C42D7FCD1B8782AA00B56AFC /* EventDetailViewController.h */,
 				C42D7FCE1B8782AA00B56AFC /* EventDetailViewController.m */,
 				C42DDB981B82454300CAAD15 /* Main.storyboard */,
+				C4A30E0B1B8CCDBC006A39AC /* UserEventTableViewCell.h */,
+				C4A30E0C1B8CCDBC006A39AC /* UserEventTableViewCell.m */,
+				C4A30E0E1B8CCDD1006A39AC /* LandmarkTableViewCell.h */,
+				C4A30E0F1B8CCDD1006A39AC /* LandmarkTableViewCell.m */,
 				C4A91CA81B84C815007C26CA /* UserEvent.h */,
 				C4A91CA91B84C815007C26CA /* UserEvent.m */,
 				8F61B3A91B87962D009023EB /* HistoryEvent.h */,
 				8F61B3AA1B87962D009023EB /* HistoryEvent.m */,
+				C4A30E111B8CD109006A39AC /* Landmark.h */,
+				C4A30E121B8CD109006A39AC /* Landmark.m */,
 				8FF95F4A1B87715800ED5D4B /* timeplaces.plist */,
 				C42DDB9B1B82454300CAAD15 /* Images.xcassets */,
 				C42DDB9D1B82454300CAAD15 /* LaunchScreen.xib */,
@@ -401,6 +416,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C4A30E131B8CD109006A39AC /* Landmark.m in Sources */,
+				C4A30E0D1B8CCDBC006A39AC /* UserEventTableViewCell.m in Sources */,
 				C4A91CA41B83BD5A007C26CA /* UserEventAnnotationView.m in Sources */,
 				8F61B3AB1B87962D009023EB /* HistoryEvent.m in Sources */,
 				C42D7FCF1B8782AA00B56AFC /* EventDetailViewController.m in Sources */,
@@ -409,6 +426,7 @@
 				C4B13F6D1B8C8107005A6475 /* TripsViewController.m in Sources */,
 				C42DDB971B82454300CAAD15 /* MapViewController.m in Sources */,
 				C4A91C9E1B83BD1C007C26CA /* LoginViewController.m in Sources */,
+				C4A30E101B8CCDD1006A39AC /* LandmarkTableViewCell.m in Sources */,
 				C4B13F6A1B8BAE80005A6475 /* RootViewController.m in Sources */,
 				C4A91CA11B83BD2B007C26CA /* AddEventViewController.m in Sources */,
 				C42DDB8E1B82454300CAAD15 /* main.m in Sources */,

@@ -17,6 +17,7 @@
 #import "EventDetailViewController.h"
 #import "UserEvent.h"
 #import "HistoryEvent.h"
+#import "Landmark.h"
 
 @interface MapViewController () <CLLocationManagerDelegate, MKMapViewDelegate, LoginViewControllerDelegate, UITableViewDelegate, UITableViewDataSource>
 
@@ -117,18 +118,27 @@
 }
 
 -(void)searchForAndAddLandmarks {
+    NSMutableArray *tempLandmarks = [NSMutableArray new];
     MKLocalSearchRequest *request = [MKLocalSearchRequest new];
     request.naturalLanguageQuery = @"Landmarks";
     request.region = MKCoordinateRegionMake(self.currentLocation.coordinate, MKCoordinateSpanMake(.5, .5));
     MKLocalSearch *search = [[MKLocalSearch alloc] initWithRequest:request];
     [search startWithCompletionHandler:^(MKLocalSearchResponse *response, NSError *error) {
         for (MKMapItem *mapItem in response.mapItems) {
+            Landmark *landmark = [Landmark new];
+            landmark.name = mapItem.name;
+            landmark.textDescription = @"";
+            landmark.latitude = mapItem.placemark.coordinate.latitude;
+            landmark.longitude = mapItem.placemark.coordinate.longitude;
+            [tempLandmarks addObject:landmark];
+
             MKPointAnnotation *annot = [MKPointAnnotation new];
             annot.title = mapItem.name;
             NSLog(@"%@",annot.title);
             annot.coordinate = mapItem.placemark.coordinate;
             [self.mapView addAnnotation:annot];
         }
+        self.landmarks = [NSArray arrayWithArray:tempLandmarks];
     }];
 }
 
