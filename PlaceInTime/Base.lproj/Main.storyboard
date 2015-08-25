@@ -64,7 +64,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="75" id="CG8-YN-DDy">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CellID" rowHeight="75" id="CG8-YN-DDy">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="CG8-YN-DDy" id="6cd-AO-Iqs">
                                             <autoresizingMask key="autoresizingMask"/>
@@ -72,8 +72,8 @@
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
-                                    <outlet property="dataSource" destination="vXZ-lx-hvc" id="8bH-s5-Xip"/>
-                                    <outlet property="delegate" destination="vXZ-lx-hvc" id="a8K-u7-Qe6"/>
+                                    <outlet property="dataSource" destination="vXZ-lx-hvc" id="uxq-qe-IoU"/>
+                                    <outlet property="delegate" destination="vXZ-lx-hvc" id="Kyc-0y-qe2"/>
                                 </connections>
                             </tableView>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DmG-cd-XWW">
@@ -90,6 +90,9 @@
                                     <segment title="List"/>
                                 </segments>
                                 <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <action selector="onSegmentedControlSwitched:" destination="vXZ-lx-hvc" eventType="valueChanged" id="CzT-5x-OwI"/>
+                                </connections>
                             </segmentedControl>
                         </subviews>
                         <constraints>
