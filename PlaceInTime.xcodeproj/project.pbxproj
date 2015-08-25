@@ -197,29 +197,10 @@
 			children = (
 				C42DDB8F1B82454300CAAD15 /* AppDelegate.h */,
 				C42DDB901B82454300CAAD15 /* AppDelegate.m */,
-				C4B13F681B8BAE80005A6475 /* RootViewController.h */,
-				C4B13F691B8BAE80005A6475 /* RootViewController.m */,
-				C4B13F6B1B8C8107005A6475 /* TripsViewController.h */,
-				C4B13F6C1B8C8107005A6475 /* TripsViewController.m */,
-				C42DDB951B82454300CAAD15 /* EventsViewController.h */,
-				C42DDB961B82454300CAAD15 /* EventsViewController.m */,
-				C4A91C9F1B83BD2B007C26CA /* AddEventViewController.h */,
-				C4A91CA01B83BD2B007C26CA /* AddEventViewController.m */,
-				C42D7FCD1B8782AA00B56AFC /* EventDetailViewController.h */,
-				C42D7FCE1B8782AA00B56AFC /* EventDetailViewController.m */,
+				C4B103631B8D1C7D000EC658 /* View Controllers */,
 				C42DDB981B82454300CAAD15 /* Main.storyboard */,
-				C4A30E0B1B8CCDBC006A39AC /* UserEventTableViewCell.h */,
-				C4A30E0C1B8CCDBC006A39AC /* UserEventTableViewCell.m */,
-				C4A30E0E1B8CCDD1006A39AC /* LandmarkTableViewCell.h */,
-				C4A30E0F1B8CCDD1006A39AC /* LandmarkTableViewCell.m */,
-				C4A30E141B8CEDF7006A39AC /* Trip.h */,
-				C4A30E151B8CEDF7006A39AC /* Trip.m */,
-				C4A91CA81B84C815007C26CA /* UserEvent.h */,
-				C4A91CA91B84C815007C26CA /* UserEvent.m */,
-				8F61B3A91B87962D009023EB /* HistoryEvent.h */,
-				8F61B3AA1B87962D009023EB /* HistoryEvent.m */,
-				C4A30E111B8CD109006A39AC /* Landmark.h */,
-				C4A30E121B8CD109006A39AC /* Landmark.m */,
+				C4B103621B8D1C6F000EC658 /* Custom Classes */,
+				C4B103611B8D1C5E000EC658 /* Model Objects */,
 				8FF95F4A1B87715800ED5D4B /* timeplaces.plist */,
 				C42DDB9B1B82454300CAAD15 /* Images.xcassets */,
 				C42DDB9D1B82454300CAAD15 /* LaunchScreen.xib */,
@@ -266,6 +247,49 @@
 				C4A91CA31B83BD5A007C26CA /* UserEventAnnotationView.m */,
 			);
 			name = Old;
+			sourceTree = "<group>";
+		};
+		C4B103611B8D1C5E000EC658 /* Model Objects */ = {
+			isa = PBXGroup;
+			children = (
+				C4A30E141B8CEDF7006A39AC /* Trip.h */,
+				C4A30E151B8CEDF7006A39AC /* Trip.m */,
+				C4A91CA81B84C815007C26CA /* UserEvent.h */,
+				C4A91CA91B84C815007C26CA /* UserEvent.m */,
+				8F61B3A91B87962D009023EB /* HistoryEvent.h */,
+				8F61B3AA1B87962D009023EB /* HistoryEvent.m */,
+				C4A30E111B8CD109006A39AC /* Landmark.h */,
+				C4A30E121B8CD109006A39AC /* Landmark.m */,
+			);
+			name = "Model Objects";
+			sourceTree = "<group>";
+		};
+		C4B103621B8D1C6F000EC658 /* Custom Classes */ = {
+			isa = PBXGroup;
+			children = (
+				C4A30E0B1B8CCDBC006A39AC /* UserEventTableViewCell.h */,
+				C4A30E0C1B8CCDBC006A39AC /* UserEventTableViewCell.m */,
+				C4A30E0E1B8CCDD1006A39AC /* LandmarkTableViewCell.h */,
+				C4A30E0F1B8CCDD1006A39AC /* LandmarkTableViewCell.m */,
+			);
+			name = "Custom Classes";
+			sourceTree = "<group>";
+		};
+		C4B103631B8D1C7D000EC658 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				C4B13F681B8BAE80005A6475 /* RootViewController.h */,
+				C4B13F691B8BAE80005A6475 /* RootViewController.m */,
+				C4B13F6B1B8C8107005A6475 /* TripsViewController.h */,
+				C4B13F6C1B8C8107005A6475 /* TripsViewController.m */,
+				C42DDB951B82454300CAAD15 /* EventsViewController.h */,
+				C42DDB961B82454300CAAD15 /* EventsViewController.m */,
+				C4A91C9F1B83BD2B007C26CA /* AddEventViewController.h */,
+				C4A91CA01B83BD2B007C26CA /* AddEventViewController.m */,
+				C42D7FCD1B8782AA00B56AFC /* EventDetailViewController.h */,
+				C42D7FCE1B8782AA00B56AFC /* EventDetailViewController.m */,
+			);
+			name = "View Controllers";
 			sourceTree = "<group>";
 		};
 		C4B13F5D1B8BAE28005A6475 /* Frameworks */ = {
