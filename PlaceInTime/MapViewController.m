@@ -30,6 +30,7 @@
 @property NSArray *userEvents;
 @property NSArray *historyEvents;
 @property NSArray *landmarks;
+@property NSMutableArray *points;
 
 @end
 
@@ -183,6 +184,15 @@
     }
 }
 
+-(void)sortAllMapObjects {
+    self.points = [[NSMutableArray alloc] initWithArray:self.userEvents];
+    [self.points addObjectsFromArray:self.historyEvents];
+    [self.points addObjectsFromArray:self.landmarks];
+    NSSortDescriptor *nameDescriptor = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:true selector:@selector(localizedCaseInsensitiveCompare:)];
+    NSArray *sortDescriptors = @[nameDescriptor];
+    [self.points sortUsingDescriptors:sortDescriptors];
+}
+
 
 #pragma mark - CLLocationManagerDelegate methods
 #pragma mark -
@@ -228,12 +238,13 @@
 #pragma mark -
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.userEvents.count;
+    [self sortAllMapObjects];
+    return self.points.count;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CellID"];
-    cell.textLabel.text = self.userEvents[indexPath.row][@"name"];
+    cell.textLabel.text = self.points[indexPath.row][@"name"];
     return cell;
 }
 
