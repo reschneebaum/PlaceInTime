@@ -54,27 +54,6 @@
     [self.mapView addGestureRecognizer:longPress];
 }
 
--(void)loadHistoryEvents{
-    NSString *filePath = [[NSBundle mainBundle] pathForResource:@"timeplaces" ofType:@"plist"];
-    NSArray *array = [[NSArray alloc] initWithContentsOfFile:filePath];
-    NSLog(@"%@", array);
-
-    for (NSDictionary *dictionary in array) {
-        HistoryEvent *event = [HistoryEvent object];
-        event.name = dictionary[@"name"];
-        event.date = [NSString stringWithFormat:@"%@", dictionary[@"date"]];
-        event.textDescription = @"";
-        event.latitude = [dictionary[@"latitude"] floatValue];
-        event.longitude = [dictionary[@"longitude"] floatValue];
-        [event saveInBackground];
-        MKPointAnnotation *annot = [MKPointAnnotation new];
-        annot.coordinate = CLLocationCoordinate2DMake(event.latitude, event.longitude);
-        annot.title = event.name;
-        annot.subtitle = event.date;
-        [self.mapView addAnnotation:annot];
-    }
-}
-
 -(void)viewWillAppear:(BOOL)animated {
 
     PFQuery *query = [PFQuery queryWithClassName:@"UserEvent"];
@@ -112,6 +91,44 @@
         } else {
             // Log details of the failure
             NSLog(@"Error: %@ %@", error, [error userInfo]);
+        }
+    }];
+    [self searchForAndAddLandmarks];
+}
+
+-(void)loadHistoryEvents{
+    NSString *filePath = [[NSBundle mainBundle] pathForResource:@"timeplaces" ofType:@"plist"];
+    NSArray *array = [[NSArray alloc] initWithContentsOfFile:filePath];
+    NSLog(@"%@", array);
+
+    for (NSDictionary *dictionary in array) {
+        HistoryEvent *event = [HistoryEvent object];
+        event.name = dictionary[@"name"];
+        event.date = [NSString stringWithFormat:@"%@", dictionary[@"date"]];
+        event.textDescription = @"";
+        event.latitude = [dictionary[@"latitude"] floatValue];
+        event.longitude = [dictionary[@"longitude"] floatValue];
+        [event saveInBackground];
+        MKPointAnnotation *annot = [MKPointAnnotation new];
+        annot.coordinate = CLLocationCoordinate2DMake(event.latitude, event.longitude);
+        annot.title = event.name;
+        annot.subtitle = event.date;
+        [self.mapView addAnnotation:annot];
+    }
+}
+
+-(void)searchForAndAddLandmarks {
+    MKLocalSearchRequest *request = [MKLocalSearchRequest new];
+    request.naturalLanguageQuery = @"Landmarks";
+    request.region = MKCoordinateRegionMake(self.mapView.centerCoordinate, MKCoordinateSpanMake(1, 1));
+    MKLocalSearch *search = [[MKLocalSearch alloc] initWithRequest:request];
+    [search startWithCompletionHandler:^(MKLocalSearchResponse *response, NSError *error) {
+        for (MKMapItem *mapItem in response.mapItems) {
+            MKPointAnnotation *annot = [MKPointAnnotation new];
+            annot.title = mapItem.name;
+            NSLog(@"%@",annot.title);
+            annot.coordinate = mapItem.placemark.coordinate;
+            [self.mapView addAnnotation:annot];
         }
     }];
 }
