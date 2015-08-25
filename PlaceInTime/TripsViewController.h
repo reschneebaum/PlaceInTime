@@ -10,4 +10,6 @@
 
 @interface TripsViewController : UIViewController
 
+@property NSArray *trips;
+
 @end
