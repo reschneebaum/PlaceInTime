@@ -16,5 +16,8 @@
 @property NSString *urlString;
 @property float latitude;
 @property float longitude;
+@property UIColor *bgColor;
+
+-(void)assignColor;
 
 @end

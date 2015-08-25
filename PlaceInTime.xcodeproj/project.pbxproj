@@ -13,7 +13,7 @@
 		C42DDB8E1B82454300CAAD15 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C42DDB8D1B82454300CAAD15 /* main.m */; };
 		C42DDB911B82454300CAAD15 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C42DDB901B82454300CAAD15 /* AppDelegate.m */; };
 		C42DDB941B82454300CAAD15 /* PlaceInTime.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C42DDB921B82454300CAAD15 /* PlaceInTime.xcdatamodeld */; };
-		C42DDB971B82454300CAAD15 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C42DDB961B82454300CAAD15 /* MapViewController.m */; };
+		C42DDB971B82454300CAAD15 /* EventsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C42DDB961B82454300CAAD15 /* EventsViewController.m */; };
 		C42DDB9A1B82454300CAAD15 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C42DDB981B82454300CAAD15 /* Main.storyboard */; };
 		C42DDB9C1B82454300CAAD15 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C42DDB9B1B82454300CAAD15 /* Images.xcassets */; };
 		C42DDB9F1B82454300CAAD15 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C42DDB9D1B82454300CAAD15 /* LaunchScreen.xib */; };
@@ -40,6 +40,7 @@
 		C4A30E0D1B8CCDBC006A39AC /* UserEventTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A30E0C1B8CCDBC006A39AC /* UserEventTableViewCell.m */; };
 		C4A30E101B8CCDD1006A39AC /* LandmarkTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A30E0F1B8CCDD1006A39AC /* LandmarkTableViewCell.m */; };
 		C4A30E131B8CD109006A39AC /* Landmark.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A30E121B8CD109006A39AC /* Landmark.m */; };
+		C4A30E161B8CEDF7006A39AC /* Trip.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A30E151B8CEDF7006A39AC /* Trip.m */; };
 		C4A91C9E1B83BD1C007C26CA /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A91C9D1B83BD1C007C26CA /* LoginViewController.m */; };
 		C4A91CA11B83BD2B007C26CA /* AddEventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A91CA01B83BD2B007C26CA /* AddEventViewController.m */; };
 		C4A91CA41B83BD5A007C26CA /* UserEventAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A91CA31B83BD5A007C26CA /* UserEventAnnotationView.m */; };
@@ -76,8 +77,8 @@
 		C42DDB8F1B82454300CAAD15 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		C42DDB901B82454300CAAD15 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		C42DDB931B82454300CAAD15 /* PlaceInTime.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PlaceInTime.xcdatamodel; sourceTree = "<group>"; };
-		C42DDB951B82454300CAAD15 /* MapViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
-		C42DDB961B82454300CAAD15 /* MapViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
+		C42DDB951B82454300CAAD15 /* EventsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EventsViewController.h; sourceTree = "<group>"; };
+		C42DDB961B82454300CAAD15 /* EventsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EventsViewController.m; sourceTree = "<group>"; };
 		C42DDB991B82454300CAAD15 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C42DDB9B1B82454300CAAD15 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		C42DDB9E1B82454300CAAD15 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -109,6 +110,8 @@
 		C4A30E0F1B8CCDD1006A39AC /* LandmarkTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LandmarkTableViewCell.m; sourceTree = "<group>"; };
 		C4A30E111B8CD109006A39AC /* Landmark.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Landmark.h; sourceTree = "<group>"; };
 		C4A30E121B8CD109006A39AC /* Landmark.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Landmark.m; sourceTree = "<group>"; };
+		C4A30E141B8CEDF7006A39AC /* Trip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Trip.h; sourceTree = "<group>"; };
+		C4A30E151B8CEDF7006A39AC /* Trip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Trip.m; sourceTree = "<group>"; };
 		C4A91C9C1B83BD1C007C26CA /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		C4A91C9D1B83BD1C007C26CA /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		C4A91C9F1B83BD2B007C26CA /* AddEventViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddEventViewController.h; sourceTree = "<group>"; };
@@ -196,10 +199,10 @@
 				C42DDB901B82454300CAAD15 /* AppDelegate.m */,
 				C4B13F681B8BAE80005A6475 /* RootViewController.h */,
 				C4B13F691B8BAE80005A6475 /* RootViewController.m */,
-				C42DDB951B82454300CAAD15 /* MapViewController.h */,
-				C42DDB961B82454300CAAD15 /* MapViewController.m */,
 				C4B13F6B1B8C8107005A6475 /* TripsViewController.h */,
 				C4B13F6C1B8C8107005A6475 /* TripsViewController.m */,
+				C42DDB951B82454300CAAD15 /* EventsViewController.h */,
+				C42DDB961B82454300CAAD15 /* EventsViewController.m */,
 				C4A91C9F1B83BD2B007C26CA /* AddEventViewController.h */,
 				C4A91CA01B83BD2B007C26CA /* AddEventViewController.m */,
 				C42D7FCD1B8782AA00B56AFC /* EventDetailViewController.h */,
@@ -209,6 +212,8 @@
 				C4A30E0C1B8CCDBC006A39AC /* UserEventTableViewCell.m */,
 				C4A30E0E1B8CCDD1006A39AC /* LandmarkTableViewCell.h */,
 				C4A30E0F1B8CCDD1006A39AC /* LandmarkTableViewCell.m */,
+				C4A30E141B8CEDF7006A39AC /* Trip.h */,
+				C4A30E151B8CEDF7006A39AC /* Trip.m */,
 				C4A91CA81B84C815007C26CA /* UserEvent.h */,
 				C4A91CA91B84C815007C26CA /* UserEvent.m */,
 				8F61B3A91B87962D009023EB /* HistoryEvent.h */,
@@ -416,6 +421,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C4A30E161B8CEDF7006A39AC /* Trip.m in Sources */,
 				C4A30E131B8CD109006A39AC /* Landmark.m in Sources */,
 				C4A30E0D1B8CCDBC006A39AC /* UserEventTableViewCell.m in Sources */,
 				C4A91CA41B83BD5A007C26CA /* UserEventAnnotationView.m in Sources */,
@@ -424,7 +430,7 @@
 				C42DDB911B82454300CAAD15 /* AppDelegate.m in Sources */,
 				C42DDB941B82454300CAAD15 /* PlaceInTime.xcdatamodeld in Sources */,
 				C4B13F6D1B8C8107005A6475 /* TripsViewController.m in Sources */,
-				C42DDB971B82454300CAAD15 /* MapViewController.m in Sources */,
+				C42DDB971B82454300CAAD15 /* EventsViewController.m in Sources */,
 				C4A91C9E1B83BD1C007C26CA /* LoginViewController.m in Sources */,
 				C4A30E101B8CCDD1006A39AC /* LandmarkTableViewCell.m in Sources */,
 				C4B13F6A1B8BAE80005A6475 /* RootViewController.m in Sources */,

@@ -11,15 +11,16 @@
 #import <Parse/Parse.h>
 #import <Parse/PFObject+Subclass.h>
 #import <TwitterKit/TwitterKit.h>
-#import "MapViewController.h"
+#import "EventsViewController.h"
 #import "LoginViewController.h"
 #import "AddEventViewController.h"
 #import "EventDetailViewController.h"
 #import "UserEvent.h"
 #import "HistoryEvent.h"
 #import "Landmark.h"
+#import "Trip.h"
 
-@interface MapViewController () <CLLocationManagerDelegate, MKMapViewDelegate, LoginViewControllerDelegate, UITableViewDelegate, UITableViewDataSource>
+@interface EventsViewController () <CLLocationManagerDelegate, MKMapViewDelegate, LoginViewControllerDelegate, UITableViewDelegate, UITableViewDataSource>
 
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -34,7 +35,7 @@
 
 @end
 
-@implementation MapViewController
+@implementation EventsViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -108,6 +109,7 @@
         event.textDescription = @"";
         event.latitude = [dictionary[@"latitude"] floatValue];
         event.longitude = [dictionary[@"longitude"] floatValue];
+        event.bgColor = [UIColor colorWithRed:0.70 green:0.76 blue:0.85 alpha:1];
         [event saveInBackground];
 
         MKPointAnnotation *annot = [MKPointAnnotation new];
@@ -131,6 +133,7 @@
             landmark.textDescription = @"";
             landmark.latitude = mapItem.placemark.coordinate.latitude;
             landmark.longitude = mapItem.placemark.coordinate.longitude;
+            [landmark assignColor];
             [tempLandmarks addObject:landmark];
 
             MKPointAnnotation *annot = [MKPointAnnotation new];
@@ -245,6 +248,11 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CellID"];
     cell.textLabel.text = self.points[indexPath.row][@"name"];
+
+    if (self.points[indexPath.row][@"user"] != nil) {
+        cell.backgroundColor = [UIColor colorWithRed:0.70 green:0.76 blue:0.85 alpha:1];
+    }
+
     return cell;
 }
 

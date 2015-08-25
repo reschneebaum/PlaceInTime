@@ -9,7 +9,7 @@
 #import <TwitterKit/TwitterKit.h>
 #import "LoginViewController.h"
 #import "AddEventViewController.h"
-#import "MapViewController.h"
+#import "EventsViewController.h"
 
 @interface LoginViewController ()
 

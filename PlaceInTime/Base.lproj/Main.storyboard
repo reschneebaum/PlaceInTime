@@ -21,11 +21,14 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CellID" rowHeight="75" id="yC5-23-8oY">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CellID" rowHeight="75" id="yC5-23-8oY">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="yC5-23-8oY" id="uKt-iO-mQD">
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="vXZ-lx-hvc" kind="push" identifier="myTrip" id="gYY-RR-qnG"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
@@ -43,15 +46,18 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="29r-36-Hfs"/>
+                    <connections>
+                        <outlet property="tableView" destination="b5j-Dd-1Eb" id="nl3-yH-Lu8"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ybJ-Jy-Ptj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1523" y="712"/>
         </scene>
-        <!--Trip View Controller-->
+        <!--Events View Controller-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
-                <viewController storyboardIdentifier="mapVC" title="Trip View Controller" id="vXZ-lx-hvc" customClass="MapViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="mapVC" title="Events View Controller" id="vXZ-lx-hvc" customClass="EventsViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="jyV-Pf-zRb"/>
                         <viewControllerLayoutGuide type="bottom" id="2fi-mo-0CV"/>
@@ -60,11 +66,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="75" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="1Xc-yf-o6P">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="1Xc-yf-o6P">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CellID" rowHeight="75" id="CG8-YN-DDy">
+                                    <tableViewCell contentMode="scaleAspectFit" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CellID" rowHeight="75" id="CG8-YN-DDy">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="CG8-YN-DDy" id="6cd-AO-Iqs">
                                             <autoresizingMask key="autoresizingMask"/>
@@ -158,10 +164,10 @@
                     </view>
                     <navigationItem key="navigationItem" title="Dashboard" id="q6g-VC-nHk"/>
                     <connections>
-                        <segue destination="vXZ-lx-hvc" kind="push" identifier="mapSegue1" id="Bhd-od-LgI"/>
-                        <segue destination="vXZ-lx-hvc" kind="push" identifier="mapSegue2" id="Mu7-UF-YLj"/>
-                        <segue destination="ygF-tl-0Ii" kind="push" identifier="listSegue1" id="mhR-n5-9ii"/>
-                        <segue destination="ygF-tl-0Ii" kind="push" identifier="listSegue2" id="8cg-kJ-SX5"/>
+                        <segue destination="ygF-tl-0Ii" kind="push" identifier="trips1" id="C6D-ZN-pVI"/>
+                        <segue destination="vXZ-lx-hvc" kind="push" identifier="newTrip" id="zMb-Z2-ECx"/>
+                        <segue destination="ygF-tl-0Ii" kind="push" identifier="trips2" id="Akn-mq-Wr2"/>
+                        <segue destination="ygF-tl-0Ii" kind="push" identifier="trips3" id="ggE-T2-fVP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="q9C-dH-agx" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -487,7 +493,7 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Mu7-UF-YLj"/>
-        <segue reference="8cg-kJ-SX5"/>
+        <segue reference="ggE-T2-fVP"/>
+        <segue reference="gYY-RR-qnG"/>
     </inferredMetricsTieBreakers>
 </document>

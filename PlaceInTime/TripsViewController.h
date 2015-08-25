@@ -11,5 +11,6 @@
 @interface TripsViewController : UIViewController
 
 @property NSArray *trips;
+@property PFUser *currentUser;
 
 @end

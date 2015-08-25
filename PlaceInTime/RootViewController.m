@@ -9,7 +9,8 @@
 #import <ParseUI/ParseUI.h>
 #import <Parse/Parse.h>
 #import "RootViewController.h"
-#import "MapViewController.h"
+#import "EventsViewController.h"
+#import "TripsViewController.h"
 
 @interface RootViewController () <PFLogInViewControllerDelegate, PFSignUpViewControllerDelegate, UITableViewDataSource, UITableViewDelegate>
 
@@ -37,6 +38,10 @@
 
     if ([PFUser currentUser]) {
         self.navigationItem.prompt = [NSString stringWithFormat:NSLocalizedString(@"Welcome, %@!", nil), [[PFUser currentUser] username]];
+        self.currentUser = [PFUser currentUser];
+//        [self assignAndRetrieveUserTrips];
+        TripsViewController *tripsVC = [TripsViewController new];
+        tripsVC.trips = self.trips;
     } else {
         NSLog(@"error");
     }
@@ -56,9 +61,26 @@
 
         [self presentViewController:logInViewController animated:YES completion:NULL];
     }
-
 }
 
+//-(void)assignAndRetrieveUserTrips {
+//    PFQuery *query = [PFQuery queryWithClassName:@"Trip"];
+//    [query whereKey:@"createdBy" equalTo:[PFUser currentUser]];
+//    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+//        if (!error) {
+//            NSMutableArray *tempTrips = [NSMutableArray new];
+//            NSLog(@"Successfully retrieved %lu trip(s).", (unsigned long)objects.count);
+//            for (PFObject *object in objects) {
+//                NSLog(@"%@", object.objectId);
+//                [tempTrips addObject:object];
+//            }
+//            self.trips = [NSArray arrayWithArray:tempTrips];
+//            NSLog(@"%@", self.trips.firstObject);
+//        } else {
+//            NSLog(@"Error: %@ %@", error, [error userInfo]);
+//        }
+//    }];
+//}
 
 #pragma mark - PFLogInViewControllerDelegate
 #pragma mark -
@@ -74,6 +96,9 @@
 }
 
 - (void)logInViewController:(PFLogInViewController *)logInController didLogInUser:(PFUser *)user {
+    self.currentUser = user;
+    TripsViewController *tripsVC = [TripsViewController new];
+    tripsVC.trips = self.trips;
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
@@ -107,6 +132,8 @@
 }
 
 - (void)signUpViewController:(PFSignUpViewController *)signUpController didSignUpUser:(PFUser *)user {
+    TripsViewController *tripsVC = [TripsViewController new];
+    tripsVC.trips = self.trips;
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
@@ -134,7 +161,9 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    self.segues = @[@"mapSegue1", @"mapSegue2", @"listSegue1", @"listSegue2"];
+    TripsViewController *tripsVC = [TripsViewController new];
+    tripsVC.trips = self.trips;
+    self.segues = @[@"trips1", @"newTrip", @"trips2", @"trips3"];
     [self performSegueWithIdentifier:[NSString stringWithFormat:@"%@", self.segues[indexPath.row]] sender:self.navigationController];
 }
 
