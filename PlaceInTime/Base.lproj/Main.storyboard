@@ -145,18 +145,35 @@
                                 <state key="normal" title="Current Location">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="onCurrentLocationButtonPressed:" destination="ger-hX-QMq" eventType="touchUpInside" id="VPm-f0-aAl"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IhG-68-iwZ">
+                                <rect key="frame" x="68" y="324" width="60" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="Jh0-hP-OwR"/>
+                                    <constraint firstAttribute="width" constant="60" id="tNx-iX-rrI"/>
+                                </constraints>
+                                <state key="normal" title="Cancel">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="onCancelButtonPressed:" destination="ger-hX-QMq" eventType="touchUpInside" id="Gko-H4-3gu"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zRz-gZ-Jio">
-                                <rect key="frame" x="145" y="316" width="30" height="30"/>
+                                <rect key="frame" x="192" y="324" width="60" height="30"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="JCk-Po-7Qk"/>
-                                    <constraint firstAttribute="width" constant="30" id="MFT-Dv-jIb"/>
+                                    <constraint firstAttribute="height" constant="30" id="NOi-GH-tkU"/>
+                                    <constraint firstAttribute="width" constant="60" id="PkS-Vi-kPm"/>
                                 </constraints>
                                 <state key="normal" title="Go!">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="ukC-gP-yxn" kind="modal" modalTransitionStyle="flipHorizontal" id="vT5-Or-rGc"/>
+                                    <action selector="onGoButtonPressed:" destination="ger-hX-QMq" eventType="touchUpInside" id="eUp-Pe-cw3"/>
+                                    <segue destination="ukC-gP-yxn" kind="modal" identifier="tripDetail" modalTransitionStyle="flipHorizontal" id="vT5-Or-rGc"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -164,7 +181,6 @@
                         <constraints>
                             <constraint firstItem="kQs-48-bhD" firstAttribute="top" secondItem="zFZ-Bk-eCu" secondAttribute="bottom" constant="14" id="6Sh-nO-Djf"/>
                             <constraint firstItem="ifU-VI-YJR" firstAttribute="top" secondItem="mks-oL-Lg2" secondAttribute="bottom" constant="30" id="FrT-L0-iYP"/>
-                            <constraint firstAttribute="centerX" secondItem="zRz-gZ-Jio" secondAttribute="centerX" id="Gpc-9O-bOd"/>
                             <constraint firstItem="ViN-lE-LUY" firstAttribute="top" secondItem="9rz-pk-9Ti" secondAttribute="bottom" constant="23" id="I5v-oX-fTq"/>
                             <constraint firstItem="zFZ-Bk-eCu" firstAttribute="leading" secondItem="kOL-zJ-Bqd" secondAttribute="leadingMargin" id="MRl-6X-9rC"/>
                             <constraint firstItem="tvw-hi-Vo3" firstAttribute="top" secondItem="9rz-pk-9Ti" secondAttribute="bottom" constant="27" id="P7t-0q-8yS"/>
@@ -172,8 +188,8 @@
                             <constraint firstItem="zFZ-Bk-eCu" firstAttribute="top" secondItem="XAQ-TQ-C0M" secondAttribute="bottom" constant="18" id="QeF-6U-bXL"/>
                             <constraint firstItem="XAQ-TQ-C0M" firstAttribute="leading" secondItem="kOL-zJ-Bqd" secondAttribute="leadingMargin" id="Tia-Qk-LBl"/>
                             <constraint firstItem="ifU-VI-YJR" firstAttribute="leading" secondItem="kOL-zJ-Bqd" secondAttribute="leadingMargin" id="U6X-gG-MEL"/>
-                            <constraint firstItem="zRz-gZ-Jio" firstAttribute="top" secondItem="ViN-lE-LUY" secondAttribute="bottom" constant="17" id="VQP-t1-sfe"/>
                             <constraint firstItem="Raf-6n-iOV" firstAttribute="trailing" secondItem="kOL-zJ-Bqd" secondAttribute="trailingMargin" id="VjS-FL-bPj"/>
+                            <constraint firstItem="IhG-68-iwZ" firstAttribute="leading" secondItem="kOL-zJ-Bqd" secondAttribute="leadingMargin" constant="52" id="Xqe-xg-VWU"/>
                             <constraint firstItem="9rz-pk-9Ti" firstAttribute="top" secondItem="kQs-48-bhD" secondAttribute="bottom" constant="8" id="Yc2-ic-Zdm"/>
                             <constraint firstItem="9rz-pk-9Ti" firstAttribute="leading" secondItem="kOL-zJ-Bqd" secondAttribute="leadingMargin" id="apX-kC-Omk"/>
                             <constraint firstItem="9rz-pk-9Ti" firstAttribute="trailing" secondItem="kOL-zJ-Bqd" secondAttribute="trailingMargin" id="dA4-wH-w39"/>
@@ -184,7 +200,10 @@
                             <constraint firstItem="Raf-6n-iOV" firstAttribute="top" secondItem="9rz-pk-9Ti" secondAttribute="bottom" constant="23" id="iv1-iR-Bww"/>
                             <constraint firstAttribute="centerX" secondItem="kQs-48-bhD" secondAttribute="centerX" id="jcV-8E-Eqv"/>
                             <constraint firstItem="XAQ-TQ-C0M" firstAttribute="trailing" secondItem="kOL-zJ-Bqd" secondAttribute="trailingMargin" id="jrl-D3-U3q"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="zRz-gZ-Jio" secondAttribute="trailing" constant="52" id="k0o-zF-q3P"/>
                             <constraint firstItem="zFZ-Bk-eCu" firstAttribute="trailing" secondItem="kOL-zJ-Bqd" secondAttribute="trailingMargin" id="k63-8u-4ey"/>
+                            <constraint firstItem="zRz-gZ-Jio" firstAttribute="top" secondItem="Raf-6n-iOV" secondAttribute="bottom" constant="25" id="qVE-my-Ycp"/>
+                            <constraint firstItem="IhG-68-iwZ" firstAttribute="top" secondItem="n2f-S5-m4E" secondAttribute="bottom" constant="25" id="qcJ-NE-00j"/>
                             <constraint firstItem="Raf-6n-iOV" firstAttribute="leading" secondItem="ViN-lE-LUY" secondAttribute="trailing" constant="10" id="wJJ-eh-f4d"/>
                             <constraint firstItem="n2f-S5-m4E" firstAttribute="top" secondItem="9rz-pk-9Ti" secondAttribute="bottom" constant="23" id="xaB-mX-iI1"/>
                         </constraints>

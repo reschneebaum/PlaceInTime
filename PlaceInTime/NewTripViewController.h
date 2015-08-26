@@ -10,4 +10,6 @@
 
 @interface NewTripViewController : UIViewController
 
+@property CLLocation *userLocation;
+
 @end

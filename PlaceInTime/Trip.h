@@ -13,9 +13,9 @@
 @property (nonatomic, strong) NSArray *events;
 @property (nonatomic, strong) PFUser *createdBy;
 @property (nonatomic, strong) NSString *name;
+@property (nonatomic, strong) NSDate *date;
 @property float latitude;
 @property float longitude;
-
 
 +(NSString *)parseClassName;
 
