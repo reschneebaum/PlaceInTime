@@ -10,33 +10,32 @@
 #import <CoreLocation/CoreLocation.h>
 #import <Parse/Parse.h>
 #import <Parse/PFObject+Subclass.h>
-#import <TwitterKit/TwitterKit.h>
-#import "MapViewController.h"
-#import "LoginViewController.h"
+#import "EventsViewController.h"
 #import "AddEventViewController.h"
 #import "EventDetailViewController.h"
+#import "UserEventTableViewCell.h"
 #import "UserEvent.h"
 #import "HistoryEvent.h"
+#import "Landmark.h"
+#import "Trip.h"
 
-@interface MapViewController () <CLLocationManagerDelegate, MKMapViewDelegate, LoginViewControllerDelegate, UITableViewDelegate, UITableViewDataSource>
+@interface EventsViewController () <CLLocationManagerDelegate, MKMapViewDelegate, UITableViewDelegate, UITableViewDataSource>
 
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property CLLocationManager *locationManager;
 @property CLLocation *currentLocation;
-@property MKPointAnnotation *point;
-@property MKMapItem *mapLocation;
 @property NSArray *userEvents;
+@property NSArray *historyEvents;
 @property NSArray *landmarks;
 
 @end
 
-@implementation MapViewController
+@implementation EventsViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-//    [self loadHistoryEvents];
     self.locationManager = [CLLocationManager new];
     [self.locationManager requestWhenInUseAuthorization];
     self.locationManager.delegate = self;
@@ -44,12 +43,7 @@
     [self.mapView showsUserLocation];
     [self.mapView showsBuildings];
     self.mapView.delegate = self;
-    self.mapView.layer.cornerRadius = 10.0;
-    self.mapView.layer.borderWidth = 1.5;
-    self.mapView.layer.borderColor = [[UIColor whiteColor]CGColor];
-    self.mapView.hidden = false;
-    self.tableView.hidden = true;
-    NSLog(@"%f, %f", self.currentLocation.coordinate.latitude, self.currentLocation.coordinate.longitude);
+    self.points = [NSMutableArray new];
 
     UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc]
               initWithTarget:self action:@selector(handleLongPress:)];
@@ -61,18 +55,19 @@
     PFQuery *query = [PFQuery queryWithClassName:@"UserEvent"];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
-            // The find succeeded.
             NSLog(@"Successfully retrieved %lu events.", (unsigned long)objects.count);
+
             for (PFObject *object in objects) {
-                NSLog(@"%@", object.objectId);
                 MKPointAnnotation *annot = [MKPointAnnotation new];
                 annot.coordinate = CLLocationCoordinate2DMake([object[@"latitude"]doubleValue], [object[@"longitude"]doubleValue]);
                 annot.title = object[@"name"];
                 annot.subtitle = object[@"date"];
                 [self.mapView addAnnotation:annot];
             }
+            self.userEvents = [NSArray arrayWithArray:objects];
+            [self.tableView reloadData];
+            NSLog(@"%@", self.userEvents.firstObject);
         } else {
-            // Log details of the failure
             NSLog(@"Error: %@ %@", error, [error userInfo]);
         }
     }];
@@ -80,102 +75,61 @@
     PFQuery *histQuery = [PFQuery queryWithClassName:@"HistoryEvent"];
     [histQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
-            // The find succeeded.
             NSLog(@"Successfully retrieved %lu events.", (unsigned long)objects.count);
+
             for (PFObject *object in objects) {
-                NSLog(@"%@", object.objectId);
                 MKPointAnnotation *annot = [MKPointAnnotation new];
                 annot.coordinate = CLLocationCoordinate2DMake([object[@"latitude"]doubleValue], [object[@"longitude"]doubleValue]);
                 annot.title = object[@"name"];
                 annot.subtitle = object[@"date"];
                 [self.mapView addAnnotation:annot];
             }
+            self.historyEvents = [NSArray arrayWithArray:objects];
+            [self.tableView reloadData];
         } else {
-            // Log details of the failure
             NSLog(@"Error: %@ %@", error, [error userInfo]);
         }
     }];
-//    [self searchForAndAddLandmarks];
-}
-
--(void)loadHistoryEvents{
-    NSString *filePath = [[NSBundle mainBundle] pathForResource:@"timeplaces" ofType:@"plist"];
-    NSArray *array = [[NSArray alloc] initWithContentsOfFile:filePath];
-    NSLog(@"%@", array);
-
-    for (NSDictionary *dictionary in array) {
-        HistoryEvent *event = [HistoryEvent object];
-        event.name = dictionary[@"name"];
-        event.date = [NSString stringWithFormat:@"%@", dictionary[@"date"]];
-        event.textDescription = @"";
-        event.latitude = [dictionary[@"latitude"] floatValue];
-        event.longitude = [dictionary[@"longitude"] floatValue];
-        [event saveInBackground];
-        MKPointAnnotation *annot = [MKPointAnnotation new];
-        annot.coordinate = CLLocationCoordinate2DMake(event.latitude, event.longitude);
-        annot.title = event.name;
-        annot.subtitle = event.date;
-        [self.mapView addAnnotation:annot];
-    }
 }
 
 -(void)searchForAndAddLandmarks {
+    NSMutableArray *tempLandmarks = [NSMutableArray new];
     MKLocalSearchRequest *request = [MKLocalSearchRequest new];
     request.naturalLanguageQuery = @"Landmarks";
     request.region = MKCoordinateRegionMake(self.currentLocation.coordinate, MKCoordinateSpanMake(.5, .5));
-//    request.region = MKCoordinateRegionMake(CLLocationCoordinate2DMake(41.89374, -87.63533), MKCoordinateSpanMake(.5, .5));
     MKLocalSearch *search = [[MKLocalSearch alloc] initWithRequest:request];
     [search startWithCompletionHandler:^(MKLocalSearchResponse *response, NSError *error) {
         for (MKMapItem *mapItem in response.mapItems) {
+            Landmark *landmark = [Landmark new];
+            landmark.name = mapItem.name;
+            landmark.textDescription = @"";
+            landmark.latitude = mapItem.placemark.coordinate.latitude;
+            landmark.longitude = mapItem.placemark.coordinate.longitude;
+            [tempLandmarks addObject:landmark];
+
             MKPointAnnotation *annot = [MKPointAnnotation new];
             annot.title = mapItem.name;
             NSLog(@"%@",annot.title);
             annot.coordinate = mapItem.placemark.coordinate;
             [self.mapView addAnnotation:annot];
         }
+        self.landmarks = [NSArray arrayWithArray:tempLandmarks];
     }];
-}
-
--(void)promptTwitterAuthentication {
-    UIAlertController *userEventAlert = [UIAlertController alertControllerWithTitle:@"Authenticate" message:@"Please authenticate your existence in order to add a new event to the map." preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Ok"
-                                                       style:UIAlertActionStyleDefault
-                                                     handler:^(UIAlertAction *action) {
-        LoginViewController *loginVC = [LoginViewController new];
-        loginVC.delegate = self;
-        [self presentViewController:loginVC animated:true completion:nil];
-    }];
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel"
-                                                           style:UIAlertActionStyleCancel
-                                                         handler:^(UIAlertAction *action) {
-    }];
-    [userEventAlert addAction:okAction];
-    [userEventAlert addAction:cancelAction];
-    [self presentViewController:userEventAlert animated:true completion:nil];
-}
-
-- (void)isUserLoggedIn:(BOOL)userLoggedIn {
-    NSLog(@"isUserLoggedIn: %i", userLoggedIn);
-    self.userLoggedIn = userLoggedIn;
-
 }
 
 - (void)handleLongPress:(UIGestureRecognizer *)gestureRecognizer {
     if (gestureRecognizer.state != UIGestureRecognizerStateBegan)
     return;
 
-    if (self.userLoggedIn) {
-        CGPoint touchPoint = [gestureRecognizer locationInView:self.mapView];
-        CLLocationCoordinate2D touchMapCoordinate =
-        [self.mapView convertPoint:touchPoint toCoordinateFromView:self.mapView];
-        MKPointAnnotation *newAnnotation = [MKPointAnnotation new];
-        newAnnotation.coordinate = touchMapCoordinate;
-        AddEventViewController *eventVC = [self.storyboard instantiateViewControllerWithIdentifier:@"eventVC"];
-        eventVC.location = newAnnotation.coordinate;
-        [self presentViewController:eventVC animated:true completion:nil];
-        [self.mapView addAnnotation:newAnnotation];
-        NSLog(@"event: %g, %g", eventVC.location.latitude, eventVC.location.longitude);
-    }
+    CGPoint touchPoint = [gestureRecognizer locationInView:self.mapView];
+    CLLocationCoordinate2D touchMapCoordinate =
+    [self.mapView convertPoint:touchPoint toCoordinateFromView:self.mapView];
+    MKPointAnnotation *newAnnotation = [MKPointAnnotation new];
+    newAnnotation.coordinate = touchMapCoordinate;
+    AddEventViewController *eventVC = [self.storyboard instantiateViewControllerWithIdentifier:@"eventVC"];
+    eventVC.location = newAnnotation.coordinate;
+    [self presentViewController:eventVC animated:true completion:nil];
+    [self.mapView addAnnotation:newAnnotation];
 }
 
 
@@ -193,8 +147,8 @@
             self.currentLocation = location;
         }
         [self.mapView setRegion:MKCoordinateRegionMake(self.currentLocation.coordinate, MKCoordinateSpanMake(.05, .05)) animated:true];
-        [self searchForAndAddLandmarks];
     }
+    [self searchForAndAddLandmarks];
 }
 
 
@@ -206,7 +160,6 @@
     if ([annotation isEqual:mapView.userLocation]) {
         return nil;
     }
-
     pin.canShowCallout = true;
     pin.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
 
@@ -217,6 +170,7 @@
     MKPointAnnotation *annot = (MKPointAnnotation *)view.annotation;
     EventDetailViewController *detailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"detailVC"];
     detailVC.location = annot.coordinate;
+    detailVC.landmarks = self.landmarks;
     [self presentViewController:detailVC animated:true completion:nil];
 }
 
@@ -224,19 +178,30 @@
 #pragma mark -
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.events.count;
+    return self.userEvents.count;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CellID"];
-    cell.textLabel.text = self.events[indexPath.row];
+    cell.textLabel.text = self.userEvents[indexPath.row][@"name"];
 
     return cell;
 }
 
+-(void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
+    EventDetailViewController *detailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"detailVC"];
+    detailVC.point = self.userEvents[indexPath.row];
+    [self presentViewController:detailVC animated:true completion:nil];
+}
 
-- (IBAction)onAddButtonPressed:(UIBarButtonItem *)sender {
-    [self promptTwitterAuthentication];
+- (IBAction)onSegmentedControlSwitched:(UISegmentedControl *)sender {
+    if (sender.selectedSegmentIndex == 0) {
+        self.tableView.hidden = true;
+        self.mapView.hidden = false;
+    } else {
+        self.tableView.hidden = false;
+        self.mapView.hidden = true;
+    }
 }
 
 - (IBAction)unwindFromCancelAction:(UIStoryboardSegue *)segue {

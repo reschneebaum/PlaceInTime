@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
-#import "MapViewController.h"
+#import "EventsViewController.h"
 
 @protocol LoginViewControllerDelegate <NSObject>
 

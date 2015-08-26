@@ -9,7 +9,8 @@
 #import <ParseUI/ParseUI.h>
 #import <Parse/Parse.h>
 #import "RootViewController.h"
-#import "MapViewController.h"
+#import "EventsViewController.h"
+#import "TripsViewController.h"
 
 @interface RootViewController () <PFLogInViewControllerDelegate, PFSignUpViewControllerDelegate, UITableViewDataSource, UITableViewDelegate>
 
@@ -37,6 +38,9 @@
 
     if ([PFUser currentUser]) {
         self.navigationItem.prompt = [NSString stringWithFormat:NSLocalizedString(@"Welcome, %@!", nil), [[PFUser currentUser] username]];
+        self.currentUser = [PFUser currentUser];
+        TripsViewController *tripsVC = [TripsViewController new];
+        tripsVC.trips = self.trips;
     } else {
         NSLog(@"error");
     }
@@ -56,14 +60,12 @@
 
         [self presentViewController:logInViewController animated:YES completion:NULL];
     }
-
 }
 
 
 #pragma mark - PFLogInViewControllerDelegate
 #pragma mark -
 
-// Sent to the delegate to determine whether the log in request should be submitted to the server.
 - (BOOL)logInViewController:(PFLogInViewController *)logInController shouldBeginLogInWithUsername:(NSString *)username password:(NSString *)password {
     if (username && password && username.length && password.length) {
         return YES; // Begin login process
@@ -74,6 +76,9 @@
 }
 
 - (void)logInViewController:(PFLogInViewController *)logInController didLogInUser:(PFUser *)user {
+    self.currentUser = user;
+    TripsViewController *tripsVC = [TripsViewController new];
+    tripsVC.trips = self.trips;
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
@@ -89,7 +94,6 @@
 #pragma mark - PFSignUpViewControllerDelegate
 #pragma mark -
 
-// Sent to the delegate to determine whether the sign up request should be submitted to the server.
 - (BOOL)signUpViewController:(PFSignUpViewController *)signUpController shouldBeginSignUp:(NSDictionary *)info {
     BOOL informationComplete = YES;
     for (id key in info) {
@@ -107,6 +111,8 @@
 }
 
 - (void)signUpViewController:(PFSignUpViewController *)signUpController didSignUpUser:(PFUser *)user {
+    TripsViewController *tripsVC = [TripsViewController new];
+    tripsVC.trips = self.trips;
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
@@ -134,7 +140,9 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    self.segues = @[@"mapSegue1", @"mapSegue2", @"listSegue1", @"listSegue2"];
+    TripsViewController *tripsVC = [TripsViewController new];
+    tripsVC.trips = self.trips;
+    self.segues = @[@"trips1", @"newTrip", @"trips2", @"trips3"];
     [self performSegueWithIdentifier:[NSString stringWithFormat:@"%@", self.segues[indexPath.row]] sender:self.navigationController];
 }
 

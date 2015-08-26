@@ -18,6 +18,7 @@
 @dynamic latitude;
 @dynamic longitude;
 @dynamic date;
+@dynamic belongsToTrip;
 
 +(void)load {
     [self registerSubclass];
