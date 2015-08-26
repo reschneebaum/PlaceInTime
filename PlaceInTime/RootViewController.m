@@ -21,8 +21,6 @@
 @implementation RootViewController
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
-
     self.options = [[NSArray alloc] initWithObjects:@"View/Edit My Trips", @"Start a New Trip", @"Share Trips", @"Download Available Trips", nil];
 
     UIBarButtonItem *logoutButton = [[UIBarButtonItem alloc]
@@ -38,7 +36,7 @@
     [super viewWillAppear:animated];
 
     if ([PFUser currentUser]) {
-        self.navigationItem.title = [NSString stringWithFormat:NSLocalizedString(@"Welcome, %@!", nil), [[PFUser currentUser] username]];
+        self.navigationItem.prompt = [NSString stringWithFormat:NSLocalizedString(@"Welcome, %@!", nil), [[PFUser currentUser] username]];
     } else {
         NSLog(@"error");
     }
@@ -47,19 +45,15 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
 
-    if (![PFUser currentUser]) { // No user logged in
-        // Create the log in view controller
+    if (![PFUser currentUser]) {
         PFLogInViewController *logInViewController = [[PFLogInViewController alloc] init];
-        [logInViewController setDelegate:self]; // Set ourselves as the delegate
+        [logInViewController setDelegate:self];
 
-        // Create the sign up view controller
         PFSignUpViewController *signUpViewController = [[PFSignUpViewController alloc] init];
-        [signUpViewController setDelegate:self]; // Set ourselves as the delegate
+        [signUpViewController setDelegate:self];
 
-        // Assign our sign up controller to be displayed from the login controller
         [logInViewController setSignUpController:signUpViewController];
 
-        // Present the log in view controller
         [self presentViewController:logInViewController animated:YES completion:NULL];
     }
 
@@ -71,7 +65,6 @@
 
 // Sent to the delegate to determine whether the log in request should be submitted to the server.
 - (BOOL)logInViewController:(PFLogInViewController *)logInController shouldBeginLogInWithUsername:(NSString *)username password:(NSString *)password {
-    // Check if both fields are completed
     if (username && password && username.length && password.length) {
         return YES; // Begin login process
     }
@@ -80,17 +73,14 @@
     return NO; // Interrupt login process
 }
 
-// Sent to the delegate when a PFUser is logged in.
 - (void)logInViewController:(PFLogInViewController *)logInController didLogInUser:(PFUser *)user {
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
-// Sent to the delegate when the log in attempt fails.
 - (void)logInViewController:(PFLogInViewController *)logInController didFailToLogInWithError:(NSError *)error {
     NSLog(@"Failed to log in...");
 }
 
-// Sent to the delegate when the log in screen is dismissed.
 - (void)logInViewControllerDidCancelLogIn:(PFLogInViewController *)logInController {
     NSLog(@"User dismissed the logInViewController");
 }
@@ -102,8 +92,6 @@
 // Sent to the delegate to determine whether the sign up request should be submitted to the server.
 - (BOOL)signUpViewController:(PFSignUpViewController *)signUpController shouldBeginSignUp:(NSDictionary *)info {
     BOOL informationComplete = YES;
-
-    // loop through all of the submitted data
     for (id key in info) {
         NSString *field = [info objectForKey:key];
         if (!field || !field.length) { // check completion
@@ -111,26 +99,21 @@
             break;
         }
     }
-
     // Display an alert if a field wasn't completed
     if (!informationComplete) {
         [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Missing Information", nil) message:NSLocalizedString(@"Make sure you fill out all of the information!", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] show];
     }
-
     return informationComplete;
 }
 
-// Sent to the delegate when a PFUser is signed up.
 - (void)signUpViewController:(PFSignUpViewController *)signUpController didSignUpUser:(PFUser *)user {
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
-// Sent to the delegate when the sign up attempt fails.
 - (void)signUpViewController:(PFSignUpViewController *)signUpController didFailToSignUpWithError:(NSError *)error {
     NSLog(@"Failed to sign up...");
 }
 
-// Sent to the delegate when the sign up screen is dismissed.
 - (void)signUpViewControllerDidCancelSignUp:(PFSignUpViewController *)signUpController {
     NSLog(@"User dismissed the signUpViewController");
 }
@@ -153,8 +136,6 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     self.segues = @[@"mapSegue1", @"mapSegue2", @"listSegue1", @"listSegue2"];
     [self performSegueWithIdentifier:[NSString stringWithFormat:@"%@", self.segues[indexPath.row]] sender:self.navigationController];
-//    MapViewController *mapVC = [MapViewController new];
-//    [self.navigationController pushViewController:mapVC animated:true];
 }
 
 #pragma mark - Navigation
@@ -164,7 +145,6 @@
     [PFUser logOut];
     PFLogInViewController *login = [PFLogInViewController new];
     [self presentViewController:login animated:true completion:nil];
-//    [self dismissViewControllerAnimated:true completion:nil];
 }
 
 @end

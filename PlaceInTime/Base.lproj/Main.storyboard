@@ -81,6 +81,7 @@
                             </mapView>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Crx-mZ-1Hp">
                                 <rect key="frame" x="0.0" y="540" width="320" height="29"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="28" id="atf-28-27S"/>
                                 </constraints>
@@ -88,6 +89,7 @@
                                     <segment title="Map"/>
                                     <segment title="List"/>
                                 </segments>
+                                <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             </segmentedControl>
                         </subviews>
                         <constraints>
@@ -151,7 +153,7 @@
                             <constraint firstAttribute="trailingMargin" secondItem="SZh-Qo-qpY" secondAttribute="trailing" constant="-16" id="kra-yQ-3Tn"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="welcome, username" id="q6g-VC-nHk"/>
+                    <navigationItem key="navigationItem" title="Dashboard" id="q6g-VC-nHk"/>
                     <connections>
                         <segue destination="vXZ-lx-hvc" kind="push" identifier="mapSegue1" id="Bhd-od-LgI"/>
                         <segue destination="vXZ-lx-hvc" kind="push" identifier="mapSegue2" id="Mu7-UF-YLj"/>

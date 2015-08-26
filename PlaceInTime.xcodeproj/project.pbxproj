@@ -187,8 +187,6 @@
 				C42DDB901B82454300CAAD15 /* AppDelegate.m */,
 				C4B13F681B8BAE80005A6475 /* RootViewController.h */,
 				C4B13F691B8BAE80005A6475 /* RootViewController.m */,
-				C4A91C9C1B83BD1C007C26CA /* LoginViewController.h */,
-				C4A91C9D1B83BD1C007C26CA /* LoginViewController.m */,
 				C42DDB951B82454300CAAD15 /* MapViewController.h */,
 				C42DDB961B82454300CAAD15 /* MapViewController.m */,
 				C4B13F6B1B8C8107005A6475 /* TripsViewController.h */,
@@ -197,8 +195,6 @@
 				C4A91CA01B83BD2B007C26CA /* AddEventViewController.m */,
 				C42D7FCD1B8782AA00B56AFC /* EventDetailViewController.h */,
 				C42D7FCE1B8782AA00B56AFC /* EventDetailViewController.m */,
-				C4A91CA21B83BD5A007C26CA /* UserEventAnnotationView.h */,
-				C4A91CA31B83BD5A007C26CA /* UserEventAnnotationView.m */,
 				C42DDB981B82454300CAAD15 /* Main.storyboard */,
 				C4A91CA81B84C815007C26CA /* UserEvent.h */,
 				C4A91CA91B84C815007C26CA /* UserEvent.m */,
@@ -207,6 +203,7 @@
 				8FF95F4A1B87715800ED5D4B /* timeplaces.plist */,
 				C42DDB9B1B82454300CAAD15 /* Images.xcassets */,
 				C42DDB9D1B82454300CAAD15 /* LaunchScreen.xib */,
+				C4A30E0A1B8CC0BF006A39AC /* Old */,
 				C42DDB921B82454300CAAD15 /* PlaceInTime.xcdatamodeld */,
 				C4B13F5D1B8BAE28005A6475 /* Frameworks */,
 				C42DDB8B1B82454300CAAD15 /* Supporting Files */,
@@ -238,6 +235,17 @@
 				C42DDBA91B82454300CAAD15 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		C4A30E0A1B8CC0BF006A39AC /* Old */ = {
+			isa = PBXGroup;
+			children = (
+				C4A91C9C1B83BD1C007C26CA /* LoginViewController.h */,
+				C4A91C9D1B83BD1C007C26CA /* LoginViewController.m */,
+				C4A91CA21B83BD5A007C26CA /* UserEventAnnotationView.h */,
+				C4A91CA31B83BD5A007C26CA /* UserEventAnnotationView.m */,
+			);
+			name = Old;
 			sourceTree = "<group>";
 		};
 		C4B13F5D1B8BAE28005A6475 /* Frameworks */ = {

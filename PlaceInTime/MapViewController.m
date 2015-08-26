@@ -23,9 +23,11 @@
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property CLLocationManager *locationManager;
-@property MKPointAnnotation *point;
 @property CLLocation *currentLocation;
+@property MKPointAnnotation *point;
 @property MKMapItem *mapLocation;
+@property NSArray *userEvents;
+@property NSArray *landmarks;
 
 @end
 
@@ -47,6 +49,7 @@
     self.mapView.layer.borderColor = [[UIColor whiteColor]CGColor];
     self.mapView.hidden = false;
     self.tableView.hidden = true;
+    NSLog(@"%f, %f", self.currentLocation.coordinate.latitude, self.currentLocation.coordinate.longitude);
 
     UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc]
               initWithTarget:self action:@selector(handleLongPress:)];
@@ -55,7 +58,6 @@
 }
 
 -(void)viewWillAppear:(BOOL)animated {
-
     PFQuery *query = [PFQuery queryWithClassName:@"UserEvent"];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
@@ -93,7 +95,7 @@
             NSLog(@"Error: %@ %@", error, [error userInfo]);
         }
     }];
-    [self searchForAndAddLandmarks];
+//    [self searchForAndAddLandmarks];
 }
 
 -(void)loadHistoryEvents{
@@ -120,7 +122,8 @@
 -(void)searchForAndAddLandmarks {
     MKLocalSearchRequest *request = [MKLocalSearchRequest new];
     request.naturalLanguageQuery = @"Landmarks";
-    request.region = MKCoordinateRegionMake(self.mapView.centerCoordinate, MKCoordinateSpanMake(1, 1));
+    request.region = MKCoordinateRegionMake(self.currentLocation.coordinate, MKCoordinateSpanMake(.5, .5));
+//    request.region = MKCoordinateRegionMake(CLLocationCoordinate2DMake(41.89374, -87.63533), MKCoordinateSpanMake(.5, .5));
     MKLocalSearch *search = [[MKLocalSearch alloc] initWithRequest:request];
     [search startWithCompletionHandler:^(MKLocalSearchResponse *response, NSError *error) {
         for (MKMapItem *mapItem in response.mapItems) {
@@ -189,7 +192,8 @@
             [self.locationManager stopUpdatingLocation];
             self.currentLocation = location;
         }
-
+        [self.mapView setRegion:MKCoordinateRegionMake(self.currentLocation.coordinate, MKCoordinateSpanMake(.05, .05)) animated:true];
+        [self searchForAndAddLandmarks];
     }
 }
 
@@ -198,8 +202,6 @@
 #pragma mark -
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation {
-    
-
     MKPinAnnotationView *pin = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:nil];
     if ([annotation isEqual:mapView.userLocation]) {
         return nil;
@@ -209,7 +211,9 @@
     pin.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
 
     return pin;
-}-(void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control {
+}
+
+-(void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control {
     MKPointAnnotation *annot = (MKPointAnnotation *)view.annotation;
     EventDetailViewController *detailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"detailVC"];
     detailVC.location = annot.coordinate;
@@ -234,14 +238,6 @@
 - (IBAction)onAddButtonPressed:(UIBarButtonItem *)sender {
     [self promptTwitterAuthentication];
 }
-
-//-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-//    LoginViewController *loginVC = segue.destinationViewController;
-//    loginVC.currentLocation = self.currentLocation;
-//    AddEventViewController *eventVC = segue.destinationViewController;
-//    eventVC.event = self.event;
-//    EventDetailViewController *detailVC =segue.destinationViewController;
-//}
 
 - (IBAction)unwindFromCancelAction:(UIStoryboardSegue *)segue {
 //    [self.mapView removeAnnotation:]

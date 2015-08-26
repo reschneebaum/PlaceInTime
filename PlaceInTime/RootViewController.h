@@ -10,4 +10,7 @@
 
 @interface RootViewController : UIViewController
 
+@property CLLocationManager *locationManager;
+@property CLLocation *currentLocation;
+
 @end
