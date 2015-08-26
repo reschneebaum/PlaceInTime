@@ -54,10 +54,10 @@
             </objects>
             <point key="canvasLocation" x="1286" y="717"/>
         </scene>
-        <!--View Controller-->
+        <!--Add Trip View Controller-->
         <scene sceneID="XMz-5w-AzO">
             <objects>
-                <viewController storyboardIdentifier="newTripVC" id="ger-hX-QMq" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="newTripVC" id="ger-hX-QMq" customClass="AddTripViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="mks-oL-Lg2"/>
                         <viewControllerLayoutGuide type="bottom" id="jNu-5d-pde"/>
@@ -189,6 +189,16 @@
                             <constraint firstItem="n2f-S5-m4E" firstAttribute="top" secondItem="9rz-pk-9Ti" secondAttribute="bottom" constant="23" id="xaB-mX-iI1"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="cityTextField" destination="ifU-VI-YJR" id="TyT-4K-Wca"/>
+                        <outlet property="countryTextField" destination="zFZ-Bk-eCu" id="xRp-KG-C8n"/>
+                        <outlet property="dayTextField" destination="ViN-lE-LUY" id="nSA-1N-dF1"/>
+                        <outlet property="goButton" destination="zRz-gZ-Jio" id="e0g-LI-wg5"/>
+                        <outlet property="monthTextField" destination="n2f-S5-m4E" id="ZgU-ug-4dH"/>
+                        <outlet property="setCurrentLocationButton" destination="9rz-pk-9Ti" id="SPr-Y7-cxg"/>
+                        <outlet property="stateTextField" destination="XAQ-TQ-C0M" id="FoQ-Xs-QVu"/>
+                        <outlet property="yearTextField" destination="Raf-6n-iOV" id="M6h-eq-8gf"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3dr-yK-4H8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -332,10 +342,10 @@
             </objects>
             <point key="canvasLocation" x="44" y="-333"/>
         </scene>
-        <!--View Controller-->
+        <!--New Trip View Controller-->
         <scene sceneID="FS9-qM-Dls">
             <objects>
-                <viewController storyboardIdentifier="newMapVC" id="ukC-gP-yxn" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="newMapVC" id="ukC-gP-yxn" customClass="NewTripViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="JA5-Hz-PoF"/>
                         <viewControllerLayoutGuide type="bottom" id="92w-8a-eg5"/>
@@ -346,6 +356,9 @@
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="MJS-Za-AF2">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <connections>
+                                    <outlet property="delegate" destination="ukC-gP-yxn" id="s5T-71-8Hl"/>
+                                </connections>
                             </mapView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -356,6 +369,9 @@
                             <constraint firstItem="92w-8a-eg5" firstAttribute="top" secondItem="MJS-Za-AF2" secondAttribute="bottom" id="ypz-ta-EEv"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="mapView" destination="MJS-Za-AF2" id="YpB-uM-U3z"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="D38-WL-ffS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

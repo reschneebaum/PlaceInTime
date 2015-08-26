@@ -47,6 +47,8 @@
 		C4A91CAA1B84C815007C26CA /* UserEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A91CA91B84C815007C26CA /* UserEvent.m */; };
 		C4A91CAC1B861521007C26CA /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4A91CAB1B861521007C26CA /* Crashlytics.framework */; };
 		C4B103661B8DCDFD000EC658 /* CodeDump.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B103651B8DCDFD000EC658 /* CodeDump.m */; };
+		C4B103691B8DEE7D000EC658 /* AddTripViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B103681B8DEE7D000EC658 /* AddTripViewController.m */; };
+		C4B1036C1B8DEE91000EC658 /* NewTripViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B1036B1B8DEE91000EC658 /* NewTripViewController.m */; };
 		C4B13F631B8BAE53005A6475 /* ParseCrashReporting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4B13F5E1B8BAE53005A6475 /* ParseCrashReporting.framework */; };
 		C4B13F641B8BAE53005A6475 /* ParseFacebookUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4B13F5F1B8BAE53005A6475 /* ParseFacebookUtils.framework */; };
 		C4B13F651B8BAE53005A6475 /* ParseFacebookUtilsV4.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4B13F601B8BAE53005A6475 /* ParseFacebookUtilsV4.framework */; };
@@ -124,6 +126,10 @@
 		C4A91CAB1B861521007C26CA /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		C4B103641B8DCDFD000EC658 /* CodeDump.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CodeDump.h; sourceTree = "<group>"; };
 		C4B103651B8DCDFD000EC658 /* CodeDump.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CodeDump.m; sourceTree = "<group>"; };
+		C4B103671B8DEE7D000EC658 /* AddTripViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddTripViewController.h; sourceTree = "<group>"; };
+		C4B103681B8DEE7D000EC658 /* AddTripViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddTripViewController.m; sourceTree = "<group>"; };
+		C4B1036A1B8DEE91000EC658 /* NewTripViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewTripViewController.h; sourceTree = "<group>"; };
+		C4B1036B1B8DEE91000EC658 /* NewTripViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewTripViewController.m; sourceTree = "<group>"; };
 		C4B13F5E1B8BAE53005A6475 /* ParseCrashReporting.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ParseCrashReporting.framework; path = "../../../../../../Downloads/parse-library-1.8.1/ParseCrashReporting.framework"; sourceTree = "<group>"; };
 		C4B13F5F1B8BAE53005A6475 /* ParseFacebookUtils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ParseFacebookUtils.framework; path = "../../../../../../Downloads/parse-library-1.8.1/ParseFacebookUtils.framework"; sourceTree = "<group>"; };
 		C4B13F601B8BAE53005A6475 /* ParseFacebookUtilsV4.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ParseFacebookUtilsV4.framework; path = "../../../../../../Downloads/parse-library-1.8.1/ParseFacebookUtilsV4.framework"; sourceTree = "<group>"; };
@@ -293,6 +299,10 @@
 				C4A91CA01B83BD2B007C26CA /* AddEventViewController.m */,
 				C42D7FCD1B8782AA00B56AFC /* EventDetailViewController.h */,
 				C42D7FCE1B8782AA00B56AFC /* EventDetailViewController.m */,
+				C4B103671B8DEE7D000EC658 /* AddTripViewController.h */,
+				C4B103681B8DEE7D000EC658 /* AddTripViewController.m */,
+				C4B1036A1B8DEE91000EC658 /* NewTripViewController.h */,
+				C4B1036B1B8DEE91000EC658 /* NewTripViewController.m */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -453,11 +463,13 @@
 				C4A30E161B8CEDF7006A39AC /* Trip.m in Sources */,
 				C4A30E131B8CD109006A39AC /* Landmark.m in Sources */,
 				C4A30E0D1B8CCDBC006A39AC /* UserEventTableViewCell.m in Sources */,
+				C4B103691B8DEE7D000EC658 /* AddTripViewController.m in Sources */,
 				C4A91CA41B83BD5A007C26CA /* UserEventAnnotationView.m in Sources */,
 				8F61B3AB1B87962D009023EB /* HistoryEvent.m in Sources */,
 				C42D7FCF1B8782AA00B56AFC /* EventDetailViewController.m in Sources */,
 				C42DDB911B82454300CAAD15 /* AppDelegate.m in Sources */,
 				C42DDB941B82454300CAAD15 /* PlaceInTime.xcdatamodeld in Sources */,
+				C4B1036C1B8DEE91000EC658 /* NewTripViewController.m in Sources */,
 				C4B13F6D1B8C8107005A6475 /* TripsViewController.m in Sources */,
 				C42DDB971B82454300CAAD15 /* EventsViewController.m in Sources */,
 				C4A91C9E1B83BD1C007C26CA /* LoginViewController.m in Sources */,
