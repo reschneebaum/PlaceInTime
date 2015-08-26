@@ -53,6 +53,12 @@
     else return NO;
 }
 
+-(void)createTrip {
+    Trip *newTrip = [Trip object];
+    newTrip.createdBy = [PFUser currentUser];
+    newTrip.
+}
+
 
 
 
