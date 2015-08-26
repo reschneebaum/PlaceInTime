@@ -10,7 +10,7 @@
 
 @interface RootViewController : UIViewController
 
-@property CLLocationManager *locationManager;
-@property CLLocation *currentLocation;
+@property PFUser *currentUser;
+@property NSArray *trips;
 
 @end

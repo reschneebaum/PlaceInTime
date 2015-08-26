@@ -1,5 +1,5 @@
 //
-//  TripsViewController.h
+//  UserEventTableViewCell.h
 //  PlaceInTime
 //
 //  Created by Rachel Schneebaum on 8/25/15.
@@ -8,9 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TripsViewController : UIViewController
-
-@property NSArray *trips;
-@property PFUser *currentUser;
+@interface UserEventTableViewCell : UITableViewCell
 
 @end

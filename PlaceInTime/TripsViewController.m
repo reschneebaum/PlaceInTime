@@ -6,9 +6,12 @@
 //  Copyright (c) 2015 Rachel Schneebaum. All rights reserved.
 //
 
+#import <Parse/Parse.h>
 #import "TripsViewController.h"
 
 @interface TripsViewController () <UITableViewDataSource, UITableViewDelegate>
+
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
 
@@ -16,10 +19,30 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    self.trips = [NSArray new];
-
+    [self assignAndRetrieveUserTrips];
 }
+
+
+-(void)assignAndRetrieveUserTrips {
+    PFQuery *query = [PFQuery queryWithClassName:@"Trip"];
+    [query whereKey:@"createdBy" equalTo:[PFUser currentUser]];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            NSMutableArray *tempTrips = [NSMutableArray new];
+            NSLog(@"Successfully retrieved %lu trip(s).", (unsigned long)objects.count);
+            for (PFObject *object in objects) {
+                NSLog(@"%@", object.objectId);
+                [tempTrips addObject:object];
+            }
+            self.trips = [NSArray arrayWithArray:tempTrips];
+            [self.tableView reloadData];
+            NSLog(@"%@", self.trips.firstObject);
+        } else {
+            NSLog(@"Error: %@ %@", error, [error userInfo]);
+        }
+    }];
+}
+
 
 #pragma mark - UITableViewDataSource methods
 #pragma mark -
@@ -30,6 +53,7 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CellID"];
+    cell.textLabel.text = self.trips[indexPath.row][@"name"];
     return cell;
 }
 

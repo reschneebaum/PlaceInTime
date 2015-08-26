@@ -9,11 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "UserEvent.h"
 
-@interface MapViewController : UIViewController
+@interface EventsViewController : UIViewController
 
-@property BOOL userLoggedIn;
 @property UserEvent *event;
-@property NSArray *events;
+@property NSMutableArray *points;
 
 @end
 
