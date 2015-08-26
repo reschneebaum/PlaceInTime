@@ -74,7 +74,7 @@
 }
 
 -(void)checkForUserEvent {
-    PFQuery *query = [PFQuery queryWithClassName:@"UserEvent"];
+    PFQuery *query = [UserEvent query];
     [query whereKey:@"latitude" equalTo:@(self.location.latitude)];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
@@ -101,7 +101,7 @@
 }
 
 -(void)checkForHistoryEvent {
-    PFQuery *histQuery = [PFQuery queryWithClassName:@"HistoryEvent"];
+    PFQuery *histQuery = [HistoryEvent query];
     [histQuery whereKey:@"latitude" equalTo:@(self.location.latitude)];
     [histQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
@@ -122,7 +122,6 @@
             }
         }
     }];
-
 }
 
 -(void)reverseGeocode:(CLLocation *)location {

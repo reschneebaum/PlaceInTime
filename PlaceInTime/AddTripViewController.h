@@ -10,4 +10,6 @@
 
 @interface AddTripViewController : UIViewController
 
+@property PFUser *user;
+
 @end

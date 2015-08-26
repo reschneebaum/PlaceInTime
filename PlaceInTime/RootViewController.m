@@ -140,10 +140,11 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+
     TripsViewController *tripsVC = [TripsViewController new];
     tripsVC.trips = self.trips;
     self.segues = @[@"trips1", @"newTrip", @"trips2", @"trips3"];
-    [self performSegueWithIdentifier:[NSString stringWithFormat:@"%@", self.segues[indexPath.row]] sender:self.navigationController];
+    [self performSegueWithIdentifier:[NSString stringWithFormat:@"%@", self.segues[indexPath.row]] sender:self];
 }
 
 #pragma mark - Navigation
@@ -153,6 +154,14 @@
     [PFUser logOut];
     PFLogInViewController *login = [PFLogInViewController new];
     [self presentViewController:login animated:true completion:nil];
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"newTrip"]) {
+        TripsViewController *tripsVC = [TripsViewController new];
+        tripsVC.trips = self.trips;
+        [self presentViewController:tripsVC animated:true completion:nil];
+    }
 }
 
 @end

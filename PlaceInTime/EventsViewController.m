@@ -45,23 +45,22 @@
     self.mapView.delegate = self;
     self.points = [NSMutableArray new];
 
-    UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc]
-              initWithTarget:self action:@selector(handleLongPress:)];
+    UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
     longPress.minimumPressDuration = 1.2; //length of user press
     [self.mapView addGestureRecognizer:longPress];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
-    PFQuery *query = [PFQuery queryWithClassName:@"UserEvent"];
+    PFQuery *query = [UserEvent query];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
             NSLog(@"Successfully retrieved %lu events.", (unsigned long)objects.count);
 
-            for (PFObject *object in objects) {
+            for (UserEvent *event in objects) {
                 MKPointAnnotation *annot = [MKPointAnnotation new];
-                annot.coordinate = CLLocationCoordinate2DMake([object[@"latitude"]doubleValue], [object[@"longitude"]doubleValue]);
-                annot.title = object[@"name"];
-                annot.subtitle = object[@"date"];
+                annot.coordinate = CLLocationCoordinate2DMake(event.latitude, event.longitude);
+                annot.title = event.name;
+                annot.subtitle = event.date;
                 [self.mapView addAnnotation:annot];
             }
             self.userEvents = [NSArray arrayWithArray:objects];
@@ -72,16 +71,16 @@
         }
     }];
 
-    PFQuery *histQuery = [PFQuery queryWithClassName:@"HistoryEvent"];
+    PFQuery *histQuery = [HistoryEvent query];
     [histQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
             NSLog(@"Successfully retrieved %lu events.", (unsigned long)objects.count);
 
-            for (PFObject *object in objects) {
+            for (HistoryEvent *event in objects) {
                 MKPointAnnotation *annot = [MKPointAnnotation new];
-                annot.coordinate = CLLocationCoordinate2DMake([object[@"latitude"]doubleValue], [object[@"longitude"]doubleValue]);
-                annot.title = object[@"name"];
-                annot.subtitle = object[@"date"];
+                annot.coordinate = CLLocationCoordinate2DMake(event.latitude, event.longitude);
+                annot.title = event.name;
+                annot.subtitle = event.date;
                 [self.mapView addAnnotation:annot];
             }
             self.historyEvents = [NSArray arrayWithArray:objects];
@@ -181,8 +180,8 @@
     return self.userEvents.count;
 }
 
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CellID"];
+-(UserEventTableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UserEventTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CellID"];
     cell.textLabel.text = self.userEvents[indexPath.row][@"name"];
 
     return cell;

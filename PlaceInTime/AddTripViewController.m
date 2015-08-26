@@ -8,7 +8,7 @@
 
 #import <CoreLocation/CoreLocation.h>
 #import <Parse/Parse.h>
-#import <ParseUI/ParseUI.h>
+#import <Parse/PFObject+Subclass.h>
 #import "AddTripViewController.h"
 #import "NewTripViewController.h"
 #import "UserEvent.h"
@@ -19,15 +19,14 @@
 @property (weak, nonatomic) IBOutlet UITextField *cityTextField;
 @property (weak, nonatomic) IBOutlet UITextField *stateTextField;
 @property (weak, nonatomic) IBOutlet UITextField *countryTextField;
-@property (weak, nonatomic) IBOutlet UIButton *setCurrentLocationButton;
 @property (weak, nonatomic) IBOutlet UITextField *monthTextField;
 @property (weak, nonatomic) IBOutlet UITextField *dayTextField;
 @property (weak, nonatomic) IBOutlet UITextField *yearTextField;
-@property (weak, nonatomic) IBOutlet UIButton *goButton;
 @property CLLocationManager *locationManager;
 @property CLPlacemark *locationPlacemark;
 @property CLLocation *currentLocation;
 @property CLLocation *userLocation;
+@property Trip *trip;
 
 @end
 
@@ -35,16 +34,17 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    self.goButton.enabled = false;
+    self.user = [PFUser currentUser];
 }
 
--(void)performForwardGeocodingFromString:(NSString *)locationString {
-    locationString = [NSString stringWithFormat:@"%@ %@ %@", self.cityTextField.text, self.stateTextField.text, self.countryTextField.text];
+-(void)performForwardGeocoding {
+    NSString *locationString = [NSString stringWithFormat:@"%@ %@ %@", self.cityTextField.text, self.stateTextField.text, self.countryTextField.text];
     CLGeocoder *geocoder = [CLGeocoder new];
     [geocoder geocodeAddressString:locationString completionHandler:^(NSArray *placemarks, NSError *error) {
         if (!error) {
             NSLog(@"%@", placemarks.firstObject);
             self.locationPlacemark = placemarks.firstObject;
+            [self createTrip];
         } else {
             NSLog(@"error: %@", error);
         }
@@ -68,16 +68,16 @@
     newTrip.latitude = self.locationPlacemark.location.coordinate.latitude;
     NSLog(@"%f", newTrip.latitude);
     newTrip.longitude = self.locationPlacemark.location.coordinate.longitude;
-    NSString *dateString = [NSString stringWithFormat:@"%@ %@, %@", self.dayTextField.text, self.monthTextField.text, self.yearTextField.text];
+    NSString *dateString = [NSString stringWithFormat:@"%@/%@/%@", self.dayTextField.text, self.monthTextField.text, self.yearTextField.text];
     NSDateFormatter *dateFormat = [NSDateFormatter new];
     [dateFormat setDateFormat:@"MMM dd, YYYY"];
     newTrip.date = [dateFormat dateFromString:dateString];
-    NSString *formatString = [dateFormat stringFromDate:newTrip.date];
-    newTrip.name = [NSString stringWithFormat:@"%@, %@ - %@", self.cityTextField.text, self.countryTextField.text, formatString];
+    newTrip.name = [NSString stringWithFormat:@"%@, %@ - %@", self.cityTextField.text, self.countryTextField.text, dateString];
     self.userLocation = [[CLLocation alloc] initWithLatitude:newTrip.latitude longitude:newTrip.longitude];
     [newTrip saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (succeeded) {
             NSLog(@"The object has been saved.");
+            [self performSegueWithIdentifier:@"tripDetail" sender:self];
         } else {
             NSLog(@"There was a problem, check error.description");
         }
@@ -118,8 +118,11 @@
     if(range.length + range.location > textField.text.length) {
         return NO;
     }
-
-    if (textField == self.monthTextField || textField == self.dayTextField) {
+    if (textField == self.monthTextField) {
+        NSUInteger newLength = [textField.text length] + [string length] - range.length;
+        return newLength == 2;
+    }
+    if (textField == self.dayTextField) {
         NSUInteger newLength = [textField.text length] + [string length] - range.length;
         return newLength == 2;
     }
@@ -143,11 +146,18 @@
 
 - (IBAction)onGoButtonPressed:(UIButton *)sender {
     if (self.cityTextField.hasText && self.stateTextField.hasText && self.countryTextField.hasText && self.monthTextField.hasText && self.dayTextField.hasText && self.yearTextField.hasText) {
-        [self createTrip];
-
-        [self prepareForSegue:@"tripDetail" sender:self];
+        [self performForwardGeocoding];
     } else {
         [self presentAlertController];
+    }
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+
+    if([segue.identifier isEqualToString:@"tripDetail"]) {
+        NewTripViewController *newVC = segue.destinationViewController;
+        newVC.userLocation = self.userLocation;
+        newVC.trip = self.trip;
     }
 }
 
