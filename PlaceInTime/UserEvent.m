@@ -18,7 +18,6 @@
 @dynamic latitude;
 @dynamic longitude;
 @dynamic date;
-@dynamic bgColor;
 @dynamic belongsToTrip;
 
 +(void)load {
@@ -27,12 +26,6 @@
 
 +(NSString *)parseClassName {
     return @"UserEvent";
-}
-
--(void)assignColor {
-    if (self) {
-        self.bgColor = [UIColor colorWithRed:0.70 green:0.76 blue:0.85 alpha:1];
-    }
 }
 
 @end

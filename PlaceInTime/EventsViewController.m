@@ -10,28 +10,24 @@
 #import <CoreLocation/CoreLocation.h>
 #import <Parse/Parse.h>
 #import <Parse/PFObject+Subclass.h>
-#import <TwitterKit/TwitterKit.h>
 #import "EventsViewController.h"
-#import "LoginViewController.h"
 #import "AddEventViewController.h"
 #import "EventDetailViewController.h"
+#import "UserEventTableViewCell.h"
 #import "UserEvent.h"
 #import "HistoryEvent.h"
 #import "Landmark.h"
 #import "Trip.h"
 
-@interface EventsViewController () <CLLocationManagerDelegate, MKMapViewDelegate, LoginViewControllerDelegate, UITableViewDelegate, UITableViewDataSource>
+@interface EventsViewController () <CLLocationManagerDelegate, MKMapViewDelegate, UITableViewDelegate, UITableViewDataSource>
 
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property CLLocationManager *locationManager;
 @property CLLocation *currentLocation;
-@property MKPointAnnotation *point;
-@property MKMapItem *mapLocation;
 @property NSArray *userEvents;
 @property NSArray *historyEvents;
 @property NSArray *landmarks;
-@property NSMutableArray *points;
 
 @end
 
@@ -40,7 +36,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-//    [self loadHistoryEvents];
     self.locationManager = [CLLocationManager new];
     [self.locationManager requestWhenInUseAuthorization];
     self.locationManager.delegate = self;
@@ -48,6 +43,7 @@
     [self.mapView showsUserLocation];
     [self.mapView showsBuildings];
     self.mapView.delegate = self;
+    self.points = [NSMutableArray new];
 
     UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc]
               initWithTarget:self action:@selector(handleLongPress:)];
@@ -90,34 +86,10 @@
             }
             self.historyEvents = [NSArray arrayWithArray:objects];
             [self.tableView reloadData];
-            NSLog(@"%@", self.historyEvents.firstObject);
         } else {
             NSLog(@"Error: %@ %@", error, [error userInfo]);
         }
     }];
-}
-
--(void)loadHistoryEvents{
-    NSString *filePath = [[NSBundle mainBundle] pathForResource:@"timeplaces" ofType:@"plist"];
-    NSArray *array = [[NSArray alloc] initWithContentsOfFile:filePath];
-    NSLog(@"%@", array);
-
-    for (NSDictionary *dictionary in array) {
-        HistoryEvent *event = [HistoryEvent object];
-        event.name = dictionary[@"name"];
-        event.date = [NSString stringWithFormat:@"%@", dictionary[@"date"]];
-        event.textDescription = @"";
-        event.latitude = [dictionary[@"latitude"] floatValue];
-        event.longitude = [dictionary[@"longitude"] floatValue];
-        event.bgColor = [UIColor colorWithRed:0.70 green:0.76 blue:0.85 alpha:1];
-        [event saveInBackground];
-
-        MKPointAnnotation *annot = [MKPointAnnotation new];
-        annot.coordinate = CLLocationCoordinate2DMake(event.latitude, event.longitude);
-        annot.title = event.name;
-        annot.subtitle = event.date;
-        [self.mapView addAnnotation:annot];
-    }
 }
 
 -(void)searchForAndAddLandmarks {
@@ -133,7 +105,6 @@
             landmark.textDescription = @"";
             landmark.latitude = mapItem.placemark.coordinate.latitude;
             landmark.longitude = mapItem.placemark.coordinate.longitude;
-            [landmark assignColor];
             [tempLandmarks addObject:landmark];
 
             MKPointAnnotation *annot = [MKPointAnnotation new];
@@ -146,54 +117,19 @@
     }];
 }
 
--(void)promptTwitterAuthentication {
-    UIAlertController *userEventAlert = [UIAlertController alertControllerWithTitle:@"Authenticate" message:@"Please authenticate your existence in order to add a new event to the map." preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Ok"
-                                                       style:UIAlertActionStyleDefault
-                                                     handler:^(UIAlertAction *action) {
-        LoginViewController *loginVC = [LoginViewController new];
-        loginVC.delegate = self;
-        [self presentViewController:loginVC animated:true completion:nil];
-    }];
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel"
-                                                           style:UIAlertActionStyleCancel
-                                                         handler:^(UIAlertAction *action) {
-    }];
-    [userEventAlert addAction:okAction];
-    [userEventAlert addAction:cancelAction];
-    [self presentViewController:userEventAlert animated:true completion:nil];
-}
-
-- (void)isUserLoggedIn:(BOOL)userLoggedIn {
-    NSLog(@"isUserLoggedIn: %i", userLoggedIn);
-    self.userLoggedIn = userLoggedIn;
-
-}
-
 - (void)handleLongPress:(UIGestureRecognizer *)gestureRecognizer {
     if (gestureRecognizer.state != UIGestureRecognizerStateBegan)
     return;
 
-    if (self.userLoggedIn) {
-        CGPoint touchPoint = [gestureRecognizer locationInView:self.mapView];
-        CLLocationCoordinate2D touchMapCoordinate =
-        [self.mapView convertPoint:touchPoint toCoordinateFromView:self.mapView];
-        MKPointAnnotation *newAnnotation = [MKPointAnnotation new];
-        newAnnotation.coordinate = touchMapCoordinate;
-        AddEventViewController *eventVC = [self.storyboard instantiateViewControllerWithIdentifier:@"eventVC"];
-        eventVC.location = newAnnotation.coordinate;
-        [self presentViewController:eventVC animated:true completion:nil];
-        [self.mapView addAnnotation:newAnnotation];
-    }
-}
-
--(void)sortAllMapObjects {
-    self.points = [[NSMutableArray alloc] initWithArray:self.userEvents];
-    [self.points addObjectsFromArray:self.historyEvents];
-    [self.points addObjectsFromArray:self.landmarks];
-    NSSortDescriptor *nameDescriptor = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:true selector:@selector(localizedCaseInsensitiveCompare:)];
-    NSArray *sortDescriptors = @[nameDescriptor];
-    [self.points sortUsingDescriptors:sortDescriptors];
+    CGPoint touchPoint = [gestureRecognizer locationInView:self.mapView];
+    CLLocationCoordinate2D touchMapCoordinate =
+    [self.mapView convertPoint:touchPoint toCoordinateFromView:self.mapView];
+    MKPointAnnotation *newAnnotation = [MKPointAnnotation new];
+    newAnnotation.coordinate = touchMapCoordinate;
+    AddEventViewController *eventVC = [self.storyboard instantiateViewControllerWithIdentifier:@"eventVC"];
+    eventVC.location = newAnnotation.coordinate;
+    [self presentViewController:eventVC animated:true completion:nil];
+    [self.mapView addAnnotation:newAnnotation];
 }
 
 
@@ -234,6 +170,7 @@
     MKPointAnnotation *annot = (MKPointAnnotation *)view.annotation;
     EventDetailViewController *detailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"detailVC"];
     detailVC.location = annot.coordinate;
+    detailVC.landmarks = self.landmarks;
     [self presentViewController:detailVC animated:true completion:nil];
 }
 
@@ -241,19 +178,20 @@
 #pragma mark -
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    [self sortAllMapObjects];
-    return self.points.count;
+    return self.userEvents.count;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CellID"];
-    cell.textLabel.text = self.points[indexPath.row][@"name"];
-
-    if (self.points[indexPath.row][@"user"] != nil) {
-        cell.backgroundColor = [UIColor colorWithRed:0.70 green:0.76 blue:0.85 alpha:1];
-    }
+    cell.textLabel.text = self.userEvents[indexPath.row][@"name"];
 
     return cell;
+}
+
+-(void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
+    EventDetailViewController *detailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"detailVC"];
+    detailVC.point = self.userEvents[indexPath.row];
+    [self presentViewController:detailVC animated:true completion:nil];
 }
 
 - (IBAction)onSegmentedControlSwitched:(UISegmentedControl *)sender {

@@ -15,10 +15,7 @@
 @property (nonatomic, strong) NSString *textDescription;
 @property float latitude;
 @property float longitude;
-@property UIColor *bgColor;
 
 +(NSString *)parseClassName;
-
--(void)assignColor;
 
 @end

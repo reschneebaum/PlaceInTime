@@ -39,7 +39,6 @@
     if ([PFUser currentUser]) {
         self.navigationItem.prompt = [NSString stringWithFormat:NSLocalizedString(@"Welcome, %@!", nil), [[PFUser currentUser] username]];
         self.currentUser = [PFUser currentUser];
-//        [self assignAndRetrieveUserTrips];
         TripsViewController *tripsVC = [TripsViewController new];
         tripsVC.trips = self.trips;
     } else {
@@ -63,29 +62,10 @@
     }
 }
 
-//-(void)assignAndRetrieveUserTrips {
-//    PFQuery *query = [PFQuery queryWithClassName:@"Trip"];
-//    [query whereKey:@"createdBy" equalTo:[PFUser currentUser]];
-//    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-//        if (!error) {
-//            NSMutableArray *tempTrips = [NSMutableArray new];
-//            NSLog(@"Successfully retrieved %lu trip(s).", (unsigned long)objects.count);
-//            for (PFObject *object in objects) {
-//                NSLog(@"%@", object.objectId);
-//                [tempTrips addObject:object];
-//            }
-//            self.trips = [NSArray arrayWithArray:tempTrips];
-//            NSLog(@"%@", self.trips.firstObject);
-//        } else {
-//            NSLog(@"Error: %@ %@", error, [error userInfo]);
-//        }
-//    }];
-//}
 
 #pragma mark - PFLogInViewControllerDelegate
 #pragma mark -
 
-// Sent to the delegate to determine whether the log in request should be submitted to the server.
 - (BOOL)logInViewController:(PFLogInViewController *)logInController shouldBeginLogInWithUsername:(NSString *)username password:(NSString *)password {
     if (username && password && username.length && password.length) {
         return YES; // Begin login process
@@ -114,7 +94,6 @@
 #pragma mark - PFSignUpViewControllerDelegate
 #pragma mark -
 
-// Sent to the delegate to determine whether the sign up request should be submitted to the server.
 - (BOOL)signUpViewController:(PFSignUpViewController *)signUpController shouldBeginSignUp:(NSDictionary *)info {
     BOOL informationComplete = YES;
     for (id key in info) {

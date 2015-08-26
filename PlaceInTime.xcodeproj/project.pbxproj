@@ -46,6 +46,7 @@
 		C4A91CA41B83BD5A007C26CA /* UserEventAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A91CA31B83BD5A007C26CA /* UserEventAnnotationView.m */; };
 		C4A91CAA1B84C815007C26CA /* UserEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A91CA91B84C815007C26CA /* UserEvent.m */; };
 		C4A91CAC1B861521007C26CA /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4A91CAB1B861521007C26CA /* Crashlytics.framework */; };
+		C4B103661B8DCDFD000EC658 /* CodeDump.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B103651B8DCDFD000EC658 /* CodeDump.m */; };
 		C4B13F631B8BAE53005A6475 /* ParseCrashReporting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4B13F5E1B8BAE53005A6475 /* ParseCrashReporting.framework */; };
 		C4B13F641B8BAE53005A6475 /* ParseFacebookUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4B13F5F1B8BAE53005A6475 /* ParseFacebookUtils.framework */; };
 		C4B13F651B8BAE53005A6475 /* ParseFacebookUtilsV4.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4B13F601B8BAE53005A6475 /* ParseFacebookUtilsV4.framework */; };
@@ -121,6 +122,8 @@
 		C4A91CA81B84C815007C26CA /* UserEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserEvent.h; sourceTree = "<group>"; };
 		C4A91CA91B84C815007C26CA /* UserEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserEvent.m; sourceTree = "<group>"; };
 		C4A91CAB1B861521007C26CA /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
+		C4B103641B8DCDFD000EC658 /* CodeDump.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CodeDump.h; sourceTree = "<group>"; };
+		C4B103651B8DCDFD000EC658 /* CodeDump.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CodeDump.m; sourceTree = "<group>"; };
 		C4B13F5E1B8BAE53005A6475 /* ParseCrashReporting.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ParseCrashReporting.framework; path = "../../../../../../Downloads/parse-library-1.8.1/ParseCrashReporting.framework"; sourceTree = "<group>"; };
 		C4B13F5F1B8BAE53005A6475 /* ParseFacebookUtils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ParseFacebookUtils.framework; path = "../../../../../../Downloads/parse-library-1.8.1/ParseFacebookUtils.framework"; sourceTree = "<group>"; };
 		C4B13F601B8BAE53005A6475 /* ParseFacebookUtilsV4.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ParseFacebookUtilsV4.framework; path = "../../../../../../Downloads/parse-library-1.8.1/ParseFacebookUtilsV4.framework"; sourceTree = "<group>"; };
@@ -241,6 +244,8 @@
 		C4A30E0A1B8CC0BF006A39AC /* Old */ = {
 			isa = PBXGroup;
 			children = (
+				C4B103641B8DCDFD000EC658 /* CodeDump.h */,
+				C4B103651B8DCDFD000EC658 /* CodeDump.m */,
 				C4A91C9C1B83BD1C007C26CA /* LoginViewController.h */,
 				C4A91C9D1B83BD1C007C26CA /* LoginViewController.m */,
 				C4A91CA21B83BD5A007C26CA /* UserEventAnnotationView.h */,
@@ -460,6 +465,7 @@
 				C4B13F6A1B8BAE80005A6475 /* RootViewController.m in Sources */,
 				C4A91CA11B83BD2B007C26CA /* AddEventViewController.m in Sources */,
 				C42DDB8E1B82454300CAAD15 /* main.m in Sources */,
+				C4B103661B8DCDFD000EC658 /* CodeDump.m in Sources */,
 				C4A91CAA1B84C815007C26CA /* UserEvent.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

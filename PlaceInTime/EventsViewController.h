@@ -11,9 +11,8 @@
 
 @interface EventsViewController : UIViewController
 
-@property BOOL userLoggedIn;
 @property UserEvent *event;
-@property NSArray *events;
+@property NSMutableArray *points;
 
 @end
 

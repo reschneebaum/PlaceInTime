@@ -7,9 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UserEvent.h"
 
 @interface EventDetailViewController : UIViewController
 
 @property CLLocationCoordinate2D location;
+@property NSArray *landmarks;
+@property UserEvent *point;
 
 @end
