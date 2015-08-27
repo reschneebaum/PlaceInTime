@@ -16,7 +16,6 @@
 @interface LoginViewController () <MKMapViewDelegate>
 
 @property BOOL textFieldsComplete;
-@property BOOL userExists;
 
 @end
 
@@ -24,6 +23,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.mapView.delegate = self;
+    [self.mapView setRegion:MKCoordinateRegionMake(CLLocationCoordinate2DMake(41.89374, -87.63533), MKCoordinateSpanMake(0.5, 0.5)) animated:false];
     self.loginButton.enabled = false;
 }
 
@@ -36,39 +37,37 @@
     }
 }
 
--(void)checkIfUserExistsFromUsername:(NSString *)username andPassword:(NSString *)password {
-    PFQuery *userQuery = [PFUser query];
-    [userQuery whereKey:@"username" equalTo:username];
-    [userQuery whereKey:@"password" equalTo:password];
-    NSArray *users = [userQuery findObjects];
-    if (users.count == 1) {
-        self.userExists = true;
-    } else if (users.count < 1) {
-        NSLog(@"user doesn't exist!");
-        [self displayAlertWithErrorString:@"Username and password are incorrect."];
-    } else {
-        NSLog(@"uh oh, multiple users?");
-    }
-}
-
--(void)displayAlertWithErrorString:(NSString *)errorString {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:errorString preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-    }];
-    [alertController addAction:cancelAction];
-    [self presentViewController:alertController animated:true completion:nil];
-}
-
 #pragma mark - Navigation
 #pragma mark -
 
+- (IBAction)onUsernameTextFieldChanged:(UITextField *)sender {
+    [self checkIfTextFieldsComplete];
+}
+
+- (IBAction)onPasswordTextFieldChanged:(UITextField *)sender {
+    [self checkIfTextFieldsComplete];
+}
+
 - (IBAction)onLoginButtonPressed:(UIButton *)sender {
+    [PFUser logInWithUsernameInBackground:self.usernameTextField.text password:self.passwordTextField.text block:^(PFUser *user, NSError *error) {
+        if (user) {
+            NSLog(@"user - %@ logged in", user.username);
+            RootViewController *rvc = [self.storyboard instantiateViewControllerWithIdentifier:@"navVC"];
+            [self presentViewController:rvc animated:true completion:nil];
+        } else {
+            NSString *errorString = [[error userInfo] objectForKey:@"error"];
+            UIAlertView *errorAlertView = [[UIAlertView alloc] initWithTitle:@"Error" message:errorString delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+            [errorAlertView show];
+        }
+    }];
 }
 
 - (IBAction)onCreateAccountButtonPressed:(UIButton *)sender {
+    [self performSegueWithIdentifier:@"createAccount" sender:self];
 }
 
 - (IBAction)onRetrievePasswordButtonPressed:(UIButton *)sender {
+    NSLog(@"workin on it");
 }
 
 @end

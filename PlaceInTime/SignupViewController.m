@@ -10,6 +10,7 @@
 #import <MapKit/MapKit.h>
 #import "SignupViewController.h"
 #import "LoginViewController.h"
+#import "RootViewController.h"
 #import "UserInfo.h"
 
 @interface SignupViewController () <MKMapViewDelegate>
@@ -24,8 +25,6 @@
 @property PFUser *user;
 @property BOOL textFieldsComplete;
 @property BOOL passwordConfirmed;
-@property BOOL userExists;
-@property BOOL emailExists;
 
 @end
 
@@ -35,7 +34,6 @@
     [super viewDidLoad];
     self.mapView.delegate = self;
     [self.mapView setRegion:MKCoordinateRegionMake(CLLocationCoordinate2DMake(41.89374, -87.63533), MKCoordinateSpanMake(0.5, 0.5)) animated:false];
-
     self.signupButton.enabled = false;
 }
 
@@ -54,24 +52,6 @@
     }
 }
 
--(void)checkForExistingUserFromString:(NSString *)username {
-    PFQuery *userQuery = [PFUser query];
-    [userQuery whereKey:@"username" equalTo:username];
-    NSArray *users = [userQuery findObjects];
-    if (users.count < 1) {
-        self.userExists = false;
-    }
-}
-
--(void)checkForExistingEmailFromString:(NSString *)email {
-    PFQuery *userQuery = [PFUser query];
-    [userQuery whereKey:@"password" equalTo:email];
-    NSArray *users = [userQuery findObjects];
-    if (users.count < 1) {
-        self.emailExists = false;
-    }
-}
-
 -(void)displayAlertWithErrorString:(NSString *)errorString {
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:errorString preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
@@ -84,7 +64,6 @@
 #pragma mark -
 
 - (IBAction)onUsernameTextFieldChanged:(UITextField *)sender {
-    [self checkForExistingUserFromString:sender.text];
     [self checkForTextFieldsComplete];
 }
 
@@ -110,25 +89,18 @@
 - (IBAction)onSignupButtonPressed:(UIButton *)sender {
     if (self.passwordConfirmed == false) {
         [self displayAlertWithErrorString:@"Please make sure your passwords are identical!"];
-    }
-    if (self.userExists == true) {
-        [self displayAlertWithErrorString:@"Sorry, that username is already taken!"];
-    }
-    if (self.emailExists == true) {
-        [self displayAlertWithErrorString:@"Sorry, there's already a user associated with that email address."];
-    }
-    if (self.passwordConfirmed == true && self.userExists == false && self.emailExists == false) {
+    } else {
         PFUser *user = [PFUser user];
         user.username = self.usernameTextField.text;
         user.password = self.passwordTextField.text;
         user.email = self.emailTextField.text;
-        self.user = user;
         [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             if (!error) {
+                NSLog(@"user - %@ logged in", user.username);
                 UserInfo *userInfo = [UserInfo object];
                 userInfo.name = self.nameTextField.text;
                 [userInfo saveInBackgroundWithBlock:nil];
-                [self performSegueWithIdentifier:@"signup" sender:self];
+// segue here!
             } else {
                 NSString *errorString = [[error userInfo] objectForKey:@"error"];
                 UIAlertView *errorAlertView = [[UIAlertView alloc] initWithTitle:@"Error" message:errorString delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
