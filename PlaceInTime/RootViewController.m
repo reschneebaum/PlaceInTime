@@ -11,6 +11,7 @@
 #import "RootViewController.h"
 #import "EventsViewController.h"
 #import "TripsViewController.h"
+#import "AddTripViewController.h"
 
 @interface RootViewController () <PFLogInViewControllerDelegate, PFSignUpViewControllerDelegate, UITableViewDataSource, UITableViewDelegate>
 
@@ -135,8 +136,7 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSArray *segues = @[@"myTrips", @"newTrip", @"sharedTrips", @"downloadTrips"];
-    NSString *segue = segues[indexPath.row];
-    [self performSegueWithIdentifier:segue sender:nil];
+    [self performSegueWithIdentifier:segues[indexPath.row] sender:nil];
 }
 
 
@@ -147,10 +147,6 @@
     [PFUser logOut];
     PFLogInViewController *login = [PFLogInViewController new];
     [self presentViewController:login animated:true completion:nil];
-}
-
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-
 }
 
 @end
