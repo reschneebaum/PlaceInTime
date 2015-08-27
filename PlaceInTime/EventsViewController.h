@@ -8,11 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "UserEvent.h"
+#import "Trip.h"
 
 @interface EventsViewController : UIViewController
 
 @property UserEvent *event;
 @property NSMutableArray *points;
+@property Trip *trip;
 
 @end
 

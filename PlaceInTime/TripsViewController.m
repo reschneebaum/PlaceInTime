@@ -9,6 +9,9 @@
 #import <Parse/Parse.h>
 #import <ParseUI/ParseUI.h>
 #import "TripsViewController.h"
+#import "EventsViewController.h"
+#import "LoginViewController.h"
+#import "Trip.h"
 
 @interface TripsViewController () <UITableViewDataSource, UITableViewDelegate, PFLogInViewControllerDelegate>
 
@@ -38,9 +41,9 @@
         if (!error) {
             NSMutableArray *tempTrips = [NSMutableArray new];
             NSLog(@"Successfully retrieved %lu trip(s).", (unsigned long)objects.count);
-            for (PFObject *object in objects) {
-                NSLog(@"%@", object.objectId);
-                [tempTrips addObject:object];
+            for (Trip *trip in objects) {
+                NSLog(@"%@", trip.objectId);
+                [tempTrips addObject:trip];
             }
             self.trips = [NSArray arrayWithArray:tempTrips];
             [self.tableView reloadData];
@@ -61,17 +64,19 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CellID"];
-    cell.textLabel.text = self.trips[indexPath.row][@"name"];
+    cell.textLabel.text = [self.trips[indexPath.row]name];
     return cell;
 }
 
 -(void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+    self.trip = self.trips[indexPath.row];
+    EventsViewController *mapVC = [EventsViewController new];
+    mapVC.trip = self.trip;
 }
 
 - (IBAction)logOutButtonTapAction:(UIBarButtonItem *)sender {
     [PFUser logOut];
-    PFLogInViewController *login = [PFLogInViewController new];
+    LoginViewController *login = [LoginViewController new];
     [self presentViewController:login animated:true completion:nil];
 }
 

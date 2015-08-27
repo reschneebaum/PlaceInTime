@@ -40,10 +40,10 @@
     [self.locationManager requestWhenInUseAuthorization];
     self.locationManager.delegate = self;
     [self.locationManager startUpdatingLocation];
+    self.mapView.delegate = self;
     [self.mapView showsUserLocation];
     [self.mapView showsBuildings];
-    self.mapView.delegate = self;
-    self.points = [NSMutableArray new];
+    [self.mapView setRegion:MKCoordinateRegionMake(CLLocationCoordinate2DMake(self.trip.latitude, self.trip.longitude), MKCoordinateSpanMake(.5, .5)) animated:1];
 
     UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
     longPress.minimumPressDuration = 1.2; //length of user press
@@ -56,19 +56,20 @@
                                      action:@selector(logOutButtonTapAction:)];
     self.navigationItem.rightBarButtonItem = logoutButton;
 
-    NSLog(@"%@", [PFUser currentUser][@"username" ]);
+    NSLog(@"%@", [PFUser currentUser][@"username"]);
 }
 
 -(void)viewWillAppear:(BOOL)animated {
-    [self searchForAndLoadUserEvents];
-    [self searchForAndLoadHistoryEvents];
+    [self queryAndLoadTripEvents];
+    [self queryAndLoadHistoryEvents];
 }
 
--(void)searchForAndLoadUserEvents {
+-(void)queryAndLoadTripEvents {
     PFQuery *query = [UserEvent query];
+    [query whereKey:@"belongsToTrip" equalTo:self.trip];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
-            NSLog(@"Successfully retrieved %lu events.", (unsigned long)objects.count);
+            NSLog(@"successfully received %lu events", (unsigned long)objects.count);
 
             for (UserEvent *event in objects) {
                 MKPointAnnotation *annot = [MKPointAnnotation new];
@@ -86,7 +87,7 @@
     }];
 }
 
--(void)searchForAndLoadHistoryEvents {
+-(void)queryAndLoadHistoryEvents {
     PFQuery *histQuery = [HistoryEvent query];
     [histQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {

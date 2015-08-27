@@ -23,6 +23,7 @@
 @implementation RootViewController
 
 - (void)viewDidLoad {
+    [super viewDidLoad];
     self.options = [[NSArray alloc] initWithObjects:@"View/Edit My Trips", @"Start a New Trip", @"Share Trips", @"Download Available Trips", nil];
 
     UIBarButtonItem *logoutButton = [[UIBarButtonItem alloc]
