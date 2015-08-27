@@ -7,9 +7,12 @@
 //
 
 #import <Parse/Parse.h>
+#import <ParseUI/ParseUI.h>
+//#import <Parse/PFObject+Subclass.h>
 #import "TripsViewController.h"
+#import "User.h"
 
-@interface TripsViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface TripsViewController () <UITableViewDataSource, UITableViewDelegate, PFLogInViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
@@ -20,11 +23,18 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self assignAndRetrieveUserTrips];
+
+    UIBarButtonItem *logoutButton = [[UIBarButtonItem alloc]
+                                     initWithTitle:@"Logout"
+                                     style:UIBarButtonItemStylePlain
+                                     target:self
+                                     action:@selector(logOutButtonTapAction:)];
+    self.navigationItem.rightBarButtonItem = logoutButton;
 }
 
 
 -(void)assignAndRetrieveUserTrips {
-    PFQuery *query = [PFQuery queryWithClassName:@"Trip"];
+    PFQuery *query = [Trip query];
     [query whereKey:@"createdBy" equalTo:[PFUser currentUser]];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
@@ -55,6 +65,16 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CellID"];
     cell.textLabel.text = self.trips[indexPath.row][@"name"];
     return cell;
+}
+
+-(void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+}
+
+- (IBAction)logOutButtonTapAction:(UIBarButtonItem *)sender {
+    [User logOut];
+    PFLogInViewController *login = [PFLogInViewController new];
+    [self presentViewController:login animated:true completion:nil];
 }
 
 

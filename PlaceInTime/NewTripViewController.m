@@ -9,7 +9,7 @@
 #import <MapKit/MapKit.h>
 #import <CoreLocation/CoreLocation.h>
 #import <Parse/Parse.h>
-#import <Parse/PFObject+Subclass.h>
+//#import <Parse/PFObject+Subclass.h>
 #import "NewTripViewController.h"
 #import "AddEventViewController.h"
 #import "EventDetailViewController.h"

@@ -8,10 +8,12 @@
 
 #import <ParseUI/ParseUI.h>
 #import <Parse/Parse.h>
+#import <Parse/PFObject+Subclass.h>
 #import "RootViewController.h"
 #import "EventsViewController.h"
 #import "TripsViewController.h"
 #import "AddTripViewController.h"
+#import "User.h"
 
 @interface RootViewController () <PFLogInViewControllerDelegate, PFSignUpViewControllerDelegate, UITableViewDataSource, UITableViewDelegate>
 
@@ -37,9 +39,9 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 
-    if ([PFUser currentUser]) {
-        self.navigationItem.prompt = [NSString stringWithFormat:NSLocalizedString(@"Welcome, %@!", nil), [[PFUser currentUser] username]];
-        self.currentUser = [PFUser currentUser];
+    if ([User currentUser]) {
+        self.navigationItem.prompt = [NSString stringWithFormat:NSLocalizedString(@"Welcome, %@!", nil), [[User currentUser] username]];
+        self.currentUser = [User currentUser];
     } else {
         NSLog(@"error");
     }
@@ -48,7 +50,7 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
 
-    if (![PFUser currentUser]) {
+    if (![User currentUser]) {
         PFLogInViewController *logInViewController = [[PFLogInViewController alloc] init];
         [logInViewController setDelegate:self];
 
@@ -74,8 +76,8 @@
     return NO; // Interrupt login process
 }
 
-- (void)logInViewController:(PFLogInViewController *)logInController didLogInUser:(PFUser *)user {
-    self.currentUser = user;
+- (void)logInViewController:(PFLogInViewController *)logInController didLogInUser:(User *)user {
+    user = self.currentUser;
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
@@ -107,7 +109,8 @@
     return informationComplete;
 }
 
-- (void)signUpViewController:(PFSignUpViewController *)signUpController didSignUpUser:(PFUser *)user {
+- (void)signUpViewController:(PFSignUpViewController *)signUpController didSignUpUser:(User *)user {
+    user = self.currentUser;
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
@@ -144,7 +147,7 @@
 #pragma mark -
 
 - (IBAction)logOutButtonTapAction:(UIBarButtonItem *)sender {
-    [PFUser logOut];
+    [User logOut];
     PFLogInViewController *login = [PFLogInViewController new];
     [self presentViewController:login animated:true completion:nil];
 }

@@ -6,6 +6,7 @@
 //  Copyright (c) 2015 Rachel Schneebaum. All rights reserved.
 //
 
+#import <Parse/PFObject+Subclass.h>
 #import "Trip.h"
 
 @implementation Trip

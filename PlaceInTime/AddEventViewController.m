@@ -9,7 +9,7 @@
 #import <MapKit/MapKit.h>
 #import <CoreLocation/CoreLocation.h>
 #import <Parse/Parse.h>
-#import <Parse/PFObject+Subclass.h>
+//#import <Parse/PFObject+Subclass.h>
 #import "AddEventViewController.h"
 #import "EventsViewController.h"
 #import "UserEvent.h"

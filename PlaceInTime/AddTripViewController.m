@@ -8,7 +8,7 @@
 
 #import <CoreLocation/CoreLocation.h>
 #import <Parse/Parse.h>
-#import <Parse/PFObject+Subclass.h>
+//#import <Parse/PFObject+Subclass.h>
 #import "AddTripViewController.h"
 #import "NewTripViewController.h"
 #import "UserEvent.h"

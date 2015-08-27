@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "User.h"
 
 @interface RootViewController : UIViewController
 
-@property PFUser *currentUser;
+@property User *currentUser;
 
 @end

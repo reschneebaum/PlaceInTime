@@ -8,7 +8,7 @@
 
 #import <Parse/Parse.h>
 
-@interface User : PFUser
+@interface User : PFUser<PFSubclassing>
 
 @property NSArray *trips;
 

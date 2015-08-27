@@ -9,7 +9,8 @@
 #import <MapKit/MapKit.h>
 #import <CoreLocation/CoreLocation.h>
 #import <Parse/Parse.h>
-#import <Parse/PFObject+Subclass.h>
+#import <ParseUI/ParseUI.h>
+//#import <Parse/PFObject+Subclass.h>
 #import "EventsViewController.h"
 #import "AddEventViewController.h"
 #import "EventDetailViewController.h"
@@ -19,7 +20,7 @@
 #import "Landmark.h"
 #import "Trip.h"
 
-@interface EventsViewController () <CLLocationManagerDelegate, MKMapViewDelegate, UITableViewDelegate, UITableViewDataSource>
+@interface EventsViewController () <CLLocationManagerDelegate, MKMapViewDelegate, UITableViewDelegate, UITableViewDataSource, PFLogInViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -48,9 +49,24 @@
     UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
     longPress.minimumPressDuration = 1.2; //length of user press
     [self.mapView addGestureRecognizer:longPress];
+
+    UIBarButtonItem *logoutButton = [[UIBarButtonItem alloc]
+                                     initWithTitle:@"Logout"
+                                     style:UIBarButtonItemStylePlain
+                                     target:self
+                                     action:@selector(logOutButtonTapAction:)];
+    self.navigationItem.rightBarButtonItem = logoutButton;
+
+    self.currentUser = [User currentUser];
+    NSLog(@"%@", self.currentUser.username);
 }
 
 -(void)viewWillAppear:(BOOL)animated {
+    [self searchForAndLoadUserEvents];
+    [self searchForAndLoadHistoryEvents];
+}
+
+-(void)searchForAndLoadUserEvents {
     PFQuery *query = [UserEvent query];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
@@ -70,7 +86,9 @@
             NSLog(@"Error: %@ %@", error, [error userInfo]);
         }
     }];
+}
 
+-(void)searchForAndLoadHistoryEvents {
     PFQuery *histQuery = [HistoryEvent query];
     [histQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
@@ -91,7 +109,7 @@
     }];
 }
 
--(void)searchForAndAddLandmarks {
+-(void)searchForAndLoadLandmarks {
     NSMutableArray *tempLandmarks = [NSMutableArray new];
     MKLocalSearchRequest *request = [MKLocalSearchRequest new];
     request.naturalLanguageQuery = @"Landmarks";
@@ -147,7 +165,7 @@
         }
         [self.mapView setRegion:MKCoordinateRegionMake(self.currentLocation.coordinate, MKCoordinateSpanMake(.05, .05)) animated:true];
     }
-    [self searchForAndAddLandmarks];
+    [self searchForAndLoadLandmarks];
 }
 
 
@@ -205,6 +223,12 @@
 
 - (IBAction)unwindFromCancelAction:(UIStoryboardSegue *)segue {
 //    [self.mapView removeAnnotation:]
+}
+
+- (IBAction)logOutButtonTapAction:(UIBarButtonItem *)sender {
+    [User logOut];
+    PFLogInViewController *login = [PFLogInViewController new];
+    [self presentViewController:login animated:true completion:nil];
 }
 
 @end

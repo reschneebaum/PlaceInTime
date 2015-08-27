@@ -7,7 +7,7 @@
 //
 
 #import <Parse/Parse.h>
-#import <Parse/PFObject+Subclass.h>
+//#import <Parse/PFObject+Subclass.h>
 #import <CoreLocation/CoreLocation.h>
 #import <MapKit/MapKit.h>
 #import "EventDetailViewController.h"

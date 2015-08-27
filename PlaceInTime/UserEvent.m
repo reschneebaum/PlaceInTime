@@ -6,8 +6,8 @@
 //  Copyright (c) 2015 Rachel Schneebaum. All rights reserved.
 //
 
-#import "UserEvent.h"
 #import <Parse/PFObject+Subclass.h>
+#import "UserEvent.h"
 
 @implementation UserEvent
 

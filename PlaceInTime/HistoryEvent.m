@@ -6,8 +6,8 @@
 //  Copyright (c) 2015 Rachel Schneebaum. All rights reserved.
 //
 
-#import "HistoryEvent.h"
 #import <Parse/PFObject+Subclass.h>
+#import "HistoryEvent.h"
 
 @implementation HistoryEvent
 

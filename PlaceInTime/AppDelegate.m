@@ -12,6 +12,10 @@
 #import <Parse/Parse.h>
 #import <ParseUI/ParseUI.h>
 #import "AppDelegate.h"
+#import "User.h"
+#import "Trip.h"
+#import "UserEvent.h"
+#import "HistoryEvent.h"
 
 @interface AppDelegate ()
 
@@ -24,6 +28,12 @@
 //    [[Twitter sharedInstance] startWithConsumerKey:@"v0d9T4KnfyyNV6GXy12n9GvFP" consumerSecret:@"8d23KwU9IzPanEQ5scbEgeLyAZcgnzFbkUojhA8obFiIdosAAL"];
 //    [Fabric with:@[[Twitter sharedInstance]]];
     [Fabric with:@[[Crashlytics class], [Twitter class]]];
+
+    // Register custom subclasses:
+    [User registerSubclass];
+    [Trip registerSubclass];
+    [UserEvent registerSubclass];
+    [HistoryEvent registerSubclass];
 
     // [Optional] Power your app with Local Datastore. For more info, go to
     // https://parse.com/docs/ios_guide#localdatastore/iOS

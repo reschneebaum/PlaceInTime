@@ -8,10 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "UserEvent.h"
+#import "User.h"
 
 @interface EventsViewController : UIViewController
 
 @property UserEvent *event;
+@property User *currentUser;
 @property NSMutableArray *points;
 
 @end
