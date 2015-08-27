@@ -11,6 +11,5 @@
 @interface RootViewController : UIViewController
 
 @property PFUser *currentUser;
-@property NSArray *trips;
 
 @end

@@ -333,33 +333,15 @@
                     </view>
                     <navigationItem key="navigationItem" title="Dashboard" id="q6g-VC-nHk"/>
                     <connections>
-                        <segue destination="ygF-tl-0Ii" kind="push" identifier="trips1" id="C6D-ZN-pVI"/>
-                        <segue destination="ygF-tl-0Ii" kind="push" identifier="trips2" id="Akn-mq-Wr2"/>
-                        <segue destination="ygF-tl-0Ii" kind="push" identifier="trips3" id="ggE-T2-fVP"/>
+                        <segue destination="ygF-tl-0Ii" kind="push" identifier="myTrips" id="C6D-ZN-pVI"/>
                         <segue destination="ger-hX-QMq" kind="modal" identifier="newTrip" id="SAU-B0-37W"/>
+                        <segue destination="ygF-tl-0Ii" kind="push" identifier="sharedTrips" id="90L-ES-zJL"/>
+                        <segue destination="ygF-tl-0Ii" kind="push" identifier="downloadTrips" id="h8m-qM-ohP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="q9C-dH-agx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="807" y="315"/>
-        </scene>
-        <!--Login View Controller-->
-        <scene sceneID="8Hi-MS-XjJ">
-            <objects>
-                <viewController storyboardIdentifier="loginVC" id="NXr-Ra-BpJ" customClass="LoginViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="425-Fo-vXW"/>
-                        <viewControllerLayoutGuide type="bottom" id="tde-Zg-H77"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="QYQ-e0-UEl">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="36E-a2-Cmt" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="44" y="-333"/>
+            <point key="canvasLocation" x="772" y="315"/>
         </scene>
         <!--New Trip View Controller-->
         <scene sceneID="FS9-qM-Dls">
@@ -697,6 +679,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Akn-mq-Wr2"/>
+        <segue reference="h8m-qM-ohP"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -39,8 +39,6 @@
     if ([PFUser currentUser]) {
         self.navigationItem.prompt = [NSString stringWithFormat:NSLocalizedString(@"Welcome, %@!", nil), [[PFUser currentUser] username]];
         self.currentUser = [PFUser currentUser];
-        TripsViewController *tripsVC = [TripsViewController new];
-        tripsVC.trips = self.trips;
     } else {
         NSLog(@"error");
     }
@@ -77,8 +75,6 @@
 
 - (void)logInViewController:(PFLogInViewController *)logInController didLogInUser:(PFUser *)user {
     self.currentUser = user;
-    TripsViewController *tripsVC = [TripsViewController new];
-    tripsVC.trips = self.trips;
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
@@ -111,8 +107,6 @@
 }
 
 - (void)signUpViewController:(PFSignUpViewController *)signUpController didSignUpUser:(PFUser *)user {
-    TripsViewController *tripsVC = [TripsViewController new];
-    tripsVC.trips = self.trips;
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
@@ -140,12 +134,11 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-
-    TripsViewController *tripsVC = [TripsViewController new];
-    tripsVC.trips = self.trips;
-    self.segues = @[@"trips1", @"newTrip", @"trips2", @"trips3"];
-    [self performSegueWithIdentifier:[NSString stringWithFormat:@"%@", self.segues[indexPath.row]] sender:self];
+    NSArray *segues = @[@"myTrips", @"newTrip", @"sharedTrips", @"downloadTrips"];
+    NSString *segue = segues[indexPath.row];
+    [self performSegueWithIdentifier:segue sender:nil];
 }
+
 
 #pragma mark - Navigation
 #pragma mark -
@@ -157,11 +150,7 @@
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:@"newTrip"]) {
-        TripsViewController *tripsVC = [TripsViewController new];
-        tripsVC.trips = self.trips;
-        [self presentViewController:tripsVC animated:true completion:nil];
-    }
+
 }
 
 @end
