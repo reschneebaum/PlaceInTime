@@ -12,12 +12,15 @@
 #import <Parse/Parse.h>
 #import <ParseUI/ParseUI.h>
 #import "AppDelegate.h"
-#import "User.h"
+#import "RootViewController.h"
 #import "Trip.h"
 #import "UserEvent.h"
 #import "HistoryEvent.h"
 
 @interface AppDelegate ()
+
+@property RootViewController *rootVC;
+@property PFLogInViewController *loginVC;
 
 @end
 
@@ -30,7 +33,6 @@
     [Fabric with:@[[Crashlytics class], [Twitter class]]];
 
     // Register custom subclasses:
-    [User registerSubclass];
     [Trip registerSubclass];
     [UserEvent registerSubclass];
     [HistoryEvent registerSubclass];

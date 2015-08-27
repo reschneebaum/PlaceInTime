@@ -8,7 +8,7 @@
 
 #import <CoreLocation/CoreLocation.h>
 #import <Parse/Parse.h>
-//#import <Parse/PFObject+Subclass.h>
+#import <ParseUI/ParseUI.h>
 #import "AddTripViewController.h"
 #import "NewTripViewController.h"
 #import "UserEvent.h"
@@ -34,7 +34,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.user = [PFUser currentUser];
 }
 
 -(void)performForwardGeocoding {

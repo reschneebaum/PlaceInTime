@@ -1,16 +1,17 @@
 //
-//  User.m
+//  UserInfo.m
 //  PlaceInTime
 //
-//  Created by Rachel Schneebaum on 8/25/15.
+//  Created by Rachel Schneebaum on 8/27/15.
 //  Copyright (c) 2015 Rachel Schneebaum. All rights reserved.
 //
 
 #import <Parse/PFObject+Subclass.h>
-#import "User.h"
+#import "UserInfo.h"
 
-@implementation User
+@implementation UserInfo
 
+@dynamic name;
 @dynamic trips;
 
 @end

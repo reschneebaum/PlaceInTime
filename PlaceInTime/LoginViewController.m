@@ -2,14 +2,11 @@
 //  LoginViewController.m
 //  PlaceInTime
 //
-//  Created by Rachel Schneebaum on 8/18/15.
+//  Created by Rachel Schneebaum on 8/27/15.
 //  Copyright (c) 2015 Rachel Schneebaum. All rights reserved.
 //
 
-#import <TwitterKit/TwitterKit.h>
 #import "LoginViewController.h"
-#import "AddEventViewController.h"
-#import "EventsViewController.h"
 
 @interface LoginViewController ()
 
@@ -17,31 +14,24 @@
 
 @implementation LoginViewController
 
--(void)viewDidLoad {
+- (void)viewDidLoad {
     [super viewDidLoad];
-
-    self.userLoggedIn = NO;
-
-    TWTRLogInButton *logInButton = [TWTRLogInButton buttonWithLogInCompletion:^(TWTRSession *session, NSError *error) {
-        [[Twitter sharedInstance] logInWithCompletion:^(TWTRSession *session, NSError *error) {
-            if (session) {
-                NSLog(@"signed in as %@", [session userName]);
-                self.userLoggedIn = true;
-                [self checkForLoggedInUser];
-                NSLog(@"%i", self.userLoggedIn);
-                [self dismissViewControllerAnimated:true completion:nil];
-            } else {
-                NSLog(@"error: %@", [error localizedDescription]);
-                self.userLoggedIn = false;
-            }
-        }];
-    }];
-    logInButton.center = self.view.center;
-    [self.view addSubview:logInButton];
+    // Do any additional setup after loading the view.
 }
 
--(void)checkForLoggedInUser {
-    [self.delegate isUserLoggedIn:self.userLoggedIn];
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
+
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
 
 @end

@@ -8,12 +8,10 @@
 
 #import <ParseUI/ParseUI.h>
 #import <Parse/Parse.h>
-#import <Parse/PFObject+Subclass.h>
 #import "RootViewController.h"
 #import "EventsViewController.h"
 #import "TripsViewController.h"
 #import "AddTripViewController.h"
-#import "User.h"
 
 @interface RootViewController () <PFLogInViewControllerDelegate, PFSignUpViewControllerDelegate, UITableViewDataSource, UITableViewDelegate>
 
@@ -39,9 +37,8 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 
-    if ([User currentUser]) {
-        self.navigationItem.prompt = [NSString stringWithFormat:NSLocalizedString(@"Welcome, %@!", nil), [[User currentUser] username]];
-        self.currentUser = [User currentUser];
+    if ([PFUser currentUser]) {
+        self.navigationItem.prompt = [NSString stringWithFormat:NSLocalizedString(@"Welcome, %@!", nil), [[PFUser currentUser] username]];
     } else {
         NSLog(@"error");
     }
@@ -50,7 +47,7 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
 
-    if (![User currentUser]) {
+    if (![PFUser currentUser]) {
         PFLogInViewController *logInViewController = [[PFLogInViewController alloc] init];
         [logInViewController setDelegate:self];
 
@@ -76,9 +73,9 @@
     return NO; // Interrupt login process
 }
 
-- (void)logInViewController:(PFLogInViewController *)logInController didLogInUser:(User *)user {
-    user = self.currentUser;
-    [self dismissViewControllerAnimated:YES completion:NULL];
+- (void)logInViewController:(PFLogInViewController *)logInController didLogInUser:(PFUser *)user {
+    [self dismissViewControllerAnimated:true completion:nil];
+    [self.navigationController popToRootViewControllerAnimated:true];
 }
 
 - (void)logInViewController:(PFLogInViewController *)logInController didFailToLogInWithError:(NSError *)error {
@@ -94,7 +91,7 @@
 #pragma mark -
 
 - (BOOL)signUpViewController:(PFSignUpViewController *)signUpController shouldBeginSignUp:(NSDictionary *)info {
-    BOOL informationComplete = YES;
+    BOOL informationComplete = true;
     for (id key in info) {
         NSString *field = [info objectForKey:key];
         if (!field || !field.length) { // check completion
@@ -109,9 +106,9 @@
     return informationComplete;
 }
 
-- (void)signUpViewController:(PFSignUpViewController *)signUpController didSignUpUser:(User *)user {
-    user = self.currentUser;
-    [self dismissViewControllerAnimated:YES completion:NULL];
+- (void)signUpViewController:(PFSignUpViewController *)signUpController didSignUpUser:(PFUser *)user {
+    [self dismissViewControllerAnimated:true completion:nil];
+    [self.navigationController popToRootViewControllerAnimated:true];
 }
 
 - (void)signUpViewController:(PFSignUpViewController *)signUpController didFailToSignUpWithError:(NSError *)error {
@@ -147,9 +144,18 @@
 #pragma mark -
 
 - (IBAction)logOutButtonTapAction:(UIBarButtonItem *)sender {
-    [User logOut];
+    [PFUser logOut];
+
     PFLogInViewController *login = [PFLogInViewController new];
-    [self presentViewController:login animated:true completion:nil];
+    [self.navigationController popToViewController:login animated:true];
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+//    if ([segue.identifier isEqualToString:@"newTrip"]) {
+//        AddTripViewController *avc = segue.destinationViewController;
+//    } else {
+//        TripsViewController *tvc = segue.destinationViewController;
+//    }
 }
 
 @end

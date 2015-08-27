@@ -13,7 +13,7 @@
 
 @property CLLocationManager *locationManager;
 @property CLLocation *currentLocation;
-@property UserEvent *event;
 @property CLLocationCoordinate2D location;
+@property UserEvent *event;
 
 @end

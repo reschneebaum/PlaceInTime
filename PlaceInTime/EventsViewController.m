@@ -10,7 +10,6 @@
 #import <CoreLocation/CoreLocation.h>
 #import <Parse/Parse.h>
 #import <ParseUI/ParseUI.h>
-//#import <Parse/PFObject+Subclass.h>
 #import "EventsViewController.h"
 #import "AddEventViewController.h"
 #import "EventDetailViewController.h"
@@ -57,8 +56,7 @@
                                      action:@selector(logOutButtonTapAction:)];
     self.navigationItem.rightBarButtonItem = logoutButton;
 
-    self.currentUser = [User currentUser];
-    NSLog(@"%@", self.currentUser.username);
+    NSLog(@"%@", [PFUser currentUser][@"username" ]);
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -198,9 +196,9 @@
     return self.userEvents.count;
 }
 
--(UserEventTableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UserEventTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CellID"];
-    cell.textLabel.text = self.userEvents[indexPath.row][@"name"];
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CellID"];
+    cell.textLabel.text = [self.userEvents[indexPath.row]name];
 
     return cell;
 }
@@ -226,7 +224,7 @@
 }
 
 - (IBAction)logOutButtonTapAction:(UIBarButtonItem *)sender {
-    [User logOut];
+    [PFUser logOut];
     PFLogInViewController *login = [PFLogInViewController new];
     [self presentViewController:login animated:true completion:nil];
 }

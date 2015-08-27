@@ -36,14 +36,13 @@
 		C4A30E101B8CCDD1006A39AC /* LandmarkTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A30E0F1B8CCDD1006A39AC /* LandmarkTableViewCell.m */; };
 		C4A30E131B8CD109006A39AC /* Landmark.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A30E121B8CD109006A39AC /* Landmark.m */; };
 		C4A30E161B8CEDF7006A39AC /* Trip.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A30E151B8CEDF7006A39AC /* Trip.m */; };
-		C4A91C9E1B83BD1C007C26CA /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A91C9D1B83BD1C007C26CA /* LoginViewController.m */; };
+		C4A91C9E1B83BD1C007C26CA /* LoginViewControllerOld.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A91C9D1B83BD1C007C26CA /* LoginViewControllerOld.m */; };
 		C4A91CA11B83BD2B007C26CA /* AddEventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A91CA01B83BD2B007C26CA /* AddEventViewController.m */; };
 		C4A91CA41B83BD5A007C26CA /* UserEventAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A91CA31B83BD5A007C26CA /* UserEventAnnotationView.m */; };
 		C4A91CAA1B84C815007C26CA /* UserEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A91CA91B84C815007C26CA /* UserEvent.m */; };
 		C4B103661B8DCDFD000EC658 /* CodeDump.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B103651B8DCDFD000EC658 /* CodeDump.m */; };
 		C4B103691B8DEE7D000EC658 /* AddTripViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B103681B8DEE7D000EC658 /* AddTripViewController.m */; };
 		C4B1036C1B8DEE91000EC658 /* NewTripViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B1036B1B8DEE91000EC658 /* NewTripViewController.m */; };
-		C4B1036F1B8EE322000EC658 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B1036E1B8EE322000EC658 /* User.m */; };
 		C4B13F6A1B8BAE80005A6475 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B13F691B8BAE80005A6475 /* RootViewController.m */; };
 		C4B13F6D1B8C8107005A6475 /* TripsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B13F6C1B8C8107005A6475 /* TripsViewController.m */; };
 		C4B77D191B8EE8E30073E9D8 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4B77D0F1B8EE8700073E9D8 /* Bolts.framework */; };
@@ -53,6 +52,9 @@
 		C4B77D1D1B8EE9000073E9D8 /* TwitterKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C42DDBC91B828D4C00CAAD15 /* TwitterKit.framework */; };
 		C4E414941B8EEDD300116824 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4E414921B8EEDB300116824 /* Fabric.framework */; };
 		C4E414961B8EEE4400116824 /* ParseUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4E414951B8EEE4400116824 /* ParseUI.framework */; };
+		C4E414991B8F6CA800116824 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4E414981B8F6CA800116824 /* LoginViewController.m */; };
+		C4E4149C1B8F6CB400116824 /* SignupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4E4149B1B8F6CB400116824 /* SignupViewController.m */; };
+		C4E4149F1B8F765200116824 /* UserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = C4E4149E1B8F765200116824 /* UserInfo.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -123,8 +125,8 @@
 		C4A30E121B8CD109006A39AC /* Landmark.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Landmark.m; sourceTree = "<group>"; };
 		C4A30E141B8CEDF7006A39AC /* Trip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Trip.h; sourceTree = "<group>"; };
 		C4A30E151B8CEDF7006A39AC /* Trip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Trip.m; sourceTree = "<group>"; };
-		C4A91C9C1B83BD1C007C26CA /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
-		C4A91C9D1B83BD1C007C26CA /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		C4A91C9C1B83BD1C007C26CA /* LoginViewControllerOld.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewControllerOld.h; sourceTree = "<group>"; };
+		C4A91C9D1B83BD1C007C26CA /* LoginViewControllerOld.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewControllerOld.m; sourceTree = "<group>"; };
 		C4A91C9F1B83BD2B007C26CA /* AddEventViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddEventViewController.h; sourceTree = "<group>"; };
 		C4A91CA01B83BD2B007C26CA /* AddEventViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddEventViewController.m; sourceTree = "<group>"; };
 		C4A91CA21B83BD5A007C26CA /* UserEventAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserEventAnnotationView.h; sourceTree = "<group>"; };
@@ -138,8 +140,6 @@
 		C4B103681B8DEE7D000EC658 /* AddTripViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddTripViewController.m; sourceTree = "<group>"; };
 		C4B1036A1B8DEE91000EC658 /* NewTripViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewTripViewController.h; sourceTree = "<group>"; };
 		C4B1036B1B8DEE91000EC658 /* NewTripViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewTripViewController.m; sourceTree = "<group>"; };
-		C4B1036D1B8EE322000EC658 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
-		C4B1036E1B8EE322000EC658 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		C4B13F681B8BAE80005A6475 /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
 		C4B13F691B8BAE80005A6475 /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
 		C4B13F6B1B8C8107005A6475 /* TripsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TripsViewController.h; sourceTree = "<group>"; };
@@ -151,6 +151,12 @@
 		C4B77D131B8EE8700073E9D8 /* TwitterKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TwitterKit.framework; sourceTree = "<group>"; };
 		C4E414921B8EEDB300116824 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		C4E414951B8EEE4400116824 /* ParseUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseUI.framework; sourceTree = "<group>"; };
+		C4E414971B8F6CA800116824 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		C4E414981B8F6CA800116824 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		C4E4149A1B8F6CB400116824 /* SignupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignupViewController.h; sourceTree = "<group>"; };
+		C4E4149B1B8F6CB400116824 /* SignupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignupViewController.m; sourceTree = "<group>"; };
+		C4E4149D1B8F765200116824 /* UserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfo.h; sourceTree = "<group>"; };
+		C4E4149E1B8F765200116824 /* UserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfo.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -260,8 +266,8 @@
 			children = (
 				C4B103641B8DCDFD000EC658 /* CodeDump.h */,
 				C4B103651B8DCDFD000EC658 /* CodeDump.m */,
-				C4A91C9C1B83BD1C007C26CA /* LoginViewController.h */,
-				C4A91C9D1B83BD1C007C26CA /* LoginViewController.m */,
+				C4A91C9C1B83BD1C007C26CA /* LoginViewControllerOld.h */,
+				C4A91C9D1B83BD1C007C26CA /* LoginViewControllerOld.m */,
 				C4A91CA21B83BD5A007C26CA /* UserEventAnnotationView.h */,
 				C4A91CA31B83BD5A007C26CA /* UserEventAnnotationView.m */,
 			);
@@ -271,10 +277,10 @@
 		C4B103611B8D1C5E000EC658 /* Model Objects */ = {
 			isa = PBXGroup;
 			children = (
+				C4E4149D1B8F765200116824 /* UserInfo.h */,
+				C4E4149E1B8F765200116824 /* UserInfo.m */,
 				C4A30E141B8CEDF7006A39AC /* Trip.h */,
 				C4A30E151B8CEDF7006A39AC /* Trip.m */,
-				C4B1036D1B8EE322000EC658 /* User.h */,
-				C4B1036E1B8EE322000EC658 /* User.m */,
 				C4A91CA81B84C815007C26CA /* UserEvent.h */,
 				C4A91CA91B84C815007C26CA /* UserEvent.m */,
 				8F61B3A91B87962D009023EB /* HistoryEvent.h */,
@@ -299,6 +305,10 @@
 		C4B103631B8D1C7D000EC658 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				C4E414971B8F6CA800116824 /* LoginViewController.h */,
+				C4E414981B8F6CA800116824 /* LoginViewController.m */,
+				C4E4149A1B8F6CB400116824 /* SignupViewController.h */,
+				C4E4149B1B8F6CB400116824 /* SignupViewController.m */,
 				C4B13F681B8BAE80005A6475 /* RootViewController.h */,
 				C4B13F691B8BAE80005A6475 /* RootViewController.m */,
 				C4B13F6B1B8C8107005A6475 /* TripsViewController.h */,
@@ -473,20 +483,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C4B1036F1B8EE322000EC658 /* User.m in Sources */,
 				C4A30E161B8CEDF7006A39AC /* Trip.m in Sources */,
 				C4A30E131B8CD109006A39AC /* Landmark.m in Sources */,
 				C4A30E0D1B8CCDBC006A39AC /* UserEventTableViewCell.m in Sources */,
 				C4B103691B8DEE7D000EC658 /* AddTripViewController.m in Sources */,
+				C4E414991B8F6CA800116824 /* LoginViewController.m in Sources */,
 				C4A91CA41B83BD5A007C26CA /* UserEventAnnotationView.m in Sources */,
 				8F61B3AB1B87962D009023EB /* HistoryEvent.m in Sources */,
 				C42D7FCF1B8782AA00B56AFC /* EventDetailViewController.m in Sources */,
+				C4E4149F1B8F765200116824 /* UserInfo.m in Sources */,
 				C42DDB911B82454300CAAD15 /* AppDelegate.m in Sources */,
 				C42DDB941B82454300CAAD15 /* PlaceInTime.xcdatamodeld in Sources */,
 				C4B1036C1B8DEE91000EC658 /* NewTripViewController.m in Sources */,
 				C4B13F6D1B8C8107005A6475 /* TripsViewController.m in Sources */,
+				C4E4149C1B8F6CB400116824 /* SignupViewController.m in Sources */,
 				C42DDB971B82454300CAAD15 /* EventsViewController.m in Sources */,
-				C4A91C9E1B83BD1C007C26CA /* LoginViewController.m in Sources */,
+				C4A91C9E1B83BD1C007C26CA /* LoginViewControllerOld.m in Sources */,
 				C4A30E101B8CCDD1006A39AC /* LandmarkTableViewCell.m in Sources */,
 				C4B13F6A1B8BAE80005A6475 /* RootViewController.m in Sources */,
 				C4A91CA11B83BD2B007C26CA /* AddEventViewController.m in Sources */,

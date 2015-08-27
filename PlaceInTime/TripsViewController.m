@@ -8,9 +8,7 @@
 
 #import <Parse/Parse.h>
 #import <ParseUI/ParseUI.h>
-//#import <Parse/PFObject+Subclass.h>
 #import "TripsViewController.h"
-#import "User.h"
 
 @interface TripsViewController () <UITableViewDataSource, UITableViewDelegate, PFLogInViewControllerDelegate>
 
@@ -72,7 +70,7 @@
 }
 
 - (IBAction)logOutButtonTapAction:(UIBarButtonItem *)sender {
-    [User logOut];
+    [PFUser logOut];
     PFLogInViewController *login = [PFLogInViewController new];
     [self presentViewController:login animated:true completion:nil];
 }
