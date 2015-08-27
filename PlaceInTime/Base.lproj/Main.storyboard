@@ -696,6 +696,9 @@
                                 <state key="normal" title="LOGIN">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="onLoginButtonPressed:" destination="WSF-Ew-fW0" eventType="touchUpInside" id="cuR-HD-JuW"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ec0-NF-5er">
                                 <rect key="frame" x="189" y="291" width="115" height="22"/>
@@ -706,6 +709,9 @@
                                 <state key="normal" title="retrieve password">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="onRetrievePasswordButtonPressed:" destination="WSF-Ew-fW0" eventType="touchUpInside" id="JE0-Px-0dF"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bq9-xx-BxS">
                                 <rect key="frame" x="16" y="291" width="97" height="22"/>
@@ -717,6 +723,9 @@
                                 <state key="normal" title="create account">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="onCreateAccountButtonPressed:" destination="WSF-Ew-fW0" eventType="touchUpInside" id="TDJ-0R-ajC"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -742,8 +751,9 @@
                     </view>
                     <connections>
                         <outlet property="loginButton" destination="Ijc-3t-ep7" id="ybP-Qr-ydU"/>
-                        <outlet property="passwordTextField" destination="j8g-fl-0mq" id="tH3-0t-Ukn"/>
-                        <outlet property="usernameTextField" destination="DcL-7z-HiQ" id="VYb-bV-KSQ"/>
+                        <outlet property="mapView" destination="GST-Ui-Veq" id="xDf-am-baZ"/>
+                        <outlet property="passwordTextField" destination="j8g-fl-0mq" id="Nkc-17-Vpa"/>
+                        <outlet property="usernameTextField" destination="DcL-7z-HiQ" id="hes-eY-k8U"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zqK-Gl-Ueh" userLabel="First Responder" sceneMemberID="firstResponder"/>

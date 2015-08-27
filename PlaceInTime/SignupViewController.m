@@ -144,6 +144,7 @@
         LoginViewController *loginVC = segue.destinationViewController;
         loginVC.usernameTextField.text = self.user.username;
         loginVC.passwordTextField.text = self.user.password;
+        loginVC.mapView.region = self.mapView.region;
     }
 }
 
