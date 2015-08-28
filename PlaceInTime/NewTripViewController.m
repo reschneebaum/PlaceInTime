@@ -12,6 +12,7 @@
 #import "NewTripViewController.h"
 #import "AddEventViewController.h"
 #import "EventDetailViewController.h"
+#import "LoginViewController.h"
 #import "Landmark.h"
 
 @interface NewTripViewController () <MKMapViewDelegate>
@@ -100,5 +101,10 @@
 
 #pragma mark - Navigation
 
+- (IBAction)logOutButtonTapAction:(UIBarButtonItem *)sender {
+    [PFUser logOut];
+    LoginViewController *login = [LoginViewController new];
+    [self presentViewController:login animated:true completion:nil];
+}
 
 @end

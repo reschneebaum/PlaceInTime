@@ -59,7 +59,7 @@
         self.descriptionTextView.text = self.userEvent.textDescription;
         self.nameLabel.text = self.userEvent.name;
         self.dateLabel.text = self.userEvent.date;
-        CLLocation *location = [[CLLocation alloc] initWithLatitude:self.userEvent.latitude longitude:self.userEvent.longitude];
+        CLLocation *location = [[CLLocation alloc] initWithLatitude:self.userEvent.location.latitude longitude:self.userEvent.location.longitude];
         [self reverseGeocode:location];
     }
     if (self.isLandmark) {
@@ -75,7 +75,7 @@
         self.descriptionTextView.text = self.histEvent.textDescription;
         self.nameLabel.text = self.histEvent.name;
         self.dateLabel.text = self.histEvent.date;
-        CLLocation *location = [[CLLocation alloc] initWithLatitude:self.histEvent.latitude longitude:self.histEvent.longitude];
+        CLLocation *location = [[CLLocation alloc] initWithLatitude:self.histEvent.location.latitude longitude:self.histEvent.location.longitude];
         [self reverseGeocode:location];
     }
 }

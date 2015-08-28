@@ -7,7 +7,6 @@
 //
 
 #import <MapKit/MapKit.h>
-#import <CoreLocation/CoreLocation.h>
 #import <Parse/Parse.h>
 #import <ParseUI/ParseUI.h>
 #import "EventsViewController.h"
@@ -19,13 +18,12 @@
 #import "HistoryEvent.h"
 #import "Landmark.h"
 #import "Trip.h"
+//#import "ParseQueryManager.h"
 
-@interface EventsViewController () <CLLocationManagerDelegate, MKMapViewDelegate, UITableViewDelegate, UITableViewDataSource, PFLogInViewControllerDelegate>
+@interface EventsViewController () <MKMapViewDelegate, UITableViewDelegate, UITableViewDataSource>
 
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property CLLocationManager *locationManager;
-@property CLLocation *currentLocation;
 @property NSArray *userEvents;
 @property NSArray *historyEvents;
 @property NSArray *landmarks;
@@ -39,15 +37,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    self.locationManager = [CLLocationManager new];
-    [self.locationManager requestWhenInUseAuthorization];
-    self.locationManager.delegate = self;
-    [self.locationManager startUpdatingLocation];
+    NSLog(@"viewdidload, mapsVC: %@", self.trip);
     self.mapView.delegate = self;
     [self.mapView showsUserLocation];
     [self.mapView showsBuildings];
-    [self.mapView setRegion:MKCoordinateRegionMake(CLLocationCoordinate2DMake(self.location.coordinate.latitude, self.location.coordinate.longitude), MKCoordinateSpanMake(.5, .5)) animated:1];
+    self.mapLocation = [[CLLocation alloc] initWithLatitude:self.trip.location.latitude longitude:self.trip.location.longitude];
+    [self.mapView setRegion:MKCoordinateRegionMake(self.mapLocation.coordinate, MKCoordinateSpanMake(1.0, 1.0))];
 
     UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
     longPress.minimumPressDuration = 1.2; //length of user press
@@ -66,16 +61,9 @@
 -(void)viewWillAppear:(BOOL)animated {
     [self queryAndLoadTripEvents];
     [self queryAndLoadHistoryEvents];
-}
+    [self searchForAndLoadLandmarks];
 
-//-(void)queryAndLoadTrip {
-//    if (![PFUser currentUser]) {
-//        NSLog(@"no user logged in");
-//    } else {
-//        PFQuery *tripQuery = [Trip query];
-//        [tripQuery where]
-//    }
-//}
+}
 
 -(void)queryAndLoadTripEvents {
     if (self.trip != nil) {
@@ -87,7 +75,7 @@
 
                 for (UserEvent *event in objects) {
                     MKPointAnnotation *annot = [MKPointAnnotation new];
-                    annot.coordinate = CLLocationCoordinate2DMake(event.latitude, event.longitude);
+                    annot.coordinate = CLLocationCoordinate2DMake(event.location.latitude, event.location.longitude);
                     annot.title = event.name;
                     annot.subtitle = event.date;
                     [self.mapView addAnnotation:annot];
@@ -112,7 +100,7 @@
 
             for (HistoryEvent *event in objects) {
                 MKPointAnnotation *annot = [MKPointAnnotation new];
-                annot.coordinate = CLLocationCoordinate2DMake(event.latitude, event.longitude);
+                annot.coordinate = CLLocationCoordinate2DMake(event.location.latitude, event.location.longitude);
                 annot.title = event.name;
                 annot.subtitle = event.date;
                 [self.mapView addAnnotation:annot];
@@ -129,7 +117,7 @@
     NSMutableArray *tempLandmarks = [NSMutableArray new];
     MKLocalSearchRequest *request = [MKLocalSearchRequest new];
     request.naturalLanguageQuery = @"Landmarks";
-    request.region = MKCoordinateRegionMake(self.currentLocation.coordinate, MKCoordinateSpanMake(.5, .5));
+    request.region = MKCoordinateRegionMake(self.mapLocation.coordinate, MKCoordinateSpanMake(1.0, 1.0));
     MKLocalSearch *search = [[MKLocalSearch alloc] initWithRequest:request];
     [search startWithCompletionHandler:^(MKLocalSearchResponse *response, NSError *error) {
         for (MKMapItem *mapItem in response.mapItems) {
@@ -163,25 +151,6 @@
     eventVC.location = newAnnotation.coordinate;
     [self presentViewController:eventVC animated:true completion:nil];
     [self.mapView addAnnotation:newAnnotation];
-}
-
-
-#pragma mark - CLLocationManagerDelegate methods
-#pragma mark -
-
--(void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
-    NSLog(@"error");
-}
-
--(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
-    for (CLLocation *location in locations) {
-        if (location.horizontalAccuracy < 200 && location.verticalAccuracy < 200) {
-            [self.locationManager stopUpdatingLocation];
-            self.currentLocation = location;
-        }
-        [self.mapView setRegion:MKCoordinateRegionMake(self.currentLocation.coordinate, MKCoordinateSpanMake(.05, .05)) animated:true];
-    }
-    [self searchForAndLoadLandmarks];
 }
 
 
@@ -219,7 +188,7 @@
         }
     }
     for (UserEvent *userEvent in self.userEvents) {
-        if (userEvent.latitude == annot.coordinate.latitude && userEvent.longitude == annot.coordinate.longitude) {
+        if (userEvent.location.latitude == annot.coordinate.latitude && userEvent.location.longitude == annot.coordinate.longitude) {
             self.selectedUserEvent = userEvent;
             if (self.userEvents.lastObject) {
                 break;
@@ -230,7 +199,7 @@
         }
     }
     for (HistoryEvent *histEvent in self.historyEvents) {
-        if (histEvent.latitude == annot.coordinate.latitude && histEvent.longitude == annot.coordinate.longitude) {
+        if (histEvent.location.latitude == annot.coordinate.latitude && histEvent.location.longitude == annot.coordinate.longitude) {
             self.selectedHistoryEvent = histEvent;
             if (self.historyEvents.lastObject) {
                 break;

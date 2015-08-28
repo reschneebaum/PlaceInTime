@@ -71,15 +71,12 @@
     } else {
         Trip *newTrip = [Trip object];
         newTrip.createdBy = [PFUser currentUser];
-        newTrip.latitude = self.locationPlacemark.location.coordinate.latitude;
-        NSLog(@"%f", newTrip.latitude);
-        newTrip.longitude = self.locationPlacemark.location.coordinate.longitude;
+        newTrip.location = [PFGeoPoint geoPointWithLocation:self.locationPlacemark.location];
         NSString *dateString = [NSString stringWithFormat:@"%@/%@/%@", self.dayTextField.text, self.monthTextField.text, self.yearTextField.text];
         NSDateFormatter *dateFormat = [NSDateFormatter new];
         [dateFormat setDateFormat:@"MMM dd, YYYY"];
         newTrip.date = [dateFormat dateFromString:dateString];
         newTrip.name = [NSString stringWithFormat:@"%@, %@ - %@", self.cityTextField.text, self.countryTextField.text, dateString];
-        self.userLocation = [[CLLocation alloc] initWithLatitude:newTrip.latitude longitude:newTrip.longitude];
         [newTrip saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             if (succeeded) {
                 NSLog(@"The object has been saved.");
@@ -88,6 +85,7 @@
                 NSLog(@"There was a problem, check error.description");
             }
         }];
+        self.userLocation = [[CLLocation alloc] initWithLatitude:newTrip.location.latitude longitude:newTrip.location.longitude];
     }
 }
 

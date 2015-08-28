@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		8F61B3AB1B87962D009023EB /* HistoryEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F61B3AA1B87962D009023EB /* HistoryEvent.m */; };
 		8FF95F4B1B87715800ED5D4B /* timeplaces.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8FF95F4A1B87715800ED5D4B /* timeplaces.plist */; };
+		C4145F571B90B0C600AD5342 /* ParseQueryManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C4145F561B90B0C600AD5342 /* ParseQueryManager.m */; };
 		C42D7FCF1B8782AA00B56AFC /* EventDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C42D7FCE1B8782AA00B56AFC /* EventDetailViewController.m */; };
 		C42DDB8E1B82454300CAAD15 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C42DDB8D1B82454300CAAD15 /* main.m */; };
 		C42DDB911B82454300CAAD15 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C42DDB901B82454300CAAD15 /* AppDelegate.m */; };
@@ -83,6 +84,8 @@
 		8F61B3A91B87962D009023EB /* HistoryEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryEvent.h; sourceTree = "<group>"; };
 		8F61B3AA1B87962D009023EB /* HistoryEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryEvent.m; sourceTree = "<group>"; };
 		8FF95F4A1B87715800ED5D4B /* timeplaces.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = timeplaces.plist; sourceTree = "<group>"; };
+		C4145F551B90B0C600AD5342 /* ParseQueryManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParseQueryManager.h; sourceTree = "<group>"; };
+		C4145F561B90B0C600AD5342 /* ParseQueryManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParseQueryManager.m; sourceTree = "<group>"; };
 		C42D7FCD1B8782AA00B56AFC /* EventDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventDetailViewController.h; sourceTree = "<group>"; };
 		C42D7FCE1B8782AA00B56AFC /* EventDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventDetailViewController.m; sourceTree = "<group>"; };
 		C42DDB881B82454300CAAD15 /* PlaceInTime.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlaceInTime.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -294,6 +297,8 @@
 		C4B103621B8D1C6F000EC658 /* Custom Classes */ = {
 			isa = PBXGroup;
 			children = (
+				C4145F551B90B0C600AD5342 /* ParseQueryManager.h */,
+				C4145F561B90B0C600AD5342 /* ParseQueryManager.m */,
 				C4A30E0B1B8CCDBC006A39AC /* UserEventTableViewCell.h */,
 				C4A30E0C1B8CCDBC006A39AC /* UserEventTableViewCell.m */,
 				C4A30E0E1B8CCDD1006A39AC /* LandmarkTableViewCell.h */,
@@ -486,6 +491,7 @@
 				C4A30E161B8CEDF7006A39AC /* Trip.m in Sources */,
 				C4A30E131B8CD109006A39AC /* Landmark.m in Sources */,
 				C4A30E0D1B8CCDBC006A39AC /* UserEventTableViewCell.m in Sources */,
+				C4145F571B90B0C600AD5342 /* ParseQueryManager.m in Sources */,
 				C4B103691B8DEE7D000EC658 /* AddTripViewController.m in Sources */,
 				C4E414991B8F6CA800116824 /* LoginViewController.m in Sources */,
 				C4A91CA41B83BD5A007C26CA /* UserEventAnnotationView.m in Sources */,

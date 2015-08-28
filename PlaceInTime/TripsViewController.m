@@ -48,7 +48,7 @@
             for (Trip *trip in objects) {
                 NSLog(@"%@", trip.objectId);
                 [tempTrips addObject:trip];
-                [self.tripLocations addObject:trip.location];
+//                [self.tripLocations addObject:trip.location];
             }
             self.trips = [NSArray arrayWithArray:tempTrips];
             [self.tableView reloadData];
@@ -75,13 +75,10 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     self.trip = self.trips[indexPath.row];
-    NSLog(@"%@", self.trip.location);
-    self.indexPath = indexPath;
+    NSLog(@"tableview, tripsVC: %@", self.trip.location);
     EventsViewController *mapVC = [self.storyboard instantiateViewControllerWithIdentifier:@"mapVC"];
+    mapVC.trip = self.trip;
     [self.navigationController pushViewController:mapVC animated:true];
-//    EventsViewController *mapVC = [EventsViewController new];
-//    mapVC.trip = self.trip;
-//    NSLog(@"%f", mapVC.trip.latitude);
 }
 
 - (IBAction)logOutButtonTapAction:(UIBarButtonItem *)sender {
@@ -94,10 +91,8 @@
 #pragma mark - Navigation
 #pragma mark -
 
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    EventsViewController *mapVC = segue.destinationViewController;
-    mapVC.location = self.tripLocations[self.indexPath.row];
-    mapVC.trip = self.trip;
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(UITableViewCell *)sender {
+
 }
 
 @end

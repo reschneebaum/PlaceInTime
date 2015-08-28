@@ -25,6 +25,7 @@
 @property PFUser *user;
 @property BOOL textFieldsComplete;
 @property BOOL passwordConfirmed;
+@property BOOL signupFailed;
 
 @end
 
@@ -58,6 +59,13 @@
     }];
     [alertController addAction:cancelAction];
     [self presentViewController:alertController animated:true completion:nil];
+}
+
+- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
+    if (self.signupFailed) {
+        return false;
+    }
+    return true;
 }
 
 #pragma mark - Navigation
@@ -96,13 +104,15 @@
         user.email = self.emailTextField.text;
         [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             if (!error) {
+                self.signupFailed = false;
+//                [self shouldPerformSegueWithIdentifier:@"unwind" sender:self.signupButton];
                 NSLog(@"user - %@ signed up", user.username);
                 UserInfo *userInfo = [UserInfo object];
                 userInfo.name = self.nameTextField.text;
                 [userInfo saveInBackground];
                 NSLog(@"userinfo - %@ saved", userInfo.name);
-//                [self dismissViewControllerAnimated:true completion:nil];
             } else {
+                self.signupFailed = true;
                 NSString *errorString = [[error userInfo] objectForKey:@"error"];
                 UIAlertView *errorAlertView = [[UIAlertView alloc] initWithTitle:@"Error" message:errorString delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
                 [errorAlertView show];

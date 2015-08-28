@@ -101,8 +101,7 @@
     event.date = self.eventDateTextField.text;
     event.textDescription = self.eventDescriptionTextView.text;
     event.valence = self.eventValenceSlider.value;
-    event.latitude = self.location.latitude;
-    event.longitude = self.location.longitude;
+    event.location = [PFGeoPoint geoPointWithLatitude:self.location.latitude longitude:self.location.longitude];
     [event saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (succeeded) {
             NSLog(@"The object has been saved.");

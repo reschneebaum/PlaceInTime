@@ -26,9 +26,6 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="yC5-23-8oY" id="uKt-iO-mQD">
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
-                                        <connections>
-                                            <segue destination="vXZ-lx-hvc" kind="push" identifier="myTrip" id="gYY-RR-qnG"/>
-                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
@@ -855,7 +852,7 @@
                                 </state>
                                 <connections>
                                     <action selector="onSignupButtonPressed:" destination="f3I-jF-huH" eventType="touchUpInside" id="a4w-se-16P"/>
-                                    <segue destination="OK7-5T-k3F" kind="unwind" unwindAction="unwindAfterSuccessfulSignup:" id="Is7-RV-m5d"/>
+                                    <segue destination="OK7-5T-k3F" kind="unwind" unwindAction="unwindAfterSuccessfulSignup:" id="nha-Cr-bXr"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Name" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="0MS-gB-6E5">
@@ -870,9 +867,24 @@
                                     <action selector="onNameTextFieldChanged:" destination="f3I-jF-huH" eventType="editingChanged" id="LIo-23-mdg"/>
                                 </connections>
                             </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fv2-IH-i5h">
+                                <rect key="frame" x="185" y="372" width="119" height="22"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="119" id="1qG-1W-Evv"/>
+                                    <constraint firstAttribute="height" constant="22" id="dL7-hd-M8F"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <state key="normal" title="oops, never mind">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="OK7-5T-k3F" kind="unwind" unwindAction="unwindOnCancel:" id="eh7-gl-QnI"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="fv2-IH-i5h" firstAttribute="top" secondItem="uN0-w8-YZq" secondAttribute="bottom" constant="8" id="04t-jv-MQH"/>
                             <constraint firstItem="PA3-pH-l2B" firstAttribute="top" secondItem="S4W-C0-Q0x" secondAttribute="bottom" constant="70" id="1AI-Sm-5Yb"/>
                             <constraint firstItem="uN0-w8-YZq" firstAttribute="trailing" secondItem="dSk-PN-9Ex" secondAttribute="trailingMargin" id="7jL-cZ-E3Q"/>
                             <constraint firstItem="FXK-j6-uUd" firstAttribute="top" secondItem="dSk-PN-9Ex" secondAttribute="topMargin" id="7nZ-w4-RUG"/>
@@ -885,6 +897,7 @@
                             <constraint firstAttribute="trailingMargin" secondItem="FXK-j6-uUd" secondAttribute="trailing" constant="-16" id="YQL-YD-4p6"/>
                             <constraint firstItem="doQ-uS-Tak" firstAttribute="top" secondItem="PA3-pH-l2B" secondAttribute="bottom" constant="16" id="aNK-LH-G6D"/>
                             <constraint firstItem="0MS-gB-6E5" firstAttribute="trailing" secondItem="dSk-PN-9Ex" secondAttribute="trailingMargin" id="dy3-6K-cYL"/>
+                            <constraint firstItem="fv2-IH-i5h" firstAttribute="trailing" secondItem="dSk-PN-9Ex" secondAttribute="trailingMargin" id="fqH-tH-Gfg"/>
                             <constraint firstItem="Ne3-Hr-6u2" firstAttribute="top" secondItem="Ogv-TK-tBt" secondAttribute="bottom" constant="16" id="ge4-P7-Sri"/>
                             <constraint firstItem="FXK-j6-uUd" firstAttribute="leading" secondItem="dSk-PN-9Ex" secondAttribute="leadingMargin" constant="-16" id="gnX-8o-ebO"/>
                             <constraint firstItem="Ogv-TK-tBt" firstAttribute="leading" secondItem="dSk-PN-9Ex" secondAttribute="leadingMargin" id="gtV-V7-GeH"/>
