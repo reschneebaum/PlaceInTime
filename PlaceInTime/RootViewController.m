@@ -36,15 +36,15 @@
     self.navigationItem.rightBarButtonItem = logoutButton;
 }
 
-//- (void)viewWillAppear:(BOOL)animated {
-//    [super viewWillAppear:animated];
-//
-//    if ([PFUser currentUser]) {
-//        self.navigationItem.prompt = [NSString stringWithFormat:NSLocalizedString(@"Welcome, %@!", nil), [[PFUser currentUser] username]];
-//    } else {
-//        NSLog(@"error");
-//    }
-//}
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+
+    if ([PFUser currentUser]) {
+        self.navigationItem.prompt = [NSString stringWithFormat:NSLocalizedString(@"Welcome, %@!", nil), [[PFUser currentUser] username]];
+    } else {
+        NSLog(@"error");
+    }
+}
 //
 //- (void)viewDidAppear:(BOOL)animated {
 //    [super viewDidAppear:animated];
