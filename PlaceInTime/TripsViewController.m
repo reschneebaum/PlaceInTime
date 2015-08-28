@@ -17,6 +17,9 @@
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
+@property NSMutableArray *tripLocations;
+@property NSIndexPath *indexPath;
+
 @end
 
 @implementation TripsViewController
@@ -31,6 +34,7 @@
                                      target:self
                                      action:@selector(logOutButtonTapAction:)];
     self.navigationItem.rightBarButtonItem = logoutButton;
+    self.tripLocations = [NSMutableArray new];
 }
 
 
@@ -44,6 +48,8 @@
             for (Trip *trip in objects) {
                 NSLog(@"%@", trip.objectId);
                 [tempTrips addObject:trip];
+                CLLocation *location = [[CLLocation alloc] initWithLatitude:trip.latitude longitude:trip.longitude];
+                [self.tripLocations addObject:location];
             }
             self.trips = [NSArray arrayWithArray:tempTrips];
             [self.tableView reloadData];
@@ -68,10 +74,15 @@
     return cell;
 }
 
--(void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     self.trip = self.trips[indexPath.row];
-    EventsViewController *mapVC = [EventsViewController new];
-    mapVC.trip = self.trip;
+    NSLog(@"%f", self.trip.latitude);
+    self.indexPath = indexPath;
+    EventsViewController *mapVC = [self.storyboard instantiateViewControllerWithIdentifier:@"mapVC"];
+    [self.navigationController pushViewController:mapVC animated:true];
+//    EventsViewController *mapVC = [EventsViewController new];
+//    mapVC.trip = self.trip;
+//    NSLog(@"%f", mapVC.trip.latitude);
 }
 
 - (IBAction)logOutButtonTapAction:(UIBarButtonItem *)sender {
@@ -83,5 +94,11 @@
 
 #pragma mark - Navigation
 #pragma mark -
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    EventsViewController *mapVC = segue.destinationViewController;
+    mapVC.location = self.tripLocations[self.indexPath.row];
+    mapVC.trip = self.trip;
+}
 
 @end

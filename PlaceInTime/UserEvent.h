@@ -17,8 +17,7 @@
 @property (nonatomic, strong) NSString *user;
 @property (nonatomic, strong) Trip *belongsToTrip;
 @property float valence;
-@property float latitude;
-@property float longitude;
+@property (nonatomic, strong) PFGeoPoint *location;
 
 +(NSString *)parseClassName;
 

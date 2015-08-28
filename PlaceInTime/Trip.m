@@ -14,9 +14,8 @@
 @dynamic events;
 @dynamic createdBy;
 @dynamic name;
-@dynamic latitude;
-@dynamic longitude;
 @dynamic date;
+@dynamic location;
 
 +(void)load {
     [self registerSubclass];

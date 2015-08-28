@@ -180,7 +180,7 @@
                                 </state>
                                 <connections>
                                     <action selector="onGoButtonPressed:" destination="ger-hX-QMq" eventType="touchUpInside" id="eUp-Pe-cw3"/>
-                                    <segue destination="ukC-gP-yxn" kind="modal" identifier="tripDetail" modalTransitionStyle="flipHorizontal" id="vT5-Or-rGc"/>
+                                    <segue destination="tAb-7a-SQP" kind="modal" identifier="tripDetail" id="vT5-Or-rGc"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -225,6 +225,7 @@
                         <outlet property="cityTextField" destination="ifU-VI-YJR" id="TyT-4K-Wca"/>
                         <outlet property="countryTextField" destination="zFZ-Bk-eCu" id="xRp-KG-C8n"/>
                         <outlet property="dayTextField" destination="ViN-lE-LUY" id="nSA-1N-dF1"/>
+                        <outlet property="mapView" destination="rzL-b6-C3t" id="y9w-qg-Lfo"/>
                         <outlet property="monthTextField" destination="n2f-S5-m4E" id="ZgU-ug-4dH"/>
                         <outlet property="stateTextField" destination="XAQ-TQ-C0M" id="FoQ-Xs-QVu"/>
                         <outlet property="yearTextField" destination="Raf-6n-iOV" id="M6h-eq-8gf"/>
@@ -382,13 +383,14 @@
                             <constraint firstItem="92w-8a-eg5" firstAttribute="top" secondItem="MJS-Za-AF2" secondAttribute="bottom" id="ypz-ta-EEv"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="NMt-oP-9g9"/>
                     <connections>
                         <outlet property="mapView" destination="MJS-Za-AF2" id="YpB-uM-U3z"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="D38-WL-ffS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1694" y="73"/>
+            <point key="canvasLocation" x="2080" y="73"/>
         </scene>
         <!--Add Event View Controller-->
         <scene sceneID="K1T-ba-D25">
@@ -474,7 +476,6 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="onCancelButtonPressed:" destination="ibc-ge-Fzv" eventType="touchUpInside" id="riw-hc-8vM"/>
                                     <segue destination="I6s-wg-dUq" kind="unwind" unwindAction="unwindFromCancelAction:" id="iey-zQ-ukw"/>
                                 </connections>
                             </button>
@@ -562,7 +563,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kBd-q2-jB5" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="I6s-wg-dUq" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2090" y="73"/>
+            <point key="canvasLocation" x="2622" y="73"/>
         </scene>
         <!--Event Detail View Controller-->
         <scene sceneID="6nZ-9Z-hyX">
@@ -660,7 +661,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Q2l-Mx-W44" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2090" y="717"/>
+            <point key="canvasLocation" x="2080" y="717"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="unh-Gc-2jJ">
@@ -854,6 +855,7 @@
                                 </state>
                                 <connections>
                                     <action selector="onSignupButtonPressed:" destination="f3I-jF-huH" eventType="touchUpInside" id="a4w-se-16P"/>
+                                    <segue destination="OK7-5T-k3F" kind="unwind" unwindAction="unwindAfterSuccessfulSignup:" id="Is7-RV-m5d"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Name" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="0MS-gB-6E5">
@@ -903,10 +905,10 @@
                         <outlet property="passwordTextField" destination="doQ-uS-Tak" id="W1O-df-Jcr"/>
                         <outlet property="signupButton" destination="uN0-w8-YZq" id="cTV-37-0Fs"/>
                         <outlet property="usernameTextField" destination="PA3-pH-l2B" id="Hj0-8v-sTM"/>
-                        <segue destination="WSF-Ew-fW0" kind="modal" identifier="signup" modalTransitionStyle="flipHorizontal" id="xVI-4D-RNf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WSu-KN-5VE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="OK7-5T-k3F" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="-1" y="635"/>
         </scene>
@@ -928,6 +930,25 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BDU-Up-iwF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="410" y="315"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="hbV-7O-Rsq">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="tAb-7a-SQP" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="u1i-lG-fxN"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="FoL-B0-418">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="ukC-gP-yxn" kind="relationship" relationship="rootViewController" id="u9O-vU-LEZ"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Rla-H1-eQU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1694" y="73"/>
         </scene>
     </scenes>
     <resources>

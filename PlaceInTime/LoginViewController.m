@@ -15,6 +15,10 @@
 
 @interface LoginViewController () <MKMapViewDelegate>
 
+@property (weak, nonatomic) IBOutlet MKMapView *mapView;
+@property (weak, nonatomic) IBOutlet UITextField *usernameTextField;
+@property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
+@property (weak, nonatomic) IBOutlet UIButton *loginButton;
 @property BOOL textFieldsComplete;
 
 @end
@@ -73,6 +77,9 @@
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     RootViewController *rvc = segue.destinationViewController;
     rvc.user = self.user;
+}
+
+-(IBAction)unwindAfterSuccessfulSignup:(UIStoryboardSegue *)segue {
 }
 
 @end

@@ -13,9 +13,8 @@
 
 @dynamic name;
 @dynamic textDescription;
-@dynamic latitude;
-@dynamic longitude;
 @dynamic date;
+@dynamic location;
 
 +(void)load {
     [self registerSubclass];

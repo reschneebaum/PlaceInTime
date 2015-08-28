@@ -14,8 +14,7 @@
 @property (nonatomic, strong) PFUser *createdBy;
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSDate *date;
-@property float latitude;
-@property float longitude;
+@property (nonatomic, strong) PFGeoPoint *location;
 
 +(NSString *)parseClassName;
 

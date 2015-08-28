@@ -8,9 +8,11 @@
 
 #import <Parse/Parse.h>
 
-@interface UserInfo : PFObject
+@interface UserInfo : PFObject<PFSubclassing>
 
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSArray *trips;
+
++(NSString *)parseClassName;
 
 @end

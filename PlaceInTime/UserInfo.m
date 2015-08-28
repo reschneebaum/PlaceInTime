@@ -14,4 +14,12 @@
 @dynamic name;
 @dynamic trips;
 
++(void)load {
+    [self registerSubclass];
+}
+
++(NSString *)parseClassName {
+    return @"UserInfo";
+}
+
 @end

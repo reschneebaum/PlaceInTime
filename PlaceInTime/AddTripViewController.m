@@ -9,12 +9,13 @@
 #import <CoreLocation/CoreLocation.h>
 #import <Parse/Parse.h>
 #import <ParseUI/ParseUI.h>
+#import <MapKit/MapKit.h>
 #import "AddTripViewController.h"
 #import "NewTripViewController.h"
 #import "UserEvent.h"
 #import "Trip.h"
 
-@interface AddTripViewController () <UITextFieldDelegate, CLLocationManagerDelegate>
+@interface AddTripViewController () <UITextFieldDelegate, CLLocationManagerDelegate, MKMapViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *cityTextField;
 @property (weak, nonatomic) IBOutlet UITextField *stateTextField;
@@ -27,6 +28,7 @@
 @property CLLocation *currentLocation;
 @property CLLocation *userLocation;
 @property Trip *trip;
+@property (weak, nonatomic) IBOutlet MKMapView *mapView;
 
 @end
 
@@ -34,6 +36,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.mapView.delegate = self;
+    [self.mapView setRegion:MKCoordinateRegionMake(CLLocationCoordinate2DMake(41.89374, -87.63533), MKCoordinateSpanMake(0.5, 0.5)) animated:false];
 }
 
 -(void)performForwardGeocoding {
@@ -62,25 +66,29 @@
 }
 
 -(void)createTrip {
-    Trip *newTrip = [Trip object];
-    newTrip.createdBy = [PFUser currentUser];
-    newTrip.latitude = self.locationPlacemark.location.coordinate.latitude;
-    NSLog(@"%f", newTrip.latitude);
-    newTrip.longitude = self.locationPlacemark.location.coordinate.longitude;
-    NSString *dateString = [NSString stringWithFormat:@"%@/%@/%@", self.dayTextField.text, self.monthTextField.text, self.yearTextField.text];
-    NSDateFormatter *dateFormat = [NSDateFormatter new];
-    [dateFormat setDateFormat:@"MMM dd, YYYY"];
-    newTrip.date = [dateFormat dateFromString:dateString];
-    newTrip.name = [NSString stringWithFormat:@"%@, %@ - %@", self.cityTextField.text, self.countryTextField.text, dateString];
-    self.userLocation = [[CLLocation alloc] initWithLatitude:newTrip.latitude longitude:newTrip.longitude];
-    [newTrip saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        if (succeeded) {
-            NSLog(@"The object has been saved.");
-            [self performSegueWithIdentifier:@"tripDetail" sender:self];
-        } else {
-            NSLog(@"There was a problem, check error.description");
-        }
-    }];
+    if (![PFUser currentUser]) {
+        NSLog(@"no user logged in");
+    } else {
+        Trip *newTrip = [Trip object];
+        newTrip.createdBy = [PFUser currentUser];
+        newTrip.latitude = self.locationPlacemark.location.coordinate.latitude;
+        NSLog(@"%f", newTrip.latitude);
+        newTrip.longitude = self.locationPlacemark.location.coordinate.longitude;
+        NSString *dateString = [NSString stringWithFormat:@"%@/%@/%@", self.dayTextField.text, self.monthTextField.text, self.yearTextField.text];
+        NSDateFormatter *dateFormat = [NSDateFormatter new];
+        [dateFormat setDateFormat:@"MMM dd, YYYY"];
+        newTrip.date = [dateFormat dateFromString:dateString];
+        newTrip.name = [NSString stringWithFormat:@"%@, %@ - %@", self.cityTextField.text, self.countryTextField.text, dateString];
+        self.userLocation = [[CLLocation alloc] initWithLatitude:newTrip.latitude longitude:newTrip.longitude];
+        [newTrip saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            if (succeeded) {
+                NSLog(@"The object has been saved.");
+                [self performSegueWithIdentifier:@"tripDetail" sender:self];
+            } else {
+                NSLog(@"There was a problem, check error.description");
+            }
+        }];
+    }
 }
 
 -(void)presentAlertController {
@@ -114,9 +122,9 @@
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     // Prevent crashing undo bug
-    if(range.length + range.location > textField.text.length) {
-        return NO;
-    }
+//    if(range.length + range.location > textField.text.length) {
+//        return NO;
+//    }
     if (textField == self.monthTextField) {
         NSUInteger newLength = [textField.text length] + [string length] - range.length;
         return newLength == 2;
@@ -156,6 +164,8 @@
     if([segue.identifier isEqualToString:@"tripDetail"]) {
         NewTripViewController *newVC = segue.destinationViewController;
         newVC.userLocation = self.userLocation;
+        NSLog(@"self - %@", self.userLocation);
+        NSLog(@"%@", newVC.userLocation);
         newVC.trip = self.trip;
     }
 }

@@ -36,6 +36,7 @@
     [Trip registerSubclass];
     [UserEvent registerSubclass];
     [HistoryEvent registerSubclass];
+    [UserInfo registerSubclass];
 
     // [Optional] Power your app with Local Datastore. For more info, go to
     // https://parse.com/docs/ios_guide#localdatastore/iOS

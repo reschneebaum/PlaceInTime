@@ -19,6 +19,7 @@
 @property Landmark *selectedLandmark;
 @property UserEvent *selectedUserEvent;
 @property HistoryEvent *selectedHistoryEvent;
+@property CLLocation *location;
 
 @end
 

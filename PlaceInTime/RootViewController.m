@@ -138,7 +138,10 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSArray *segues = @[@"myTrips", @"newTrip", @"sharedTrips", @"downloadTrips"];
-    [self performSegueWithIdentifier:segues[indexPath.row] sender:nil];
+    if ([segues[indexPath.row] isEqualToString:@"newTrip"]) {
+        [self performSegueWithIdentifier:@"newTrip" sender:nil];
+    }
+    [self performSegueWithIdentifier:segues[indexPath.row] sender:self.navigationController];
 }
 
 

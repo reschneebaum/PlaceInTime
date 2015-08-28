@@ -15,10 +15,9 @@
 @dynamic textDescription;
 @dynamic user;
 @dynamic valence;
-@dynamic latitude;
-@dynamic longitude;
 @dynamic date;
 @dynamic belongsToTrip;
+@dynamic location;
 
 +(void)load {
     [self registerSubclass];

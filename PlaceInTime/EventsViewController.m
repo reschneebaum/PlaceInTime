@@ -47,7 +47,7 @@
     self.mapView.delegate = self;
     [self.mapView showsUserLocation];
     [self.mapView showsBuildings];
-    [self.mapView setRegion:MKCoordinateRegionMake(CLLocationCoordinate2DMake(self.trip.latitude, self.trip.longitude), MKCoordinateSpanMake(.5, .5)) animated:1];
+    [self.mapView setRegion:MKCoordinateRegionMake(CLLocationCoordinate2DMake(self.location.coordinate.latitude, self.location.coordinate.longitude), MKCoordinateSpanMake(.5, .5)) animated:1];
 
     UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
     longPress.minimumPressDuration = 1.2; //length of user press
@@ -68,27 +68,40 @@
     [self queryAndLoadHistoryEvents];
 }
 
--(void)queryAndLoadTripEvents {
-    PFQuery *query = [UserEvent query];
-    [query whereKey:@"belongsToTrip" equalTo:self.trip];
-    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        if (!error) {
-            NSLog(@"successfully received %lu events", (unsigned long)objects.count);
+//-(void)queryAndLoadTrip {
+//    if (![PFUser currentUser]) {
+//        NSLog(@"no user logged in");
+//    } else {
+//        PFQuery *tripQuery = [Trip query];
+//        [tripQuery where]
+//    }
+//}
 
-            for (UserEvent *event in objects) {
-                MKPointAnnotation *annot = [MKPointAnnotation new];
-                annot.coordinate = CLLocationCoordinate2DMake(event.latitude, event.longitude);
-                annot.title = event.name;
-                annot.subtitle = event.date;
-                [self.mapView addAnnotation:annot];
+-(void)queryAndLoadTripEvents {
+    if (self.trip != nil) {
+        PFQuery *query = [UserEvent query];
+        [query whereKey:@"belongsToTrip" equalTo:self.trip];
+        [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+            if (!error) {
+                NSLog(@"successfully received %lu events", (unsigned long)objects.count);
+
+                for (UserEvent *event in objects) {
+                    MKPointAnnotation *annot = [MKPointAnnotation new];
+                    annot.coordinate = CLLocationCoordinate2DMake(event.latitude, event.longitude);
+                    annot.title = event.name;
+                    annot.subtitle = event.date;
+                    [self.mapView addAnnotation:annot];
+                }
+                self.userEvents = [NSArray arrayWithArray:objects];
+                [self.tableView reloadData];
+                NSLog(@"%@", self.userEvents.firstObject);
+            } else {
+                NSLog(@"Error: %@ %@", error, [error userInfo]);
             }
-            self.userEvents = [NSArray arrayWithArray:objects];
-            [self.tableView reloadData];
-            NSLog(@"%@", self.userEvents.firstObject);
-        } else {
-            NSLog(@"Error: %@ %@", error, [error userInfo]);
-        }
-    }];
+        }];
+    } else {
+        NSLog(@"eventsVC: self.trip (%@) is nil", self.trip);
+    }
 }
 
 -(void)queryAndLoadHistoryEvents {
@@ -180,8 +193,14 @@
     if ([annotation isEqual:mapView.userLocation]) {
         return nil;
     }
+    UIImage *image = [UIImage imageNamed:@"wind_rose"];
+    CGRect cropRect = CGRectMake(0.0, 0.0, 35.0, 35.0);
+    UIImageView *imageView = [[UIImageView alloc]initWithFrame:cropRect];
+    imageView.clipsToBounds = YES;
+    imageView.image = image;
     pin.canShowCallout = true;
     pin.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+    pin.leftCalloutAccessoryView = imageView;
 
     return pin;
 }
@@ -250,7 +269,7 @@
     return cell;
 }
 
--(void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     EventDetailViewController *detailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"detailVC"];
     detailVC.userEvent = self.userEvents[indexPath.row];
     [self presentViewController:detailVC animated:true completion:nil];
@@ -267,7 +286,7 @@
 }
 
 - (IBAction)unwindFromCancelAction:(UIStoryboardSegue *)segue {
-//    [self.mapView removeAnnotation:]
+    [self queryAndLoadTripEvents];
 }
 
 - (IBAction)logOutButtonTapAction:(UIBarButtonItem *)sender {
