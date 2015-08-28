@@ -95,7 +95,6 @@
     MKPointAnnotation *annot = (MKPointAnnotation *)view.annotation;
     EventDetailViewController *detailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"detailVC"];
     detailVC.location = annot.coordinate;
-    detailVC.landmarks = self.landmarks;
     [self presentViewController:detailVC animated:true completion:nil];
 }
 

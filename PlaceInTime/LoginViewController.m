@@ -70,4 +70,9 @@
     NSLog(@"workin on it");
 }
 
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    RootViewController *rvc = segue.destinationViewController;
+    rvc.user = self.user;
+}
+
 @end

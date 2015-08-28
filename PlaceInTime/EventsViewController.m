@@ -13,6 +13,7 @@
 #import "EventsViewController.h"
 #import "AddEventViewController.h"
 #import "EventDetailViewController.h"
+#import "LoginViewController.h"
 #import "UserEventTableViewCell.h"
 #import "UserEvent.h"
 #import "HistoryEvent.h"
@@ -28,6 +29,9 @@
 @property NSArray *userEvents;
 @property NSArray *historyEvents;
 @property NSArray *landmarks;
+@property BOOL isLandmark;
+@property BOOL isUserEvent;
+@property BOOL isHistoryEvent;
 
 @end
 
@@ -184,9 +188,51 @@
 
 -(void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control {
     MKPointAnnotation *annot = (MKPointAnnotation *)view.annotation;
+    for (Landmark *landmark in self.landmarks) {
+        if (landmark.latitude == annot.coordinate.latitude && landmark.longitude == annot.coordinate.longitude) {
+            self.selectedLandmark = landmark;
+            if (self.landmarks.lastObject) {
+                break;
+            }
+            if (self.selectedLandmark == nil) {
+                self.isLandmark = false;
+            }
+        }
+    }
+    for (UserEvent *userEvent in self.userEvents) {
+        if (userEvent.latitude == annot.coordinate.latitude && userEvent.longitude == annot.coordinate.longitude) {
+            self.selectedUserEvent = userEvent;
+            if (self.userEvents.lastObject) {
+                break;
+            }
+            if (self.selectedUserEvent == nil) {
+                self.isUserEvent = false;
+            }
+        }
+    }
+    for (HistoryEvent *histEvent in self.historyEvents) {
+        if (histEvent.latitude == annot.coordinate.latitude && histEvent.longitude == annot.coordinate.longitude) {
+            self.selectedHistoryEvent = histEvent;
+            if (self.historyEvents.lastObject) {
+                break;
+            }
+            if (self.selectedHistoryEvent == nil) {
+                self.isHistoryEvent = false;
+            }
+        }
+    }
     EventDetailViewController *detailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"detailVC"];
+    if (self.isLandmark) {
+        detailVC.isLandmark = true;
+        detailVC.landmark = self.selectedLandmark;
+    } else if (self.isUserEvent) {
+        detailVC.isUserEvent = true;
+        detailVC.isUserEvent = self.selectedUserEvent;
+    } else {
+        detailVC.isHistoryEvent = true;
+        detailVC.histEvent = self.selectedHistoryEvent;
+    }
     detailVC.location = annot.coordinate;
-    detailVC.landmarks = self.landmarks;
     [self presentViewController:detailVC animated:true completion:nil];
 }
 
@@ -206,7 +252,7 @@
 
 -(void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
     EventDetailViewController *detailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"detailVC"];
-    detailVC.point = self.userEvents[indexPath.row];
+    detailVC.userEvent = self.userEvents[indexPath.row];
     [self presentViewController:detailVC animated:true completion:nil];
 }
 
@@ -226,7 +272,7 @@
 
 - (IBAction)logOutButtonTapAction:(UIBarButtonItem *)sender {
     [PFUser logOut];
-    PFLogInViewController *login = [PFLogInViewController new];
+    LoginViewController *login = [LoginViewController new];
     [self presentViewController:login animated:true completion:nil];
 }
 

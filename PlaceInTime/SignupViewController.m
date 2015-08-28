@@ -100,7 +100,13 @@
                 UserInfo *userInfo = [UserInfo object];
                 userInfo.name = self.nameTextField.text;
                 [userInfo saveInBackgroundWithBlock:nil];
-// segue here!
+                NSLog(@"userinfo - %@ saved", userInfo.name);
+                [self dismissViewControllerAnimated:true completion:nil];
+//                [self.navigationController popViewControllerAnimated:true];
+
+//                LoginViewController *lvc = [LoginViewController new];
+//                [lvc dismissViewControllerAnimated:true completion:nil];
+//                [self performSegueWithIdentifier:@"signup" sender:self];
             } else {
                 NSString *errorString = [[error userInfo] objectForKey:@"error"];
                 UIAlertView *errorAlertView = [[UIAlertView alloc] initWithTitle:@"Error" message:errorString delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
@@ -111,14 +117,15 @@
 }
 
 
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:@"signup"]) {
-        LoginViewController *loginVC = segue.destinationViewController;
-        loginVC.usernameTextField.text = self.user.username;
-        loginVC.passwordTextField.text = self.user.password;
-        loginVC.mapView.region = self.mapView.region;
-    }
-}
+//-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+//    if ([segue.identifier isEqualToString:@"signup"]) {
+//        LoginViewController *loginVC = segue.destinationViewController;
+//        loginVC.usernameTextField.text = self.user.username;
+//        loginVC.passwordTextField.text = self.user.password;
+//        loginVC.mapView.region = self.mapView.region;
+//        loginVC.user = self.userInfo;
+//    }
+//}
 
 
 @end

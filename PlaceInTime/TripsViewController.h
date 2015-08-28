@@ -8,10 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "Trip.h"
+#import "UserInfo.h"
 
 @interface TripsViewController : UIViewController
 
 @property NSArray *trips;
 @property Trip *trip;
+@property UserInfo *user;
 
 @end

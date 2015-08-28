@@ -11,6 +11,6 @@
 
 @interface RootViewController : UIViewController
 
-@property UserInfo *userInfo;
+@property UserInfo *user;
 
 @end
