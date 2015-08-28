@@ -48,8 +48,7 @@
             for (Trip *trip in objects) {
                 NSLog(@"%@", trip.objectId);
                 [tempTrips addObject:trip];
-                CLLocation *location = [[CLLocation alloc] initWithLatitude:trip.latitude longitude:trip.longitude];
-                [self.tripLocations addObject:location];
+                [self.tripLocations addObject:trip.location];
             }
             self.trips = [NSArray arrayWithArray:tempTrips];
             [self.tableView reloadData];
@@ -76,7 +75,7 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     self.trip = self.trips[indexPath.row];
-    NSLog(@"%f", self.trip.latitude);
+    NSLog(@"%@", self.trip.location);
     self.indexPath = indexPath;
     EventsViewController *mapVC = [self.storyboard instantiateViewControllerWithIdentifier:@"mapVC"];
     [self.navigationController pushViewController:mapVC animated:true];
