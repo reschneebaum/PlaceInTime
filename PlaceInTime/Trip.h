@@ -17,5 +17,7 @@
 @property (nonatomic, strong) PFGeoPoint *location;
 
 +(NSString *)parseClassName;
++(void)queryCurrentTrip;
++(void)queryTripsCreatedByCurrentUser:(NSArray *)trips;
 
 @end

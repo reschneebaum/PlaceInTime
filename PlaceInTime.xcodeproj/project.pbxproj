@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		8F61B3AB1B87962D009023EB /* HistoryEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F61B3AA1B87962D009023EB /* HistoryEvent.m */; };
 		8FF95F4B1B87715800ED5D4B /* timeplaces.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8FF95F4A1B87715800ED5D4B /* timeplaces.plist */; };
-		C4145F571B90B0C600AD5342 /* ParseQueryManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C4145F561B90B0C600AD5342 /* ParseQueryManager.m */; };
 		C41E797B1B93F2C700A25D8B /* EventDetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C41E797A1B93F2C700A25D8B /* EventDetailTableViewController.m */; };
 		C42D7FCF1B8782AA00B56AFC /* EventDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C42D7FCE1B8782AA00B56AFC /* EventDetailViewController.m */; };
 		C42DDB8E1B82454300CAAD15 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C42DDB8D1B82454300CAAD15 /* main.m */; };
@@ -52,6 +51,7 @@
 		C4B77D1B1B8EE8F10073E9D8 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C42DDBD51B8293BB00CAAD15 /* Parse.framework */; };
 		C4B77D1C1B8EE8F80073E9D8 /* TwitterCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C42DDBCB1B828D4C00CAAD15 /* TwitterCore.framework */; };
 		C4B77D1D1B8EE9000073E9D8 /* TwitterKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C42DDBC91B828D4C00CAAD15 /* TwitterKit.framework */; };
+		C4D857331B94E2C30015543A /* LoveYaLikeASister.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C4D857321B94E2C30015543A /* LoveYaLikeASister.ttf */; };
 		C4E414941B8EEDD300116824 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4E414921B8EEDB300116824 /* Fabric.framework */; };
 		C4E414961B8EEE4400116824 /* ParseUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4E414951B8EEE4400116824 /* ParseUI.framework */; };
 		C4E414991B8F6CA800116824 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4E414981B8F6CA800116824 /* LoginViewController.m */; };
@@ -85,8 +85,6 @@
 		8F61B3A91B87962D009023EB /* HistoryEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryEvent.h; sourceTree = "<group>"; };
 		8F61B3AA1B87962D009023EB /* HistoryEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryEvent.m; sourceTree = "<group>"; };
 		8FF95F4A1B87715800ED5D4B /* timeplaces.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = timeplaces.plist; sourceTree = "<group>"; };
-		C4145F551B90B0C600AD5342 /* ParseQueryManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParseQueryManager.h; sourceTree = "<group>"; };
-		C4145F561B90B0C600AD5342 /* ParseQueryManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParseQueryManager.m; sourceTree = "<group>"; };
 		C41E79791B93F2C700A25D8B /* EventDetailTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventDetailTableViewController.h; sourceTree = "<group>"; };
 		C41E797A1B93F2C700A25D8B /* EventDetailTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventDetailTableViewController.m; sourceTree = "<group>"; };
 		C42D7FCD1B8782AA00B56AFC /* EventDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventDetailViewController.h; sourceTree = "<group>"; };
@@ -155,6 +153,7 @@
 		C4B77D111B8EE8700073E9D8 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		C4B77D121B8EE8700073E9D8 /* TwitterCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TwitterCore.framework; sourceTree = "<group>"; };
 		C4B77D131B8EE8700073E9D8 /* TwitterKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TwitterKit.framework; sourceTree = "<group>"; };
+		C4D857321B94E2C30015543A /* LoveYaLikeASister.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = LoveYaLikeASister.ttf; sourceTree = "<group>"; };
 		C4E414921B8EEDB300116824 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		C4E414951B8EEE4400116824 /* ParseUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseUI.framework; sourceTree = "<group>"; };
 		C4E414971B8F6CA800116824 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
@@ -206,6 +205,7 @@
 		C42DDB7F1B82454300CAAD15 = {
 			isa = PBXGroup;
 			children = (
+				C4D857321B94E2C30015543A /* LoveYaLikeASister.ttf */,
 				C42DDB8A1B82454300CAAD15 /* PlaceInTime */,
 				C42DDBA71B82454300CAAD15 /* PlaceInTimeTests */,
 				C42DDB891B82454300CAAD15 /* Products */,
@@ -302,8 +302,6 @@
 		C4B103621B8D1C6F000EC658 /* Custom Classes */ = {
 			isa = PBXGroup;
 			children = (
-				C4145F551B90B0C600AD5342 /* ParseQueryManager.h */,
-				C4145F561B90B0C600AD5342 /* ParseQueryManager.m */,
 				C4A30E0B1B8CCDBC006A39AC /* UserEventTableViewCell.h */,
 				C4A30E0C1B8CCDBC006A39AC /* UserEventTableViewCell.m */,
 				C4A30E0E1B8CCDD1006A39AC /* LandmarkTableViewCell.h */,
@@ -331,8 +329,8 @@
 				C41E797A1B93F2C700A25D8B /* EventDetailTableViewController.m */,
 				C4B103671B8DEE7D000EC658 /* AddTripViewController.h */,
 				C4B103681B8DEE7D000EC658 /* AddTripViewController.m */,
-				C4B1036B1B8DEE91000EC658 /* NewTripViewController.m */,
 				C4B1036A1B8DEE91000EC658 /* NewTripViewController.h */,
+				C4B1036B1B8DEE91000EC658 /* NewTripViewController.m */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -459,6 +457,7 @@
 				C42DDB9A1B82454300CAAD15 /* Main.storyboard in Resources */,
 				C42DDB9F1B82454300CAAD15 /* LaunchScreen.xib in Resources */,
 				C42DDB9C1B82454300CAAD15 /* Images.xcassets in Resources */,
+				C4D857331B94E2C30015543A /* LoveYaLikeASister.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -496,7 +495,6 @@
 				C4A30E161B8CEDF7006A39AC /* Trip.m in Sources */,
 				C4A30E131B8CD109006A39AC /* Landmark.m in Sources */,
 				C4A30E0D1B8CCDBC006A39AC /* UserEventTableViewCell.m in Sources */,
-				C4145F571B90B0C600AD5342 /* ParseQueryManager.m in Sources */,
 				C4B103691B8DEE7D000EC658 /* AddTripViewController.m in Sources */,
 				C4E414991B8F6CA800116824 /* LoginViewController.m in Sources */,
 				C41E797B1B93F2C700A25D8B /* EventDetailTableViewController.m in Sources */,

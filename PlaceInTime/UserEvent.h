@@ -20,6 +20,7 @@
 @property (nonatomic, strong) PFGeoPoint *location;
 
 +(NSString *)parseClassName;
-
+-(void)queryCurrentEvent;
+-(void)queryEventsBelongToCurrentTrip;
 
 @end

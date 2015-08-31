@@ -25,4 +25,27 @@
     return @"Trip";
 }
 
++(void)queryTripsCreatedByCurrentUser:(NSArray *)trips {
+    PFQuery *query = [Trip query];
+    [query whereKey:@"createdBy" equalTo:[PFUser currentUser]];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            NSMutableArray *tempTrips = [NSMutableArray new];
+            NSLog(@"Successfully retrieved %lu trip(s).", (unsigned long)objects.count);
+            for (Trip *trip in objects) {
+                NSLog(@"%@", trip.objectId);
+                [tempTrips addObject:trip];
+            }
+//            trips = [NSArray arrayWithArray:tempTrips];
+//            NSLog(@"%@", trips.firstObject);
+        } else {
+            NSLog(@"Error: %@ %@", error, [error userInfo]);
+        }
+    }];
+}
+
++(void)queryCurrentTrip {
+
+}
+
 @end

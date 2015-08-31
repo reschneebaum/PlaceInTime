@@ -11,18 +11,17 @@
 #import <ParseUI/ParseUI.h>
 #import <MapKit/MapKit.h>
 #import "AddTripViewController.h"
+#import "EventsViewController.h"
 #import "NewTripViewController.h"
 #import "UserEvent.h"
 #import "Trip.h"
 
-@interface AddTripViewController () <UITextFieldDelegate, CLLocationManagerDelegate, MKMapViewDelegate>
+@interface AddTripViewController () <CLLocationManagerDelegate, MKMapViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *cityTextField;
 @property (weak, nonatomic) IBOutlet UITextField *stateTextField;
 @property (weak, nonatomic) IBOutlet UITextField *countryTextField;
-@property (weak, nonatomic) IBOutlet UITextField *monthTextField;
-@property (weak, nonatomic) IBOutlet UITextField *dayTextField;
-@property (weak, nonatomic) IBOutlet UITextField *yearTextField;
+@property (weak, nonatomic) IBOutlet UIDatePicker *datePicker;
 @property CLLocationManager *locationManager;
 @property CLPlacemark *locationPlacemark;
 @property CLLocation *currentLocation;
@@ -72,10 +71,10 @@
         Trip *newTrip = [Trip object];
         newTrip.createdBy = [PFUser currentUser];
         newTrip.location = [PFGeoPoint geoPointWithLocation:self.locationPlacemark.location];
-        NSString *dateString = [NSString stringWithFormat:@"%@/%@/%@", self.dayTextField.text, self.monthTextField.text, self.yearTextField.text];
+        newTrip.date = [self.datePicker date];
         NSDateFormatter *dateFormat = [NSDateFormatter new];
-        [dateFormat setDateFormat:@"MMM dd, YYYY"];
-        newTrip.date = [dateFormat dateFromString:dateString];
+        [dateFormat setDateFormat:@"dd MMM yyyy"];
+        NSString *dateString = [dateFormat stringFromDate:newTrip.date];
         newTrip.name = [NSString stringWithFormat:@"%@, %@ - %@", self.cityTextField.text, self.countryTextField.text, dateString];
         [newTrip saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             if (succeeded) {
@@ -97,6 +96,7 @@
     [self presentViewController:alertController animated:true completion:nil];
 }
 
+
 #pragma mark - CLLocationManagerDelegate methods
 #pragma mark -
 
@@ -115,31 +115,6 @@
     }
 }
 
-
-#pragma mark - UITextFieldDelegate methods
-#pragma mark -
-
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-    // Prevent crashing undo bug
-//    if(range.length + range.location > textField.text.length) {
-//        return NO;
-//    }
-    if (textField == self.monthTextField) {
-        NSUInteger newLength = [textField.text length] + [string length] - range.length;
-        return newLength == 2;
-    }
-    if (textField == self.dayTextField) {
-        NSUInteger newLength = [textField.text length] + [string length] - range.length;
-        return newLength == 2;
-    }
-    if (textField == self.yearTextField) {
-        NSUInteger newLength = [textField.text length] + [string length] - range.length;
-        return newLength == 4;
-    }
-    else return NO;
-}
-
-
 #pragma mark - Navigation
 #pragma mark -
 
@@ -150,12 +125,9 @@
     [self.locationManager startUpdatingLocation];
 }
 
-- (IBAction)onGoButtonPressed:(UIButton *)sender {
-    if (self.cityTextField.hasText && self.stateTextField.hasText && self.countryTextField.hasText && self.monthTextField.hasText && self.dayTextField.hasText && self.yearTextField.hasText) {
+- (IBAction)onGoButtonPressed:(UIBarButtonItem *)sender {
+    if (self.cityTextField.hasText && self.stateTextField.hasText && self.countryTextField.hasText) {
         [self performForwardGeocoding];
-//        NewTripViewController *newTripVC = [NewTripViewController new];
-//        newTripVC.userLocation = self.userLocation;
-//        [self performSegueWithIdentifier:@"tripDetail" sender:nil];
     } else {
         [self presentAlertController];
     }
@@ -164,17 +136,17 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
 
     if([segue.identifier isEqualToString:@"tripDetail"]) {
-//        NSLog(@"==> lat/lon == [%f, %f]", self.userLocation.coordinate.latitude, self.userLocation.coordinate.longitude);
         UINavigationController *navVC = segue.destinationViewController;
         NewTripViewController *newTripVC = (NewTripViewController *)navVC.viewControllers[0];
         newTripVC.userLocation = self.userLocation;
         NSLog(@"self - %@", self.userLocation);
         NSLog(@"%@", newTripVC.userLocation);
         newTripVC.trip = self.trip;
+        newTripVC.navigationItem.title = self.trip.name;
     }
 }
 
-- (IBAction)onCancelButtonPressed:(UIButton *)sender {
+- (IBAction)onCancelButtonPressed:(UIBarButtonItem *)sender {
     [self dismissViewControllerAnimated:true completion:nil];
 }
 

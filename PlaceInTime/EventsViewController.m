@@ -11,7 +11,7 @@
 #import <ParseUI/ParseUI.h>
 #import "EventsViewController.h"
 #import "AddEventViewController.h"
-#import "EventDetailViewController.h"
+#import "EventDetailTableViewController.h"
 #import "LoginViewController.h"
 #import "UserEventTableViewCell.h"
 #import "UserEvent.h"
@@ -149,6 +149,7 @@
     newAnnotation.coordinate = touchMapCoordinate;
     AddEventViewController *eventVC = [self.storyboard instantiateViewControllerWithIdentifier:@"eventVC"];
     eventVC.location = newAnnotation.coordinate;
+    eventVC.trip = self.trip;
     [self presentViewController:eventVC animated:true completion:nil];
     [self.mapView addAnnotation:newAnnotation];
 }
@@ -209,7 +210,7 @@
             }
         }
     }
-    EventDetailViewController *detailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"detailVC"];
+    EventDetailTableViewController *detailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"detailVC"];
     if (self.isLandmark) {
         detailVC.isLandmark = true;
         detailVC.landmark = self.selectedLandmark;
@@ -227,21 +228,45 @@
 #pragma mark - UITableView datasource methods
 #pragma mark -
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 2;
+}
+
+
+-(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    if (section == 0) {
+        return @"Personal Events & Landmarks";
+    } else {
+        return @"Historical Events & Landmarks";
+    }
+}
+
+
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.userEvents.count;
+    if (section == 0) {
+        return self.userEvents.count;
+    } else {
+    return self.landmarks.count;
+    }
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CellID"];
-    cell.textLabel.text = [self.userEvents[indexPath.row]name];
-
-    return cell;
+    if (indexPath.section == 0) {
+        UITableViewCell *userCell = [tableView dequeueReusableCellWithIdentifier:@"UserCellID"];
+        userCell.textLabel.text = [self.userEvents[indexPath.row]name];
+        return userCell;
+    } else {
+        UITableViewCell *landmarkCell = [tableView dequeueReusableCellWithIdentifier:@"LandmarkCellID"];
+        landmarkCell.textLabel.text = [self.landmarks[indexPath.row]name];
+        return landmarkCell;
+    }
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    EventDetailViewController *detailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"detailVC"];
+    EventDetailTableViewController *detailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"detailVC"];
     [tableView deselectRowAtIndexPath:indexPath animated:false];
     detailVC.userEvent = self.userEvents[indexPath.row];
+    detailVC.trip = self.trip;
     [self presentViewController:detailVC animated:true completion:nil];
 }
 

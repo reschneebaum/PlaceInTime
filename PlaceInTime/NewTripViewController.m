@@ -9,9 +9,10 @@
 #import <MapKit/MapKit.h>
 #import <CoreLocation/CoreLocation.h>
 #import <Parse/Parse.h>
+#import "RootViewController.h"
 #import "NewTripViewController.h"
 #import "AddEventViewController.h"
-#import "EventDetailViewController.h"
+#import "EventDetailTableViewController.h"
 #import "LoginViewController.h"
 #import "Landmark.h"
 
@@ -28,19 +29,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-//    self.mapView.delegate = self;
-//    [self.mapView setRegion:MKCoordinateRegionMake(self.userLocation.coordinate, MKCoordinateSpanMake(0.5, 0.5)) animated:true];
-
+    self.mapView.delegate = self;
+    [self.mapView setRegion:MKCoordinateRegionMake(self.userLocation.coordinate, MKCoordinateSpanMake(0.5, 0.5)) animated:true];
+    [self.navigationItem setTitle:[NSString stringWithFormat:@"%@", self.trip.name]];
     UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
     longPress.minimumPressDuration = 1.2; //length of user press
     [self.mapView addGestureRecognizer:longPress];
 }
-
--(void)viewWillAppear:(BOOL)animated {
-    self.mapView.delegate = self;
-    [self.mapView setRegion:MKCoordinateRegionMake(self.userLocation.coordinate, MKCoordinateSpanMake(0.5, 0.5)) animated:true];
-}
-
 
 -(void)searchForAndAddLandmarks {
     NSMutableArray *tempLandmarks = [NSMutableArray new];
@@ -78,6 +73,7 @@
     newAnnotation.coordinate = touchMapCoordinate;
     AddEventViewController *eventVC = [self.storyboard instantiateViewControllerWithIdentifier:@"eventVC"];
     eventVC.location = newAnnotation.coordinate;
+    eventVC.trip = self.trip;
     [self presentViewController:eventVC animated:true completion:nil];
     [self.mapView addAnnotation:newAnnotation];
 }
@@ -91,34 +87,48 @@
     if ([annotation isEqual:mapView.userLocation]) {
         return nil;
     }
+    UIImage *image = [UIImage imageNamed:@"wind_rose"];
+    CGRect cropRect = CGRectMake(0.0, 0.0, 35.0, 35.0);
+    UIImageView *imageView = [[UIImageView alloc]initWithFrame:cropRect];
+    imageView.clipsToBounds = YES;
+    imageView.image = image;
     pin.canShowCallout = true;
     pin.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+    pin.leftCalloutAccessoryView = imageView;
 
     return pin;
 }
 
 -(void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control {
     MKPointAnnotation *annot = (MKPointAnnotation *)view.annotation;
-    EventDetailViewController *detailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"detailVC"];
+    EventDetailTableViewController *detailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"detailVC"];
     detailVC.location = annot.coordinate;
     [self presentViewController:detailVC animated:true completion:nil];
 }
 
 #pragma mark - Navigation
+#pragma mark -
 
-- (IBAction)logOutButtonTapAction:(UIBarButtonItem *)sender {
-    [PFUser logOut];
-    LoginViewController *login = [LoginViewController new];
-    [self presentViewController:login animated:true completion:nil];
+
+- (IBAction)onFinishButtonTapped:(UIBarButtonItem *)sender {
+    [self dismissViewControllerAnimated:true completion:nil];
+    //    RootViewController *rootVC = [RootViewController new];
+    //    [self presentViewController:rootVC animated:true completion:nil];
+    [self performSegueWithIdentifier:@"saveSegue" sender:self];
+}
+
+- (IBAction)onCancelButtonTapped:(UIBarButtonItem *)sender {
+    NSLog(@"%@",self.trip);
+    [self.trip delete];
+    NSLog(@"%@",self.trip);
+    [self dismissViewControllerAnimated:true completion:nil];
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"cancelSegue"]) {
-        [self.trip delete];
-    } else {
-        if ([segue.identifier isEqualToString:@"saveSegue"]) {
-            NSLog(@"trip saved");
-        }
+        NSLog(@"%@", self.trip);
+    } else if ([segue.identifier isEqualToString:@"saveSegue"]) {
+        NSLog(@"trip saved");
     }
 }
 

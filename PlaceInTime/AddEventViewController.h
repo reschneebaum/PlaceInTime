@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "UserEvent.h"
+#import "Trip.h"
 
 @interface AddEventViewController : UIViewController
 
@@ -15,5 +16,6 @@
 @property CLLocation *currentLocation;
 @property CLLocationCoordinate2D location;
 @property UserEvent *event;
+@property Trip *trip;
 
 @end

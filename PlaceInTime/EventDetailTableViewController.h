@@ -10,6 +10,7 @@
 #import "UserEvent.h"
 #import "HistoryEvent.h"
 #import "Landmark.h"
+#import "Trip.h"
 
 @interface EventDetailTableViewController : UITableViewController
 
@@ -20,5 +21,6 @@
 @property BOOL isLandmark;
 @property BOOL isUserEvent;
 @property BOOL isHistoryEvent;
+@property Trip *trip;
 
 @end

@@ -12,6 +12,7 @@
 #import "AddEventViewController.h"
 #import "EventsViewController.h"
 #import "UserEvent.h"
+#import "Trip.h"
 
 @interface AddEventViewController () <CLLocationManagerDelegate, UITextViewDelegate>
 
@@ -22,6 +23,7 @@
 @property (weak, nonatomic) IBOutlet UISlider *eventValenceSlider;
 @property (weak, nonatomic) IBOutlet UITextView *valenceDescriptionTextView;
 @property (weak, nonatomic) IBOutlet UIButton *addButton;
+@property NSDateFormatter *dateFormat;
 
 @end
 
@@ -35,6 +37,7 @@
     [self.locationManager startUpdatingLocation];
     [self.bgMapView showsUserLocation];
     [self.bgMapView showsBuildings];
+    [self initializeTextFieldInputView];
     [self configureStoryboardObjects];
     NSLog(@"self: %g, %g", self.location.latitude, self.location.longitude);
 
@@ -49,6 +52,19 @@
     self.valenceDescriptionTextView.layer.borderColor = [[UIColor grayColor]CGColor];
     self.addButton.enabled = false;
     self.eventDescriptionTextView.delegate = self;
+}
+
+-(void)initializeTextFieldInputView {
+    UIDatePicker *datePicker = [[UIDatePicker alloc] initWithFrame:CGRectZero];
+    datePicker.datePickerMode = UIDatePickerModeDate;
+    [datePicker addTarget:self action:@selector(dateUpdated:) forControlEvents:UIControlEventValueChanged];
+    self.eventDateTextField.inputView = datePicker;
+}
+
+-(void)dateUpdated:(UIDatePicker *)datePicker {
+    NSDateFormatter *dateFormat = [NSDateFormatter new];
+    [dateFormat setDateFormat:@"dd MMM yyyy"];
+    self.eventDateTextField.text = [dateFormat stringFromDate:datePicker.date];
 }
 
 #pragma mark - CLLocationManagerDelegate methods
@@ -73,6 +89,7 @@
         self.addButton.enabled = true;
     }
 }
+
 - (IBAction)onEventDateChanged:(UITextField *)sender {
     if ([self.eventNameTextField hasText] && [self.eventDateTextField hasText] && [self.eventDescriptionTextView hasText]) {
         self.addButton.enabled = true;
@@ -102,6 +119,8 @@
     event.textDescription = self.eventDescriptionTextView.text;
     event.valence = self.eventValenceSlider.value;
     event.location = [PFGeoPoint geoPointWithLatitude:self.location.latitude longitude:self.location.longitude];
+    event.belongsToTrip = self.trip;
+    NSLog(@"%@",self.trip);
     [event saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (succeeded) {
             NSLog(@"The object has been saved.");
