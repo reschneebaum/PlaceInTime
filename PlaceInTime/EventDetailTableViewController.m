@@ -14,6 +14,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (weak, nonatomic) IBOutlet UITextView *descriptionTextView;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@property UserEvent *event;
 
 @end
 
@@ -29,23 +30,73 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+-(void)viewWillAppear:(BOOL)animated {
+    NSError *error = [NSError new];
+    [self determineEventClassWithError:error];
+    if (!error) {
+        [self assignPointValues];
+    } else {
+        NSLog(@"uh oh");
+    }
+}
+
+-(BOOL)determineEventClassWithError:(NSError *)error {
+    if (self.userEvent != nil) {
+        return self.isUserEvent;
+    } else if (self.landmark != nil) {
+        return self.isLandmark;
+    } else if (self.histEvent) {
+        return self.isHistoryEvent;
+    } else {
+        return error;
+    }
+}
+
+-(void)assignPointValues {
+    if (self.isUserEvent) {
+        NSLog(@"%@", self.userEvent);
+        self.descriptionTextView.text = self.userEvent.textDescription;
+        self.navigationItem.title = self.userEvent.name;
+        self.dateLabel.text = self.userEvent.date;
+        CLLocation *location = [[CLLocation alloc] initWithLatitude:self.userEvent.location.latitude longitude:self.userEvent.location.longitude];
+        [self reverseGeocode:location];
+    }
+    if (self.isLandmark) {
+        NSLog(@"%@", self.landmark);
+        self.descriptionTextView.text = self.landmark.textDescription;
+        self.navigationItem.title = self.landmark.name;
+        self.dateLabel.text = self.landmark.date;
+        CLLocation *location = [[CLLocation alloc] initWithLatitude:self.landmark.latitude longitude:self.landmark.longitude];
+        [self reverseGeocode:location];
+    }
+    if (self.isHistoryEvent) {
+        NSLog(@"%@", self.histEvent);
+        self.descriptionTextView.text = self.histEvent.textDescription;
+        self.navigationItem.title = self.histEvent.name;
+        self.dateLabel.text = self.histEvent.date;
+        CLLocation *location = [[CLLocation alloc] initWithLatitude:self.histEvent.location.latitude longitude:self.histEvent.location.longitude];
+        [self reverseGeocode:location];
+    }
+}
+
+-(void)reverseGeocode:(CLLocation *)location {
+    CLGeocoder *geocoder = [CLGeocoder new];
+    [geocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error) {
+        CLPlacemark *placemark = placemarks.lastObject;
+        NSString *address = [NSString stringWithFormat:@"%@ %@, %@, %@ %@", placemark.subThoroughfare, placemark.thoroughfare, placemark.locality, placemark.administrativeArea, placemark.postalCode];
+        self.locationLabel.text = address;
+    }];
 }
 
 #pragma mark - Table view data source
+#pragma mark -
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Potentially incomplete method implementation.
-    // Return the number of sections.
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete method implementation.
-    // Return the number of rows in the section.
-    return 0;
+    return 5;
 }
 
 /*

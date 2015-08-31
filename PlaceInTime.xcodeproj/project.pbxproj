@@ -270,6 +270,8 @@
 		C4A30E0A1B8CC0BF006A39AC /* Old */ = {
 			isa = PBXGroup;
 			children = (
+				C42D7FCD1B8782AA00B56AFC /* EventDetailViewController.h */,
+				C42D7FCE1B8782AA00B56AFC /* EventDetailViewController.m */,
 				C4B103641B8DCDFD000EC658 /* CodeDump.h */,
 				C4B103651B8DCDFD000EC658 /* CodeDump.m */,
 				C4A91C9C1B83BD1C007C26CA /* LoginViewControllerOld.h */,
@@ -325,14 +327,12 @@
 				C42DDB961B82454300CAAD15 /* EventsViewController.m */,
 				C4A91C9F1B83BD2B007C26CA /* AddEventViewController.h */,
 				C4A91CA01B83BD2B007C26CA /* AddEventViewController.m */,
-				C42D7FCD1B8782AA00B56AFC /* EventDetailViewController.h */,
 				C41E79791B93F2C700A25D8B /* EventDetailTableViewController.h */,
 				C41E797A1B93F2C700A25D8B /* EventDetailTableViewController.m */,
-				C42D7FCE1B8782AA00B56AFC /* EventDetailViewController.m */,
 				C4B103671B8DEE7D000EC658 /* AddTripViewController.h */,
 				C4B103681B8DEE7D000EC658 /* AddTripViewController.m */,
-				C4B1036A1B8DEE91000EC658 /* NewTripViewController.h */,
 				C4B1036B1B8DEE91000EC658 /* NewTripViewController.m */,
+				C4B1036A1B8DEE91000EC658 /* NewTripViewController.h */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";

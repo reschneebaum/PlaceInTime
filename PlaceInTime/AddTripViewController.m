@@ -80,12 +80,12 @@
         [newTrip saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             if (succeeded) {
                 NSLog(@"The object has been saved.");
-                [self.navigationController performSegueWithIdentifier:@"tripDetail" sender:self];
+                self.userLocation = [[CLLocation alloc] initWithLatitude:newTrip.location.latitude longitude:newTrip.location.longitude];
+                [self performSegueWithIdentifier:@"tripDetail" sender:self];
             } else {
                 NSLog(@"There was a problem, check error.description");
             }
         }];
-        self.userLocation = [[CLLocation alloc] initWithLatitude:newTrip.location.latitude longitude:newTrip.location.longitude];
     }
 }
 
@@ -153,7 +153,9 @@
 - (IBAction)onGoButtonPressed:(UIButton *)sender {
     if (self.cityTextField.hasText && self.stateTextField.hasText && self.countryTextField.hasText && self.monthTextField.hasText && self.dayTextField.hasText && self.yearTextField.hasText) {
         [self performForwardGeocoding];
-        [self performSegueWithIdentifier:@"tripDetail" sender:nil];
+//        NewTripViewController *newTripVC = [NewTripViewController new];
+//        newTripVC.userLocation = self.userLocation;
+//        [self performSegueWithIdentifier:@"tripDetail" sender:nil];
     } else {
         [self presentAlertController];
     }
@@ -162,8 +164,9 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
 
     if([segue.identifier isEqualToString:@"tripDetail"]) {
+//        NSLog(@"==> lat/lon == [%f, %f]", self.userLocation.coordinate.latitude, self.userLocation.coordinate.longitude);
         UINavigationController *navVC = segue.destinationViewController;
-        NewTripViewController *newTripVC = (NewTripViewController *)navVC.topViewController;
+        NewTripViewController *newTripVC = (NewTripViewController *)navVC.viewControllers[0];
         newTripVC.userLocation = self.userLocation;
         NSLog(@"self - %@", self.userLocation);
         NSLog(@"%@", newTripVC.userLocation);

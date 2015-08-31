@@ -28,12 +28,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.mapView.delegate = self;
-    [self.mapView setRegion:MKCoordinateRegionMake(self.userLocation.coordinate, MKCoordinateSpanMake(0.5, 0.5)) animated:true];
+//    self.mapView.delegate = self;
+//    [self.mapView setRegion:MKCoordinateRegionMake(self.userLocation.coordinate, MKCoordinateSpanMake(0.5, 0.5)) animated:true];
 
     UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
     longPress.minimumPressDuration = 1.2; //length of user press
     [self.mapView addGestureRecognizer:longPress];
+}
+
+-(void)viewWillAppear:(BOOL)animated {
+    self.mapView.delegate = self;
+    [self.mapView setRegion:MKCoordinateRegionMake(self.userLocation.coordinate, MKCoordinateSpanMake(0.5, 0.5)) animated:true];
 }
 
 

@@ -240,6 +240,7 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     EventDetailViewController *detailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"detailVC"];
+    [tableView deselectRowAtIndexPath:indexPath animated:false];
     detailVC.userEvent = self.userEvents[indexPath.row];
     [self presentViewController:detailVC animated:true completion:nil];
 }
