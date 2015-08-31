@@ -80,7 +80,7 @@
         [newTrip saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             if (succeeded) {
                 NSLog(@"The object has been saved.");
-                [self performSegueWithIdentifier:@"tripDetail" sender:self];
+                [self.navigationController performSegueWithIdentifier:@"tripDetail" sender:self];
             } else {
                 NSLog(@"There was a problem, check error.description");
             }
@@ -153,7 +153,7 @@
 - (IBAction)onGoButtonPressed:(UIButton *)sender {
     if (self.cityTextField.hasText && self.stateTextField.hasText && self.countryTextField.hasText && self.monthTextField.hasText && self.dayTextField.hasText && self.yearTextField.hasText) {
         [self performForwardGeocoding];
-        [self performSegueWithIdentifier:@"tripDetail" sender:self];
+        [self performSegueWithIdentifier:@"tripDetail" sender:nil];
     } else {
         [self presentAlertController];
     }

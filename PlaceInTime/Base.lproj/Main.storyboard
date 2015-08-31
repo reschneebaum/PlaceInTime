@@ -177,7 +177,6 @@
                                 </state>
                                 <connections>
                                     <action selector="onGoButtonPressed:" destination="ger-hX-QMq" eventType="touchUpInside" id="eUp-Pe-cw3"/>
-                                    <segue destination="tAb-7a-SQP" kind="modal" identifier="tripDetail" id="vT5-Or-rGc"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -226,6 +225,7 @@
                         <outlet property="monthTextField" destination="n2f-S5-m4E" id="ZgU-ug-4dH"/>
                         <outlet property="stateTextField" destination="XAQ-TQ-C0M" id="FoQ-Xs-QVu"/>
                         <outlet property="yearTextField" destination="Raf-6n-iOV" id="M6h-eq-8gf"/>
+                        <segue destination="tAb-7a-SQP" kind="modal" identifier="tripDetail" id="dN6-bP-3B3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3dr-yK-4H8" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -465,7 +465,7 @@
                         <constraints>
                             <constraint firstItem="SZh-Qo-qpY" firstAttribute="leading" secondItem="kgN-EM-OXb" secondAttribute="leadingMargin" constant="-16" id="8Di-v0-INK"/>
                             <constraint firstItem="SZh-Qo-qpY" firstAttribute="top" secondItem="kgN-EM-OXb" secondAttribute="topMargin" id="B0n-r3-bMR"/>
-                            <constraint firstItem="zS3-Zl-41R" firstAttribute="top" secondItem="SZh-Qo-qpY" secondAttribute="bottom" id="eMs-Nf-jRn"/>
+                            <constraint firstItem="zS3-Zl-41R" firstAttribute="top" secondItem="SZh-Qo-qpY" secondAttribute="bottom" constant="-49" id="eMs-Nf-jRn"/>
                             <constraint firstAttribute="trailingMargin" secondItem="SZh-Qo-qpY" secondAttribute="trailing" constant="-16" id="kra-yQ-3Tn"/>
                         </constraints>
                     </view>
@@ -505,12 +505,16 @@
                             <constraint firstItem="MJS-Za-AF2" firstAttribute="top" secondItem="GJq-7T-eGC" secondAttribute="topMargin" id="7Hf-Id-rPs"/>
                             <constraint firstAttribute="trailingMargin" secondItem="MJS-Za-AF2" secondAttribute="trailing" constant="-16" id="HMk-PN-CL8"/>
                             <constraint firstItem="MJS-Za-AF2" firstAttribute="leading" secondItem="GJq-7T-eGC" secondAttribute="leadingMargin" constant="-16" id="YFz-jm-4YK"/>
-                            <constraint firstItem="92w-8a-eg5" firstAttribute="top" secondItem="MJS-Za-AF2" secondAttribute="bottom" id="ypz-ta-EEv"/>
+                            <constraint firstItem="92w-8a-eg5" firstAttribute="top" secondItem="MJS-Za-AF2" secondAttribute="bottom" constant="-49" id="ypz-ta-EEv"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="NMt-oP-9g9"/>
+                    <navigationItem key="navigationItem" id="NMt-oP-9g9">
+                        <barButtonItem key="backBarButtonItem" title="Cancel" id="nj0-1z-vpr"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="mapView" destination="MJS-Za-AF2" id="YpB-uM-U3z"/>
+                        <segue destination="T5y-PJ-gAm" kind="push" identifier="saveSegue" id="GK0-Hz-oem"/>
+                        <segue destination="T5y-PJ-gAm" kind="push" identifier="cancelSegue" id="FoM-Am-Juc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="D38-WL-ffS" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -961,14 +965,18 @@
         <!--Navigation Controller-->
         <scene sceneID="0tV-wd-9eE">
             <objects>
-                <navigationController storyboardIdentifier="navVC" automaticallyAdjustsScrollViewInsets="NO" id="GFV-AX-zOa" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="navVC" automaticallyAdjustsScrollViewInsets="NO" toolbarHidden="NO" id="GFV-AX-zOa" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="fQG-kE-8ju"/>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="d5Q-o8-pFh">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="Nq3-8F-tf7">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
                     <connections>
                         <segue destination="T5y-PJ-gAm" kind="relationship" relationship="rootViewController" id="Mf8-fJ-l0o"/>
                     </connections>
@@ -983,11 +991,15 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="tAb-7a-SQP" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="u1i-lG-fxN"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="FoL-B0-418">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="DQN-dw-FFT">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
                     <connections>
                         <segue destination="ukC-gP-yxn" kind="relationship" relationship="rootViewController" id="u9O-vU-LEZ"/>
                     </connections>
@@ -1007,7 +1019,8 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="X7r-Kz-h3l"/>
+        <segue reference="FoM-Am-Juc"/>
         <segue reference="C6D-ZN-pVI"/>
+        <segue reference="X7r-Kz-h3l"/>
     </inferredMetricsTieBreakers>
 </document>

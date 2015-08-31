@@ -29,7 +29,7 @@
     [super viewDidLoad];
 
     self.mapView.delegate = self;
-    [self.mapView setRegion:MKCoordinateRegionMake(self.userLocation.coordinate, MKCoordinateSpanMake(1.0, 1.0)) animated:true];
+    [self.mapView setRegion:MKCoordinateRegionMake(self.userLocation.coordinate, MKCoordinateSpanMake(0.5, 0.5)) animated:true];
 
     UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
     longPress.minimumPressDuration = 1.2; //length of user press
@@ -105,6 +105,16 @@
     [PFUser logOut];
     LoginViewController *login = [LoginViewController new];
     [self presentViewController:login animated:true completion:nil];
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"cancelSegue"]) {
+        [self.trip delete];
+    } else {
+        if ([segue.identifier isEqualToString:@"saveSegue"]) {
+            NSLog(@"trip saved");
+        }
+    }
 }
 
 @end
