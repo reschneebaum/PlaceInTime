@@ -11,6 +11,6 @@
 
 @interface SignupViewController : UIViewController
 
-@property UserInfo *userInfo;
+@property UserInfo *user;
 
 @end

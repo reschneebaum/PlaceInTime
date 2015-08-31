@@ -56,8 +56,8 @@
     [PFUser logInWithUsernameInBackground:self.usernameTextField.text password:self.passwordTextField.text block:^(PFUser *user, NSError *error) {
         if (user) {
             NSLog(@"user - %@ logged in", user.username);
-            RootViewController *rvc = [self.storyboard instantiateViewControllerWithIdentifier:@"navVC"];
-            [self presentViewController:rvc animated:true completion:nil];
+            UINavigationController *navVC = [self.storyboard instantiateViewControllerWithIdentifier:@"navVC"];
+            [self presentViewController:navVC animated:true completion:nil];
         } else {
             NSString *errorString = [[error userInfo] objectForKey:@"error"];
             UIAlertView *errorAlertView = [[UIAlertView alloc] initWithTitle:@"Error" message:errorString delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
@@ -75,14 +75,17 @@
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    RootViewController *rvc = segue.destinationViewController;
-    rvc.user = self.user;
-}
-
--(IBAction)unwindAfterSuccessfulSignup:(UIStoryboardSegue *)segue {
+    if ([segue.identifier isEqualToString:@"login"]) {
+        UINavigationController *navigationController = segue.destinationViewController;
+        RootViewController *rvc = (RootViewController *)navigationController.topViewController;
+        rvc.user = self.user;
+    }
 }
 
 -(IBAction)unwindOnCancel:(UIStoryboardSegue *)segue {
+}
+
+-(IBAction)unwindOnLogout:(UIStoryboardSegue *)segue {
 }
 
 @end

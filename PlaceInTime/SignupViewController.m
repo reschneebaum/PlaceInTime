@@ -22,7 +22,6 @@
 @property (weak, nonatomic) IBOutlet UITextField *emailTextField;
 @property (weak, nonatomic) IBOutlet UITextField *nameTextField;
 @property (weak, nonatomic) IBOutlet UIButton *signupButton;
-@property PFUser *user;
 @property BOOL textFieldsComplete;
 @property BOOL passwordConfirmed;
 @property BOOL signupFailed;
@@ -62,8 +61,10 @@
 }
 
 - (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
-    if (self.signupFailed) {
-        return false;
+    if ([identifier isEqualToString:@"signup"]) {
+        if (self.signupFailed || !self.passwordConfirmed) {
+            return false;
+        }
     }
     return true;
 }
@@ -105,7 +106,8 @@
         [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             if (!error) {
                 self.signupFailed = false;
-//                [self shouldPerformSegueWithIdentifier:@"unwind" sender:self.signupButton];
+                UINavigationController *navVC = [self.storyboard instantiateViewControllerWithIdentifier:@"navVC"];
+                [self presentViewController:navVC animated:true completion:nil];
                 NSLog(@"user - %@ signed up", user.username);
                 UserInfo *userInfo = [UserInfo object];
                 userInfo.name = self.nameTextField.text;
@@ -118,6 +120,21 @@
                 [errorAlertView show];
             }
         }];
+    }
+}
+
+- (IBAction)unwindOnCancelButtonPressed:(UIButton *)sender {
+    [self performSegueWithIdentifier:@"cancel" sender:self];
+}
+
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"signup"]) {
+        UINavigationController *navigationController = segue.destinationViewController;
+        RootViewController *rvc = (RootViewController *)navigationController.topViewController;
+        rvc.user = self.user;
+    } else {
+        LoginViewController *lvc = segue.destinationViewController;
     }
 }
 

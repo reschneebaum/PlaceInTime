@@ -111,6 +111,7 @@
             self.currentLocation = location;
             [self reverseGeocodeFromLocation:location];
         }
+    self.userLocation = location;
     }
 }
 
@@ -152,6 +153,7 @@
 - (IBAction)onGoButtonPressed:(UIButton *)sender {
     if (self.cityTextField.hasText && self.stateTextField.hasText && self.countryTextField.hasText && self.monthTextField.hasText && self.dayTextField.hasText && self.yearTextField.hasText) {
         [self performForwardGeocoding];
+        [self performSegueWithIdentifier:@"tripDetail" sender:self];
     } else {
         [self presentAlertController];
     }
@@ -160,11 +162,12 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
 
     if([segue.identifier isEqualToString:@"tripDetail"]) {
-        NewTripViewController *newVC = segue.destinationViewController;
-        newVC.userLocation = self.userLocation;
+        UINavigationController *navVC = segue.destinationViewController;
+        NewTripViewController *newTripVC = (NewTripViewController *)navVC.topViewController;
+        newTripVC.userLocation = self.userLocation;
         NSLog(@"self - %@", self.userLocation);
-        NSLog(@"%@", newVC.userLocation);
-        newVC.trip = self.trip;
+        NSLog(@"%@", newTripVC.userLocation);
+        newTripVC.trip = self.trip;
     }
 }
 

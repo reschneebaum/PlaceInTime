@@ -41,13 +41,13 @@
     }
 }
 
--(id)determineEventClassWithError:(NSError *)error {
+-(BOOL)determineEventClassWithError:(NSError *)error {
     if (self.userEvent != nil) {
-        return self.userEvent;
+        return self.isUserEvent;
     } else if (self.landmark != nil) {
-        return self.landmark;
+        return self.isLandmark;
     } else if (self.histEvent) {
-        return self.histEvent;
+        return self.isHistoryEvent;
     } else {
         return error;
     }

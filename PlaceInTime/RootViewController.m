@@ -14,7 +14,7 @@
 #import "AddTripViewController.h"
 #import "LoginViewController.h"
 
-@interface RootViewController () <PFLogInViewControllerDelegate, PFSignUpViewControllerDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface RootViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property NSArray *options;
 @property NSArray *segues;
@@ -32,7 +32,6 @@
                                    style:UIBarButtonItemStylePlain
                                    target:self
                                    action:@selector(logOutButtonTapAction:)];
-
     self.navigationItem.rightBarButtonItem = logoutButton;
 }
 
@@ -74,9 +73,9 @@
 
 - (IBAction)logOutButtonTapAction:(UIBarButtonItem *)sender {
     [PFUser logOut];
-//    LoginViewController *login = [LoginViewController new];
     [self dismissViewControllerAnimated:true completion:^{
         NSLog(@"%@", [PFUser currentUser]);
+        [self performSegueWithIdentifier:@"logout" sender:self];
     }];
 }
 
@@ -84,6 +83,8 @@
     if ([segue.identifier isEqualToString:@"newTrip"]) {
         AddTripViewController *avc = segue.destinationViewController;
         avc.user = self.user;
+    } else if ([segue.identifier isEqualToString:@"logout"]) {
+        LoginViewController *lvc = segue.destinationViewController;
     } else {
         TripsViewController *tvc = segue.destinationViewController;
         tvc.user = self.user;
