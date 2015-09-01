@@ -68,26 +68,37 @@
 
 
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    return @"Select a trip to view, add, or edit personal events, locations, and routes";
+    return @"Select a Trip:";
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 75;
+    return 50;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.trips.count;
 }
 
+- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
+    UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
+
+//    header.textLabel.textColor = [UIColor redColor];
+    header.textLabel.font = [UIFont fontWithName:@"Avenir Next" size:18];
+    CGRect headerFrame = header.frame;
+    header.textLabel.frame = headerFrame;
+    header.textLabel.textAlignment = NSTextAlignmentCenter;
+}
+
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CellID"];
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"CellID"];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    }
+    cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"CellID"];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+
     Trip *trip = self.trips[indexPath.row];
-    cell.textLabel.text = [NSString stringWithFormat:@"%@", trip.locationString];
+    cell.textLabel.text = trip.locationString;
+    cell.textLabel.font = [UIFont fontWithName:@"Avenir Next" size:16];
     cell.detailTextLabel.text = trip.dateString;
+    cell.detailTextLabel.font = [UIFont fontWithName:@"Avenir Next" size:12];
     if (trip.imageString != nil) {
         cell.imageView.image = [UIImage imageNamed:trip.imageString];
     } else {

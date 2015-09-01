@@ -242,6 +242,24 @@
     }
 }
 
+//- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+//    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 30)];
+//    UILabel *labelHeader = [[UILabel alloc] initWithFrame:CGRectMake (0,0,320,30)];
+//    labelHeader.font = [UIFont fontWithName:@"Avenir Next" size:20];
+//    labelHeader.textColor = [UIColor whiteColor];
+//    [headerView addSubview:labelHeader];
+//    if (section == 0) {
+//        [headerView setBackgroundColor:[UIColor whiteColor]];
+//        labelHeader.text = @"Personal Events & Landmarks";
+//    } else if (section == 1) {
+//        [headerView setBackgroundColor:[UIColor whiteColor]];
+//        labelHeader.text = @"Historical Events & Landmarks";
+//    } else {
+//        [headerView setBackgroundColor:[UIColor clearColor]];
+//    }
+//    return headerView;
+//}
+
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return 75;
 }
@@ -263,7 +281,9 @@
     if (indexPath.section == 0) {
         UITableViewCell *userCell = [tableView dequeueReusableCellWithIdentifier:@"UserCellID"];
         userCell.textLabel.text = [self.userEvents[indexPath.row]name];
+        userCell.textLabel.font = [UIFont fontWithName:@"Avenir Next" size:16];
         userCell.detailTextLabel.text = [self.userEvents[indexPath.row]dateString];
+        userCell.detailTextLabel.font = [UIFont fontWithName:@"Avenir Next" size:12];
 //        userCell.imageView.image = [UIImage imageNamed:self.userEvents[indexPath.row]imageString];
         return userCell;
     } else {
@@ -278,6 +298,30 @@
     self.event = self.userEvents[indexPath.row];
     [self performSegueWithIdentifier:@"detailSegue" sender:self];
 }
+
+-(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+
+-(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    }
+ }
+
+
+
+ // Override to support rearranging the table view.
+ - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
+ }
+
+
+ // Override to support conditional rearranging of the table view.
+ - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
+ // Return NO if you do not want the item to be re-orderable.
+ return YES;
+ }
+
 
 - (IBAction)onSegmentedControlSwitched:(UISegmentedControl *)sender {
     if (sender.selectedSegmentIndex == 0) {

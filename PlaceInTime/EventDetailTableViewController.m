@@ -24,6 +24,7 @@
     [super viewDidLoad];
     CLLocation *location = [[CLLocation alloc] initWithLatitude:self.event.location.latitude longitude:self.event.location.longitude];
     [self reverseGeocode:location];
+    [self.navigationItem setTitle:self.event.name];
     self.dateLabel.text = self.event.date;
     self.descriptionTextView.text = self.event.textDescription;
 }
@@ -41,57 +42,56 @@
 #pragma mark - Table view data source
 #pragma mark -
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
-}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 5;
+    return 0;
 }
 
-/*
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
-    
-    // Configure the cell...
+    UITableViewCell *cell;
+
+    switch (indexPath.row) {
+        case 0: {
+            NSLog(@"first cell");
+            cell = [tableView dequeueReusableCellWithIdentifier:@"Cell1"];
+            self.locationLabel.text = self.event.locationString;
+            break;
+        }
+        case 1: {
+            cell = [tableView dequeueReusableCellWithIdentifier:@"Cell2"];
+            self.dateLabel.text = self.event.dateString;
+            break;
+        }
+        case 2: {
+            cell = [tableView dequeueReusableCellWithIdentifier:@"Cell3"];
+            NSLog(@"image gallery here eventually");
+            break;
+        }
+        case 3: {
+            cell = [tableView dequeueReusableCellWithIdentifier:@"Cell4"];
+            NSLog(@"second cell");
+            break;
+        }
+        case 4: {
+            cell = [tableView dequeueReusableCellWithIdentifier:@"Cell5"];
+            NSLog(@"second cell");
+            break;
+        }
+        case 5: {
+            cell = [tableView dequeueReusableCellWithIdentifier:@"Cell6"];
+            NSLog(@"second cell");
+            break;
+        }
+        default:
+            break;
+    }
     
     return cell;
 }
-*/
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
 
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
 
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
 
 /*
 #pragma mark - Navigation
