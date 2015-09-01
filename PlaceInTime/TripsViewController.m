@@ -62,11 +62,6 @@
 #pragma mark - UITableViewDataSource methods
 #pragma mark -
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 2;
-}
-
-
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     return @"Select a Trip:";
 }

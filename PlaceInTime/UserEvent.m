@@ -16,9 +16,9 @@
 @dynamic user;
 @dynamic valence;
 @dynamic date;
-@dynamic dateString;
 @dynamic belongsToTrip;
 @dynamic location;
+@dynamic locationString;
 
 +(void)load {
     [self registerSubclass];

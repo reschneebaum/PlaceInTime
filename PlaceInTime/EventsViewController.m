@@ -49,9 +49,8 @@
     self.mapLocation = [[CLLocation alloc] initWithLatitude:self.trip.location.latitude longitude:self.trip.location.longitude];
     [self.mapView setRegion:MKCoordinateRegionMake(self.mapLocation.coordinate, MKCoordinateSpanMake(1.0, 1.0))];
 
-    [self searchForAndLoadLandmarks];
     [self checkAndIfChicagoLoadHistoryEvents];
-    [self combineLandmarksAndHistoryEventsAndSort];
+    [self searchForAndLoadLandmarks];
 
     UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
     longPress.minimumPressDuration = 1.2; //length of user press
@@ -160,7 +159,7 @@
             [self.mapView addAnnotation:annot];
         }
         self.landmarks = [NSArray arrayWithArray:tempLandmarks];
-        NSLog(@"%@", self.landmarks.firstObject);
+        [self combineLandmarksAndHistoryEventsAndSort];
     }];
 }
 
@@ -201,11 +200,10 @@
     if ([annotation isEqual:mapView.userLocation]) {
         return nil;
     } else if ([annotation isKindOfClass:[UserEventAnnotation class]]) {
-        UIImage *image = [UIImage imageNamed:@"path_map"];
         CGRect cropRect = CGRectMake(0.0, 0.0, 35.0, 35.0);
         UIImageView *imageView = [[UIImageView alloc]initWithFrame:cropRect];
         imageView.clipsToBounds = YES;
-        imageView.image = image;
+        imageView.image = [UIImage imageNamed:@"path_map"];
         pin.canShowCallout = true;
         pin.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
         pin.leftCalloutAccessoryView = imageView;
@@ -242,24 +240,6 @@
     }
 }
 
-//- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-//    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 30)];
-//    UILabel *labelHeader = [[UILabel alloc] initWithFrame:CGRectMake (0,0,320,30)];
-//    labelHeader.font = [UIFont fontWithName:@"Avenir Next" size:20];
-//    labelHeader.textColor = [UIColor whiteColor];
-//    [headerView addSubview:labelHeader];
-//    if (section == 0) {
-//        [headerView setBackgroundColor:[UIColor whiteColor]];
-//        labelHeader.text = @"Personal Events & Landmarks";
-//    } else if (section == 1) {
-//        [headerView setBackgroundColor:[UIColor whiteColor]];
-//        labelHeader.text = @"Historical Events & Landmarks";
-//    } else {
-//        [headerView setBackgroundColor:[UIColor clearColor]];
-//    }
-//    return headerView;
-//}
-
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return 75;
 }
@@ -282,21 +262,24 @@
         UITableViewCell *userCell = [tableView dequeueReusableCellWithIdentifier:@"UserCellID"];
         userCell.textLabel.text = [self.userEvents[indexPath.row]name];
         userCell.textLabel.font = [UIFont fontWithName:@"Avenir Next" size:16];
-        userCell.detailTextLabel.text = [self.userEvents[indexPath.row]dateString];
+        userCell.detailTextLabel.text = [self.userEvents[indexPath.row]date];
         userCell.detailTextLabel.font = [UIFont fontWithName:@"Avenir Next" size:12];
 //        userCell.imageView.image = [UIImage imageNamed:self.userEvents[indexPath.row]imageString];
         return userCell;
     } else {
         UITableViewCell *landmarkCell = [tableView dequeueReusableCellWithIdentifier:@"LandmarkCellID"];
         landmarkCell.textLabel.text = [self.landmarks[indexPath.row]name];
+        landmarkCell.textLabel.font = [UIFont fontWithName:@"Avenir Next" size:16];
         return landmarkCell;
     }
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:false];
-    self.event = self.userEvents[indexPath.row];
-    [self performSegueWithIdentifier:@"detailSegue" sender:self];
+    if (indexPath.section == 0) {
+        self.event = self.userEvents[indexPath.row];
+        [self performSegueWithIdentifier:@"detailSegue" sender:self];
+    }
 }
 
 -(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -306,21 +289,16 @@
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        [self.userEvents[indexPath.row] delete];
     }
- }
+}
 
+-(void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
+}
 
-
- // Override to support rearranging the table view.
- - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
- }
-
-
- // Override to support conditional rearranging of the table view.
- - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
- // Return NO if you do not want the item to be re-orderable.
- return YES;
- }
+-(BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
+     return YES;
+}
 
 
 - (IBAction)onSegmentedControlSwitched:(UISegmentedControl *)sender {

@@ -35,6 +35,8 @@
 		C42DDBEC1B82946000CAAD15 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C42DDBEB1B82946000CAAD15 /* Social.framework */; };
 		C4997EF61B960BFB0032CFB5 /* UserEventAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = C4997EF51B960BFB0032CFB5 /* UserEventAnnotation.m */; };
 		C4997EF91B960C0E0032CFB5 /* LandmarkAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = C4997EF81B960C0E0032CFB5 /* LandmarkAnnotation.m */; };
+		C4997EFC1B965ED10032CFB5 /* PhotoCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C4997EFB1B965ED00032CFB5 /* PhotoCollectionViewCell.m */; };
+		C4997EFE1B9660020032CFB5 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4997EFD1B9660020032CFB5 /* AssetsLibrary.framework */; };
 		C4A30E0D1B8CCDBC006A39AC /* UserEventTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A30E0C1B8CCDBC006A39AC /* UserEventTableViewCell.m */; };
 		C4A30E101B8CCDD1006A39AC /* LandmarkTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A30E0F1B8CCDD1006A39AC /* LandmarkTableViewCell.m */; };
 		C4A30E131B8CD109006A39AC /* Landmark.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A30E121B8CD109006A39AC /* Landmark.m */; };
@@ -127,6 +129,9 @@
 		C4997EF51B960BFB0032CFB5 /* UserEventAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserEventAnnotation.m; sourceTree = "<group>"; };
 		C4997EF71B960C0E0032CFB5 /* LandmarkAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LandmarkAnnotation.h; sourceTree = "<group>"; };
 		C4997EF81B960C0E0032CFB5 /* LandmarkAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LandmarkAnnotation.m; sourceTree = "<group>"; };
+		C4997EFA1B965ED00032CFB5 /* PhotoCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoCollectionViewCell.h; sourceTree = "<group>"; };
+		C4997EFB1B965ED00032CFB5 /* PhotoCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoCollectionViewCell.m; sourceTree = "<group>"; };
+		C4997EFD1B9660020032CFB5 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		C4A30E0B1B8CCDBC006A39AC /* UserEventTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserEventTableViewCell.h; sourceTree = "<group>"; };
 		C4A30E0C1B8CCDBC006A39AC /* UserEventTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserEventTableViewCell.m; sourceTree = "<group>"; };
 		C4A30E0E1B8CCDD1006A39AC /* LandmarkTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LandmarkTableViewCell.h; sourceTree = "<group>"; };
@@ -176,6 +181,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C4997EFE1B9660020032CFB5 /* AssetsLibrary.framework in Frameworks */,
 				C4E414941B8EEDD300116824 /* Fabric.framework in Frameworks */,
 				C4B77D191B8EE8E30073E9D8 /* Bolts.framework in Frameworks */,
 				C4E414961B8EEE4400116824 /* ParseUI.framework in Frameworks */,
@@ -314,6 +320,8 @@
 				C4997EF51B960BFB0032CFB5 /* UserEventAnnotation.m */,
 				C4997EF71B960C0E0032CFB5 /* LandmarkAnnotation.h */,
 				C4997EF81B960C0E0032CFB5 /* LandmarkAnnotation.m */,
+				C4997EFA1B965ED00032CFB5 /* PhotoCollectionViewCell.h */,
+				C4997EFB1B965ED00032CFB5 /* PhotoCollectionViewCell.m */,
 				C4A30E0B1B8CCDBC006A39AC /* UserEventTableViewCell.h */,
 				C4A30E0C1B8CCDBC006A39AC /* UserEventTableViewCell.m */,
 				C4A30E0E1B8CCDD1006A39AC /* LandmarkTableViewCell.h */,
@@ -350,6 +358,7 @@
 		C4B13F5D1B8BAE28005A6475 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C4997EFD1B9660020032CFB5 /* AssetsLibrary.framework */,
 				C4E414951B8EEE4400116824 /* ParseUI.framework */,
 				C4E414921B8EEDB300116824 /* Fabric.framework */,
 				C4B77D0F1B8EE8700073E9D8 /* Bolts.framework */,
@@ -513,6 +522,7 @@
 				8F61B3AB1B87962D009023EB /* HistoryEvent.m in Sources */,
 				C42D7FCF1B8782AA00B56AFC /* EventDetailViewController.m in Sources */,
 				C4D857391B9504060015543A /* Route.m in Sources */,
+				C4997EFC1B965ED10032CFB5 /* PhotoCollectionViewCell.m in Sources */,
 				C4997EF61B960BFB0032CFB5 /* UserEventAnnotation.m in Sources */,
 				C4E4149F1B8F765200116824 /* UserInfo.m in Sources */,
 				C42DDB911B82454300CAAD15 /* AppDelegate.m in Sources */,

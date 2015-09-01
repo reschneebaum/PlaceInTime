@@ -56,6 +56,9 @@
 
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CellID"];
     cell.textLabel.text = [self.options objectAtIndex:indexPath.row];
+    cell.textLabel.font = [UIFont fontWithName:@"Avenir Next Heavy" size:16];
+    cell.textLabel.textColor = [UIColor colorWithRed:143/255 green:181/255 blue:191/255 alpha:1.0];
+
     return cell;
 }
 
@@ -63,6 +66,16 @@
     [tableView deselectRowAtIndexPath:indexPath animated:false];
     NSArray *segues = @[@"myTrips", @"newTrip", @"sharedTrips", @"downloadTrips"];
     [self performSegueWithIdentifier:segues[indexPath.row] sender:self.navigationController];
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
+    UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
+
+    //    header.textLabel.textColor = [UIColor redColor];
+    header.textLabel.font = [UIFont fontWithName:@"Avenir Next" size:18];
+    CGRect headerFrame = header.frame;
+    header.textLabel.frame = headerFrame;
+    header.textLabel.textAlignment = NSTextAlignmentCenter;
 }
 
 

@@ -18,9 +18,6 @@
 @property Landmark *landmark;
 @property HistoryEvent *histEvent;
 @property UserEvent *userEvent;
-@property BOOL isLandmark;
-@property BOOL isUserEvent;
-@property BOOL isHistoryEvent;
 @property Trip *trip;
 
 @end

@@ -10,11 +10,11 @@
 
 @interface EventDetailTableViewController ()
 
+@property (strong, nonatomic) id detailItem;
 @property (weak, nonatomic) IBOutlet UILabel *locationLabel;
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (weak, nonatomic) IBOutlet UITextView *descriptionTextView;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
-@property UserEvent *event;
 
 @end
 
@@ -22,21 +22,29 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    CLLocation *location = [[CLLocation alloc] initWithLatitude:self.event.location.latitude longitude:self.event.location.longitude];
+    NSLog(@"%@", self.userEvent.name);
+
+    [self configureView];
+    CLLocation *location = [[CLLocation alloc] initWithLatitude:self.userEvent.location.latitude longitude:self.userEvent.location.longitude];
     [self reverseGeocode:location];
-    [self.navigationItem setTitle:self.event.name];
-    self.dateLabel.text = self.event.date;
-    self.descriptionTextView.text = self.event.textDescription;
+    [self.navigationItem setTitle:self.userEvent.name];
+    NSLog(@"%@", self.userEvent.name);
 }
 
 
 -(void)reverseGeocode:(CLLocation *)location {
     CLGeocoder *geocoder = [CLGeocoder new];
     [geocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error) {
-        CLPlacemark *placemark = placemarks.lastObject;
+        CLPlacemark *placemark = placemarks.firstObject;
         NSString *address = [NSString stringWithFormat:@"%@ %@, %@, %@ %@", placemark.subThoroughfare, placemark.thoroughfare, placemark.locality, placemark.administrativeArea, placemark.postalCode];
         self.locationLabel.text = address;
     }];
+}
+
+-(void)configureView {
+    self.dateLabel.text = self.userEvent.date;
+    self.descriptionTextView.text = self.userEvent.textDescription;
+
 }
 
 #pragma mark - Table view data source
@@ -44,50 +52,7 @@
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 0;
-}
-
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell;
-
-    switch (indexPath.row) {
-        case 0: {
-            NSLog(@"first cell");
-            cell = [tableView dequeueReusableCellWithIdentifier:@"Cell1"];
-            self.locationLabel.text = self.event.locationString;
-            break;
-        }
-        case 1: {
-            cell = [tableView dequeueReusableCellWithIdentifier:@"Cell2"];
-            self.dateLabel.text = self.event.dateString;
-            break;
-        }
-        case 2: {
-            cell = [tableView dequeueReusableCellWithIdentifier:@"Cell3"];
-            NSLog(@"image gallery here eventually");
-            break;
-        }
-        case 3: {
-            cell = [tableView dequeueReusableCellWithIdentifier:@"Cell4"];
-            NSLog(@"second cell");
-            break;
-        }
-        case 4: {
-            cell = [tableView dequeueReusableCellWithIdentifier:@"Cell5"];
-            NSLog(@"second cell");
-            break;
-        }
-        case 5: {
-            cell = [tableView dequeueReusableCellWithIdentifier:@"Cell6"];
-            NSLog(@"second cell");
-            break;
-        }
-        default:
-            break;
-    }
-    
-    return cell;
+    return 7;
 }
 
 

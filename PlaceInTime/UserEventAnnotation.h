@@ -10,4 +10,6 @@
 
 @interface UserEventAnnotation : MKPointAnnotation
 
+@property NSString *valence;
+
 @end
