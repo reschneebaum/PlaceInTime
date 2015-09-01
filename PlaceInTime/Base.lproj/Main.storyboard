@@ -305,13 +305,13 @@
             <objects>
                 <tableViewController storyboardIdentifier="detailVC" id="oDF-Bx-zId" customClass="EventDetailTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="static" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="oAC-xe-OOK">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <sections>
                             <tableViewSection id="zmk-If-KBn">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="46" id="tdS-ac-fwa">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="46" id="tdS-ac-fwa">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="tdS-ac-fwa" id="heT-5S-ch5">
                                             <autoresizingMask key="autoresizingMask"/>
@@ -351,6 +351,16 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="15" id="hqa-8G-QhR">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hqa-8G-QhR" id="V1u-6R-VkF">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection headerTitle="Photo Gallery" id="Pr7-Uf-ST4">
+                                <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="206" id="1H3-rm-3kh">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="1H3-rm-3kh" id="zVl-UH-nyT">
@@ -426,9 +436,9 @@
                                         </tableViewCellContentView>
                                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="73" id="VwS-9c-FF9">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="73" id="Bm2-Jd-CYg">
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="VwS-9c-FF9" id="5tA-w2-Z5P">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Bm2-Jd-CYg" id="JpA-Tm-FqE">
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -447,11 +457,11 @@
                         </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="Ebk-9M-aAB"/>
                     </toolbarItems>
-                    <navigationItem key="navigationItem" title="Event Name" id="0Xf-9I-oGh">
-                        <barButtonItem key="leftBarButtonItem" title="Trip" id="kKV-52-A1f">
+                    <navigationItem key="navigationItem" title="Event Name" id="zat-Fm-HYW">
+                        <barButtonItem key="leftBarButtonItem" title="Trip" id="r8s-71-DWx">
                             <color key="tintColor" red="0.3294117647" green="0.43137254899999999" blue="0.4549019608" alpha="1" colorSpace="calibratedRGB"/>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Edit" id="SuI-nX-hVI">
+                        <barButtonItem key="rightBarButtonItem" title="Edit" id="QLU-bT-P5t">
                             <color key="tintColor" red="0.3294117647" green="0.43137254899999999" blue="0.4549019608" alpha="1" colorSpace="calibratedRGB"/>
                         </barButtonItem>
                     </navigationItem>
