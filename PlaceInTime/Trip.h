@@ -16,6 +16,7 @@
 @property (nonatomic, strong) NSDate *date;
 @property (nonatomic, strong) NSString *dateString;
 @property (nonatomic, strong) NSString *imageString;
+@property (nonatomic, strong) NSString *locationString;
 @property (nonatomic, strong) PFGeoPoint *location;
 
 +(NSString *)parseClassName;

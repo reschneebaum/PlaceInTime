@@ -17,6 +17,7 @@
 @dynamic date;
 @dynamic dateString;
 @dynamic imageString;
+@dynamic locationString;
 @dynamic location;
 
 +(void)load {

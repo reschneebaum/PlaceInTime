@@ -68,6 +68,7 @@
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="tableView" destination="b5j-Dd-1Eb" id="nl3-yH-Lu8"/>
+                        <segue destination="vXZ-lx-hvc" kind="push" identifier="viewTrip" id="RvC-N2-vTv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ybJ-Jy-Ptj" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -208,7 +209,7 @@
                         <outlet property="datePicker" destination="Cyi-dT-fEX" id="nvP-lE-ISH"/>
                         <outlet property="mapView" destination="rzL-b6-C3t" id="y9w-qg-Lfo"/>
                         <outlet property="stateTextField" destination="XAQ-TQ-C0M" id="FoQ-Xs-QVu"/>
-                        <segue destination="tAb-7a-SQP" kind="modal" identifier="tripDetail" id="dN6-bP-3B3"/>
+                        <segue destination="vXZ-lx-hvc" kind="modal" identifier="tripDetail" id="EUR-6L-j2F"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3dr-yK-4H8" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -298,7 +299,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1694" y="717"/>
+            <point key="canvasLocation" x="1694" y="413"/>
         </scene>
         <!--Event Name-->
         <scene sceneID="ngx-7O-p5i">
@@ -361,51 +362,61 @@
                             </tableViewSection>
                             <tableViewSection headerTitle="Photo Gallery" id="Pr7-Uf-ST4">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="206" id="1H3-rm-3kh">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="206" id="btO-we-Qhy">
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="1H3-rm-3kh" id="zVl-UH-nyT">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="btO-we-Qhy" id="dYi-hv-Xfb">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="uzN-MT-zNN">
+                                                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="LkM-m8-Ru8">
                                                     <rect key="frame" x="0.0" y="8" width="320" height="189.5"/>
-                                                    <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Tcb-3c-AOC">
+                                                    <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Q6Y-K7-SFT">
                                                         <size key="itemSize" width="323" height="167"/>
                                                         <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                                         <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                                         <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                     </collectionViewFlowLayout>
                                                     <cells>
-                                                        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CollectionCellID" id="wF4-T4-OKo">
+                                                        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CollectionCellID" id="obS-ID-T6F">
                                                             <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                                                 <rect key="frame" x="0.0" y="0.0" width="323" height="167"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <subviews>
-                                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="kil-aA-nRs">
+                                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="UdA-hN-WHY">
                                                                         <rect key="frame" x="13" y="0.0" width="297" height="167"/>
                                                                     </imageView>
                                                                 </subviews>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             </view>
                                                             <constraints>
-                                                                <constraint firstAttribute="bottomMargin" secondItem="kil-aA-nRs" secondAttribute="bottom" constant="-8" id="MCc-9a-iDU"/>
-                                                                <constraint firstAttribute="trailingMargin" secondItem="kil-aA-nRs" secondAttribute="trailing" constant="5" id="QK9-dh-6jf"/>
-                                                                <constraint firstItem="kil-aA-nRs" firstAttribute="top" secondItem="wF4-T4-OKo" secondAttribute="topMargin" constant="-8" id="ge9-jq-nHQ"/>
-                                                                <constraint firstItem="kil-aA-nRs" firstAttribute="leading" secondItem="wF4-T4-OKo" secondAttribute="leadingMargin" constant="5" id="zSe-d2-vCf"/>
+                                                                <constraint firstAttribute="trailingMargin" secondItem="UdA-hN-WHY" secondAttribute="trailing" constant="5" id="BWi-SA-rJH"/>
+                                                                <constraint firstAttribute="bottomMargin" secondItem="UdA-hN-WHY" secondAttribute="bottom" constant="-8" id="Iep-CX-gPv"/>
+                                                                <constraint firstItem="UdA-hN-WHY" firstAttribute="top" secondItem="obS-ID-T6F" secondAttribute="topMargin" constant="-8" id="l72-WC-VXa"/>
+                                                                <constraint firstItem="UdA-hN-WHY" firstAttribute="leading" secondItem="obS-ID-T6F" secondAttribute="leadingMargin" constant="5" id="t1H-pT-zix"/>
                                                             </constraints>
                                                         </collectionViewCell>
                                                     </cells>
                                                 </collectionView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="trailingMargin" secondItem="uzN-MT-zNN" secondAttribute="trailing" constant="-8" id="1ym-G5-HuF"/>
-                                                <constraint firstItem="uzN-MT-zNN" firstAttribute="bottom" secondItem="zVl-UH-nyT" secondAttribute="bottomMargin" id="BJ5-s8-E5n"/>
-                                                <constraint firstItem="uzN-MT-zNN" firstAttribute="top" secondItem="zVl-UH-nyT" secondAttribute="topMargin" id="Xf1-0I-ReB"/>
-                                                <constraint firstItem="uzN-MT-zNN" firstAttribute="leading" secondItem="zVl-UH-nyT" secondAttribute="leadingMargin" constant="-8" id="rTC-kY-akr"/>
+                                                <constraint firstItem="LkM-m8-Ru8" firstAttribute="top" secondItem="dYi-hv-Xfb" secondAttribute="topMargin" id="Gl0-yD-4IS"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="LkM-m8-Ru8" secondAttribute="trailing" constant="-8" id="YFv-2q-8CS"/>
+                                                <constraint firstItem="LkM-m8-Ru8" firstAttribute="leading" secondItem="dYi-hv-Xfb" secondAttribute="leadingMargin" constant="-8" id="k1c-QF-9zu"/>
+                                                <constraint firstItem="LkM-m8-Ru8" firstAttribute="bottom" secondItem="dYi-hv-Xfb" secondAttribute="bottomMargin" id="zVn-Ac-vaI"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="15" id="Bm2-Jd-CYg">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Bm2-Jd-CYg" id="JpA-Tm-FqE">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection headerTitle="Description" id="OPB-xb-cV5">
+                                <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" shouldIndentWhileEditing="NO" rowHeight="150" id="o3D-2g-00R">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="o3D-2g-00R" id="1oM-fn-DuL">
@@ -436,9 +447,9 @@
                                         </tableViewCellContentView>
                                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="73" id="Bm2-Jd-CYg">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="73" id="vaC-yp-3ss">
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Bm2-Jd-CYg" id="JpA-Tm-FqE">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="vaC-yp-3ss" id="EOX-Lw-dxk">
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -468,7 +479,6 @@
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="collectionView" destination="uzN-MT-zNN" id="Cbw-jC-zXF"/>
                         <outlet property="dateLabel" destination="PIn-Qd-UnU" id="z6n-Ye-pwe"/>
                         <outlet property="descriptionTextView" destination="Ovs-M2-XNg" id="COy-zb-IZD"/>
                         <outlet property="locationLabel" destination="IjL-r9-oAP" id="Hhc-Hn-4f6"/>
@@ -476,7 +486,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="U7y-hB-Yv7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2080" y="717"/>
+            <point key="canvasLocation" x="2112" y="413"/>
         </scene>
         <!--Dashboard-->
         <scene sceneID="5RY-9a-9LR">
@@ -525,12 +535,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="q9C-dH-agx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="772" y="315"/>
+            <point key="canvasLocation" x="756" y="315"/>
         </scene>
         <!--Trip Name-->
         <scene sceneID="FS9-qM-Dls">
             <objects>
-                <viewController storyboardIdentifier="newMapVC" id="ukC-gP-yxn" customClass="NewTripViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="newMapVC" id="ukC-gP-yxn" customClass="EventsViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="JA5-Hz-PoF"/>
                         <viewControllerLayoutGuide type="bottom" id="92w-8a-eg5"/>
@@ -575,7 +585,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="D38-WL-ffS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2080" y="73"/>
+            <point key="canvasLocation" x="2080" y="-479"/>
         </scene>
         <!--Add Event View Controller-->
         <scene sceneID="K1T-ba-D25">
@@ -752,7 +762,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kBd-q2-jB5" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="I6s-wg-dUq" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2622" y="73"/>
+            <point key="canvasLocation" x="2508" y="413"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="unh-Gc-2jJ">
@@ -1080,7 +1090,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rla-H1-eQU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1694" y="73"/>
+            <point key="canvasLocation" x="1694" y="-479"/>
         </scene>
     </scenes>
     <resources>
@@ -1095,7 +1105,8 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="C6D-ZN-pVI"/>
-        <segue reference="Mf8-fJ-l0o"/>
+        <segue reference="GK0-Hz-oem"/>
+        <segue reference="EUR-6L-j2F"/>
         <segue reference="aeH-vp-syx"/>
     </inferredMetricsTieBreakers>
 </document>

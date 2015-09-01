@@ -137,13 +137,12 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
 
     if([segue.identifier isEqualToString:@"tripDetail"]) {
-        UINavigationController *navVC = segue.destinationViewController;
-        NewTripViewController *newTripVC = (NewTripViewController *)navVC.viewControllers[0];
-        newTripVC.userLocation = self.userLocation;
+        EventsViewController *mapVC = segue.destinationViewController;
+        mapVC.mapLocation = self.userLocation;
         NSLog(@"self - %@", self.userLocation);
-        NSLog(@"%@", newTripVC.userLocation);
-        newTripVC.trip = self.trip;
-        newTripVC.navigationItem.title = self.trip.name;
+        NSLog(@"%@", mapVC.mapLocation);
+        mapVC.trip = self.trip;
+        mapVC.navigationItem.title = self.trip.name;
     }
 }
 

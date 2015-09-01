@@ -86,7 +86,7 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     Trip *trip = self.trips[indexPath.row];
-    cell.textLabel.text = [NSString stringWithFormat:@"%@", trip.location];
+    cell.textLabel.text = [NSString stringWithFormat:@"%@", trip.locationString];
     cell.detailTextLabel.text = trip.dateString;
     if (trip.imageString != nil) {
         cell.imageView.image = [UIImage imageNamed:trip.imageString];
@@ -97,11 +97,13 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:false];
     self.trip = self.trips[indexPath.row];
     NSLog(@"tableview, tripsVC: %@", self.trip.location);
-    EventsViewController *mapVC = [self.storyboard instantiateViewControllerWithIdentifier:@"mapVC"];
-    mapVC.trip = self.trip;
-    [self.navigationController pushViewController:mapVC animated:true];
+    [self performSegueWithIdentifier:@"viewTrip" sender:self];
+//    EventsViewController *mapVC = [self.storyboard instantiateViewControllerWithIdentifier:@"mapVC"];
+//    mapVC.trip = self.trip;
+//    [self.navigationController pushViewController:mapVC animated:true];
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -124,7 +126,10 @@
 #pragma mark -
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(UITableViewCell *)sender {
-
+    if ([segue.identifier isEqualToString:@"viewTrip"]) {
+        EventsViewController *mapVC = segue.destinationViewController;
+        mapVC.trip = self.trip;
+    }
 }
 
 @end

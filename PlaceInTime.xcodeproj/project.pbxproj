@@ -33,6 +33,8 @@
 		C42DDBE81B82944D00CAAD15 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C42DDBE71B82944D00CAAD15 /* libsqlite3.dylib */; };
 		C42DDBEA1B82945900CAAD15 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C42DDBE91B82945900CAAD15 /* Accounts.framework */; };
 		C42DDBEC1B82946000CAAD15 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C42DDBEB1B82946000CAAD15 /* Social.framework */; };
+		C4997EF61B960BFB0032CFB5 /* UserEventAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = C4997EF51B960BFB0032CFB5 /* UserEventAnnotation.m */; };
+		C4997EF91B960C0E0032CFB5 /* LandmarkAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = C4997EF81B960C0E0032CFB5 /* LandmarkAnnotation.m */; };
 		C4A30E0D1B8CCDBC006A39AC /* UserEventTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A30E0C1B8CCDBC006A39AC /* UserEventTableViewCell.m */; };
 		C4A30E101B8CCDD1006A39AC /* LandmarkTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A30E0F1B8CCDD1006A39AC /* LandmarkTableViewCell.m */; };
 		C4A30E131B8CD109006A39AC /* Landmark.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A30E121B8CD109006A39AC /* Landmark.m */; };
@@ -121,6 +123,10 @@
 		C42DDBE71B82944D00CAAD15 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		C42DDBE91B82945900CAAD15 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		C42DDBEB1B82946000CAAD15 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
+		C4997EF41B960BFB0032CFB5 /* UserEventAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserEventAnnotation.h; sourceTree = "<group>"; };
+		C4997EF51B960BFB0032CFB5 /* UserEventAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserEventAnnotation.m; sourceTree = "<group>"; };
+		C4997EF71B960C0E0032CFB5 /* LandmarkAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LandmarkAnnotation.h; sourceTree = "<group>"; };
+		C4997EF81B960C0E0032CFB5 /* LandmarkAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LandmarkAnnotation.m; sourceTree = "<group>"; };
 		C4A30E0B1B8CCDBC006A39AC /* UserEventTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserEventTableViewCell.h; sourceTree = "<group>"; };
 		C4A30E0C1B8CCDBC006A39AC /* UserEventTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserEventTableViewCell.m; sourceTree = "<group>"; };
 		C4A30E0E1B8CCDD1006A39AC /* LandmarkTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LandmarkTableViewCell.h; sourceTree = "<group>"; };
@@ -304,6 +310,10 @@
 		C4B103621B8D1C6F000EC658 /* Custom Classes */ = {
 			isa = PBXGroup;
 			children = (
+				C4997EF41B960BFB0032CFB5 /* UserEventAnnotation.h */,
+				C4997EF51B960BFB0032CFB5 /* UserEventAnnotation.m */,
+				C4997EF71B960C0E0032CFB5 /* LandmarkAnnotation.h */,
+				C4997EF81B960C0E0032CFB5 /* LandmarkAnnotation.m */,
 				C4A30E0B1B8CCDBC006A39AC /* UserEventTableViewCell.h */,
 				C4A30E0C1B8CCDBC006A39AC /* UserEventTableViewCell.m */,
 				C4A30E0E1B8CCDD1006A39AC /* LandmarkTableViewCell.h */,
@@ -503,11 +513,13 @@
 				8F61B3AB1B87962D009023EB /* HistoryEvent.m in Sources */,
 				C42D7FCF1B8782AA00B56AFC /* EventDetailViewController.m in Sources */,
 				C4D857391B9504060015543A /* Route.m in Sources */,
+				C4997EF61B960BFB0032CFB5 /* UserEventAnnotation.m in Sources */,
 				C4E4149F1B8F765200116824 /* UserInfo.m in Sources */,
 				C42DDB911B82454300CAAD15 /* AppDelegate.m in Sources */,
 				C42DDB941B82454300CAAD15 /* PlaceInTime.xcdatamodeld in Sources */,
 				C4B1036C1B8DEE91000EC658 /* NewTripViewController.m in Sources */,
 				C4B13F6D1B8C8107005A6475 /* TripsViewController.m in Sources */,
+				C4997EF91B960C0E0032CFB5 /* LandmarkAnnotation.m in Sources */,
 				C4E4149C1B8F6CB400116824 /* SignupViewController.m in Sources */,
 				C42DDB971B82454300CAAD15 /* EventsViewController.m in Sources */,
 				C4A91C9E1B83BD1C007C26CA /* LoginViewControllerOld.m in Sources */,

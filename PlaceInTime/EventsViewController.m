@@ -7,6 +7,7 @@
 //
 
 #import <MapKit/MapKit.h>
+#import <CoreLocation/CoreLocation.h>
 #import <Parse/Parse.h>
 #import <ParseUI/ParseUI.h>
 #import "EventsViewController.h"
@@ -18,18 +19,19 @@
 #import "HistoryEvent.h"
 #import "Landmark.h"
 #import "Trip.h"
-//#import "ParseQueryManager.h"
+#import "UserEventAnnotation.h"
+#import "LandmarkAnnotation.h"
 
-@interface EventsViewController () <MKMapViewDelegate, UITableViewDelegate, UITableViewDataSource>
+@interface EventsViewController () <MKMapViewDelegate, CLLocationManagerDelegate, UITableViewDelegate, UITableViewDataSource>
 
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property CLLocationManager *locationManager;
 @property NSArray *userEvents;
 @property NSArray *historyEvents;
 @property NSArray *landmarks;
-@property BOOL isLandmark;
-@property BOOL isUserEvent;
-@property BOOL isHistoryEvent;
+@property UserEvent *event;
+@property BOOL isChicago;
 
 @end
 
@@ -37,12 +39,19 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    NSLog(@"viewdidload, mapsVC: %@", self.trip);
+
+    self.locationManager = [CLLocationManager new];
+    self.locationManager.delegate = self;
+    [self.locationManager requestWhenInUseAuthorization];
     self.mapView.delegate = self;
     [self.mapView showsUserLocation];
     [self.mapView showsBuildings];
     self.mapLocation = [[CLLocation alloc] initWithLatitude:self.trip.location.latitude longitude:self.trip.location.longitude];
     [self.mapView setRegion:MKCoordinateRegionMake(self.mapLocation.coordinate, MKCoordinateSpanMake(1.0, 1.0))];
+
+    [self searchForAndLoadLandmarks];
+    [self checkAndIfChicagoLoadHistoryEvents];
+    [self combineLandmarksAndHistoryEventsAndSort];
 
     UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
     longPress.minimumPressDuration = 1.2; //length of user press
@@ -54,14 +63,10 @@
                                      target:self
                                      action:@selector(logOutButtonTapAction:)];
     self.navigationItem.rightBarButtonItem = logoutButton;
-
-    NSLog(@"%@", [PFUser currentUser][@"username"]);
 }
 
 -(void)viewWillAppear:(BOOL)animated {
     [self queryAndLoadTripEvents];
-    [self queryAndLoadHistoryEvents];
-    [self searchForAndLoadLandmarks];
 
 }
 
@@ -74,11 +79,11 @@
                 NSLog(@"successfully received %lu events", (unsigned long)objects.count);
 
                 for (UserEvent *event in objects) {
-                    MKPointAnnotation *annot = [MKPointAnnotation new];
-                    annot.coordinate = CLLocationCoordinate2DMake(event.location.latitude, event.location.longitude);
-                    annot.title = event.name;
-                    annot.subtitle = event.date;
-                    [self.mapView addAnnotation:annot];
+                    UserEventAnnotation *userAnnot = [UserEventAnnotation new];
+                    userAnnot.coordinate = CLLocationCoordinate2DMake(event.location.latitude, event.location.longitude);
+                    userAnnot.title = event.name;
+                    userAnnot.subtitle = event.date;
+                    [self.mapView addAnnotation:userAnnot];
                 }
                 self.userEvents = [NSArray arrayWithArray:objects];
                 [self.tableView reloadData];
@@ -92,6 +97,27 @@
     }
 }
 
+-(void)checkAndIfChicagoLoadHistoryEvents {
+    PFGeoPoint *chicago = [PFGeoPoint geoPointWithLatitude:41.8369 longitude:-87.6847];
+    PFQuery *query = [UserEvent query];
+    [query whereKey:@"location" nearGeoPoint:chicago];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            NSLog(@"Successfully retrieved %lu events.", (unsigned long)objects.count);
+            if (objects.count == 0) {
+                self.isChicago = false;
+                NSLog(@"location isn't in Chicago");
+            } else {
+                NSLog(@"location is in Chicago");
+                self.isChicago = true;
+                [self queryAndLoadHistoryEvents];
+            }
+        } else {
+            NSLog(@"Error: %@ %@", error, [error userInfo]);
+        }
+    }];
+}
+
 -(void)queryAndLoadHistoryEvents {
     PFQuery *histQuery = [HistoryEvent query];
     [histQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
@@ -99,14 +125,13 @@
             NSLog(@"Successfully retrieved %lu events.", (unsigned long)objects.count);
 
             for (HistoryEvent *event in objects) {
-                MKPointAnnotation *annot = [MKPointAnnotation new];
+                LandmarkAnnotation *annot = [LandmarkAnnotation new];
                 annot.coordinate = CLLocationCoordinate2DMake(event.location.latitude, event.location.longitude);
                 annot.title = event.name;
                 annot.subtitle = event.date;
                 [self.mapView addAnnotation:annot];
             }
             self.historyEvents = [NSArray arrayWithArray:objects];
-            [self.tableView reloadData];
         } else {
             NSLog(@"Error: %@ %@", error, [error userInfo]);
         }
@@ -128,7 +153,7 @@
             landmark.longitude = mapItem.placemark.coordinate.longitude;
             [tempLandmarks addObject:landmark];
 
-            MKPointAnnotation *annot = [MKPointAnnotation new];
+            LandmarkAnnotation *annot = [LandmarkAnnotation new];
             annot.title = mapItem.name;
             NSLog(@"%@",annot.title);
             annot.coordinate = mapItem.placemark.coordinate;
@@ -139,6 +164,18 @@
     }];
 }
 
+-(void)combineLandmarksAndHistoryEventsAndSort {
+    NSMutableArray *tempArray = [NSMutableArray arrayWithArray:self.landmarks];
+    if (self.historyEvents.count > 0) {
+        [tempArray addObjectsFromArray:self.historyEvents];
+    }
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)];
+    NSArray *sortDescriptors = @[sortDescriptor];
+    NSArray *sortedArray = [tempArray sortedArrayUsingDescriptors:sortDescriptors];
+    self.landmarks = [NSArray arrayWithArray:sortedArray];
+    [self.tableView reloadData];
+}
+
 - (void)handleLongPress:(UIGestureRecognizer *)gestureRecognizer {
     if (gestureRecognizer.state != UIGestureRecognizerStateBegan)
     return;
@@ -146,7 +183,7 @@
     CGPoint touchPoint = [gestureRecognizer locationInView:self.mapView];
     CLLocationCoordinate2D touchMapCoordinate =
     [self.mapView convertPoint:touchPoint toCoordinateFromView:self.mapView];
-    MKPointAnnotation *newAnnotation = [MKPointAnnotation new];
+    UserEventAnnotation *newAnnotation = [UserEventAnnotation new];
     newAnnotation.coordinate = touchMapCoordinate;
     AddEventViewController *eventVC = [self.storyboard instantiateViewControllerWithIdentifier:@"eventVC"];
     eventVC.location = newAnnotation.coordinate;
@@ -163,67 +200,30 @@
     MKPinAnnotationView *pin = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:nil];
     if ([annotation isEqual:mapView.userLocation]) {
         return nil;
+    } else if ([annotation isKindOfClass:[UserEventAnnotation class]]) {
+        UIImage *image = [UIImage imageNamed:@"path_map"];
+        CGRect cropRect = CGRectMake(0.0, 0.0, 35.0, 35.0);
+        UIImageView *imageView = [[UIImageView alloc]initWithFrame:cropRect];
+        imageView.clipsToBounds = YES;
+        imageView.image = image;
+        pin.canShowCallout = true;
+        pin.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+        pin.leftCalloutAccessoryView = imageView;
+    } else {
+        UIImage *image = [UIImage imageNamed:@"wind_rose"];
+        CGRect cropRect = CGRectMake(0.0, 0.0, 35.0, 35.0);
+        UIImageView *imageView = [[UIImageView alloc]initWithFrame:cropRect];
+        imageView.clipsToBounds = YES;
+        imageView.image = image;
+        pin.canShowCallout = true;
+//        pin.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+        pin.leftCalloutAccessoryView = imageView;
     }
-    UIImage *image = [UIImage imageNamed:@"wind_rose"];
-    CGRect cropRect = CGRectMake(0.0, 0.0, 35.0, 35.0);
-    UIImageView *imageView = [[UIImageView alloc]initWithFrame:cropRect];
-    imageView.clipsToBounds = YES;
-    imageView.image = image;
-    pin.canShowCallout = true;
-    pin.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
-    pin.leftCalloutAccessoryView = imageView;
-
     return pin;
 }
 
 -(void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control {
-    MKPointAnnotation *annot = (MKPointAnnotation *)view.annotation;
-    for (Landmark *landmark in self.landmarks) {
-        if (landmark.latitude == annot.coordinate.latitude && landmark.longitude == annot.coordinate.longitude) {
-            self.selectedLandmark = landmark;
-            if (self.landmarks.lastObject) {
-                break;
-            }
-            if (self.selectedLandmark == nil) {
-                self.isLandmark = false;
-            }
-        }
-    }
-    for (UserEvent *userEvent in self.userEvents) {
-        if (userEvent.location.latitude == annot.coordinate.latitude && userEvent.location.longitude == annot.coordinate.longitude) {
-            self.selectedUserEvent = userEvent;
-            if (self.userEvents.lastObject) {
-                break;
-            }
-            if (self.selectedUserEvent == nil) {
-                self.isUserEvent = false;
-            }
-        }
-    }
-    for (HistoryEvent *histEvent in self.historyEvents) {
-        if (histEvent.location.latitude == annot.coordinate.latitude && histEvent.location.longitude == annot.coordinate.longitude) {
-            self.selectedHistoryEvent = histEvent;
-            if (self.historyEvents.lastObject) {
-                break;
-            }
-            if (self.selectedHistoryEvent == nil) {
-                self.isHistoryEvent = false;
-            }
-        }
-    }
-    EventDetailTableViewController *detailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"detailVC"];
-    if (self.isLandmark) {
-        detailVC.isLandmark = true;
-        detailVC.landmark = self.selectedLandmark;
-    } else if (self.isUserEvent) {
-        detailVC.isUserEvent = true;
-        detailVC.isUserEvent = self.selectedUserEvent;
-    } else {
-        detailVC.isHistoryEvent = true;
-        detailVC.histEvent = self.selectedHistoryEvent;
-    }
-    detailVC.location = annot.coordinate;
-    [self presentViewController:detailVC animated:true completion:nil];
+    [self performSegueWithIdentifier:@"detailSegue" sender:self];
 }
 
 #pragma mark - UITableView datasource methods
@@ -263,6 +263,8 @@
     if (indexPath.section == 0) {
         UITableViewCell *userCell = [tableView dequeueReusableCellWithIdentifier:@"UserCellID"];
         userCell.textLabel.text = [self.userEvents[indexPath.row]name];
+        userCell.detailTextLabel.text = [self.userEvents[indexPath.row]dateString];
+//        userCell.imageView.image = [UIImage imageNamed:self.userEvents[indexPath.row]imageString];
         return userCell;
     } else {
         UITableViewCell *landmarkCell = [tableView dequeueReusableCellWithIdentifier:@"LandmarkCellID"];
@@ -272,11 +274,9 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    EventDetailTableViewController *detailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"detailVC"];
     [tableView deselectRowAtIndexPath:indexPath animated:false];
-    detailVC.userEvent = self.userEvents[indexPath.row];
-    detailVC.trip = self.trip;
-    [self presentViewController:detailVC animated:true completion:nil];
+    self.event = self.userEvents[indexPath.row];
+    [self performSegueWithIdentifier:@"detailSegue" sender:self];
 }
 
 - (IBAction)onSegmentedControlSwitched:(UISegmentedControl *)sender {
@@ -286,6 +286,14 @@
     } else {
         self.tableView.hidden = false;
         self.mapView.hidden = true;
+    }
+}
+
+-(IBAction)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"detailSegue"]) {
+        EventDetailTableViewController *detailVC = segue.destinationViewController;
+        detailVC.userEvent = self.event;
+        detailVC.trip = self.trip;
     }
 }
 

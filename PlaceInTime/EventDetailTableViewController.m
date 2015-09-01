@@ -22,62 +22,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    CLLocation *location = [[CLLocation alloc] initWithLatitude:self.event.location.latitude longitude:self.event.location.longitude];
+    [self reverseGeocode:location];
+    self.dateLabel.text = self.event.date;
+    self.descriptionTextView.text = self.event.textDescription;
 }
 
--(void)viewWillAppear:(BOOL)animated {
-    NSError *error = [NSError new];
-    [self determineEventClassWithError:error];
-    if (!error) {
-        [self assignPointValues];
-    } else {
-        NSLog(@"uh oh");
-    }
-}
-
--(BOOL)determineEventClassWithError:(NSError *)error {
-    if (self.userEvent != nil) {
-        return self.isUserEvent;
-    } else if (self.landmark != nil) {
-        return self.isLandmark;
-    } else if (self.histEvent) {
-        return self.isHistoryEvent;
-    } else {
-        return error;
-    }
-}
-
--(void)assignPointValues {
-    if (self.isUserEvent) {
-        NSLog(@"%@", self.userEvent);
-        self.descriptionTextView.text = self.userEvent.textDescription;
-        self.navigationItem.title = self.userEvent.name;
-        self.dateLabel.text = self.userEvent.date;
-        CLLocation *location = [[CLLocation alloc] initWithLatitude:self.userEvent.location.latitude longitude:self.userEvent.location.longitude];
-        [self reverseGeocode:location];
-    }
-    if (self.isLandmark) {
-        NSLog(@"%@", self.landmark);
-        self.descriptionTextView.text = self.landmark.textDescription;
-        self.navigationItem.title = self.landmark.name;
-        self.dateLabel.text = self.landmark.date;
-        CLLocation *location = [[CLLocation alloc] initWithLatitude:self.landmark.latitude longitude:self.landmark.longitude];
-        [self reverseGeocode:location];
-    }
-    if (self.isHistoryEvent) {
-        NSLog(@"%@", self.histEvent);
-        self.descriptionTextView.text = self.histEvent.textDescription;
-        self.navigationItem.title = self.histEvent.name;
-        self.dateLabel.text = self.histEvent.date;
-        CLLocation *location = [[CLLocation alloc] initWithLatitude:self.histEvent.location.latitude longitude:self.histEvent.location.longitude];
-        [self reverseGeocode:location];
-    }
-}
 
 -(void)reverseGeocode:(CLLocation *)location {
     CLGeocoder *geocoder = [CLGeocoder new];
