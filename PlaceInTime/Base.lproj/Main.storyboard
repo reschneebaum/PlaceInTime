@@ -328,7 +328,7 @@
         <scene sceneID="ngx-7O-p5i">
             <objects>
                 <tableViewController storyboardIdentifier="detailVC" id="oDF-Bx-zId" customClass="EventDetailTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="static" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="oAC-xe-OOK">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="static" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="oAC-xe-OOK">
                         <rect key="frame" x="0.0" y="64" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -402,18 +402,12 @@
                                                                 <rect key="frame" x="0.0" y="0.0" width="323" height="167"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <subviews>
-                                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="UdA-hN-WHY">
+                                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UdA-hN-WHY">
                                                                         <rect key="frame" x="13" y="0.0" width="297" height="167"/>
                                                                     </imageView>
                                                                 </subviews>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             </view>
-                                                            <constraints>
-                                                                <constraint firstAttribute="trailingMargin" secondItem="UdA-hN-WHY" secondAttribute="trailing" constant="5" id="BWi-SA-rJH"/>
-                                                                <constraint firstAttribute="bottomMargin" secondItem="UdA-hN-WHY" secondAttribute="bottom" constant="-8" id="Iep-CX-gPv"/>
-                                                                <constraint firstItem="UdA-hN-WHY" firstAttribute="top" secondItem="obS-ID-T6F" secondAttribute="topMargin" constant="-8" id="l72-WC-VXa"/>
-                                                                <constraint firstItem="UdA-hN-WHY" firstAttribute="leading" secondItem="obS-ID-T6F" secondAttribute="leadingMargin" constant="5" id="t1H-pT-zix"/>
-                                                            </constraints>
                                                             <connections>
                                                                 <outlet property="photoImageView" destination="UdA-hN-WHY" id="EBD-Y9-2EY"/>
                                                             </connections>
@@ -429,10 +423,29 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell5" rowHeight="15" id="Bm2-Jd-CYg">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell5" rowHeight="40" id="Bm2-Jd-CYg">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" tag="4" contentMode="center" tableViewCell="Bm2-Jd-CYg" id="JpA-Tm-FqE">
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Eh-ac-Xvz">
+                                                    <rect key="frame" x="121" y="0.0" width="79" height="32"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="32" id="RGP-bT-b7q"/>
+                                                    </constraints>
+                                                    <state key="normal" title="add photos">
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="onAddImageTapped:" destination="oDF-Bx-zId" eventType="touchUpInside" id="6Yb-4f-KgZ"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="1Eh-ac-Xvz" firstAttribute="top" secondItem="JpA-Tm-FqE" secondAttribute="topMargin" constant="-8" id="0dw-7h-Esh"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="1Eh-ac-Xvz" secondAttribute="trailing" constant="112" id="QIB-UH-Pip"/>
+                                                <constraint firstItem="1Eh-ac-Xvz" firstAttribute="leading" secondItem="JpA-Tm-FqE" secondAttribute="leadingMargin" constant="113" id="fiZ-cz-x6M"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" shouldIndentWhileEditing="NO" reuseIdentifier="Cell6" rowHeight="150" id="o3D-2g-00R">

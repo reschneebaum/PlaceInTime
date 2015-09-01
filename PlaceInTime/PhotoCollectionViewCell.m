@@ -7,6 +7,7 @@
 //
 
 #import "PhotoCollectionViewCell.h"
+#import "PhotoCollectionViewCell.h"
 
 @implementation PhotoCollectionViewCell
 
