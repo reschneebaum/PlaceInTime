@@ -43,13 +43,28 @@
 
 }
 
+-(void)getCurrentTrip {
+    PFQuery *query = [Trip query];
+    [query whereKey:@"createdBy" equalTo:[PFUser currentUser]];
+    [query whereKey:@"location" nearGeoPoint:[PFGeoPoint geoPointWithLatitude:self.location.latitude longitude:self.location.latitude]];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            NSLog(@"successfully received %lu trip(s)", (unsigned long)objects.count);
+            self.trip = objects.firstObject;
+            NSLog(@"%@", self.trip);
+        } else {
+            NSLog(@"Error: %@ %@", error, [error userInfo]);
+    }
+    }];
+}
+
 -(void)configureStoryboardObjects {
     self.eventDescriptionTextView.layer.cornerRadius = 10.0;
     self.eventDescriptionTextView.layer.borderWidth = 0.3;
-    self.eventDescriptionTextView.layer.borderColor = [[UIColor grayColor]CGColor];
+    self.eventDescriptionTextView.layer.borderColor = [[UIColor grayColor] CGColor];
     self.valenceDescriptionTextView.layer.cornerRadius = 10.0;
     self.valenceDescriptionTextView.layer.borderWidth = 0.3;
-    self.valenceDescriptionTextView.layer.borderColor = [[UIColor grayColor]CGColor];
+    self.valenceDescriptionTextView.layer.borderColor = [[UIColor grayColor] CGColor];
     self.addButton.enabled = false;
     self.eventDescriptionTextView.delegate = self;
 }

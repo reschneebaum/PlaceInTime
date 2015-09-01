@@ -15,6 +15,8 @@
 @dynamic createdBy;
 @dynamic name;
 @dynamic date;
+@dynamic dateString;
+@dynamic imageString;
 @dynamic location;
 
 +(void)load {

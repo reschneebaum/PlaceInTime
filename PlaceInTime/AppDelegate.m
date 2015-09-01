@@ -16,6 +16,7 @@
 #import "Trip.h"
 #import "UserEvent.h"
 #import "HistoryEvent.h"
+#import "Route.h"
 
 @interface AppDelegate ()
 
@@ -37,6 +38,7 @@
     [UserEvent registerSubclass];
     [HistoryEvent registerSubclass];
     [UserInfo registerSubclass];
+//    [Route registerSubclass];
 
     // [Optional] Power your app with Local Datastore. For more info, go to
     // https://parse.com/docs/ios_guide#localdatastore/iOS

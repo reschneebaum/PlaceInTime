@@ -70,12 +70,13 @@
     } else {
         Trip *newTrip = [Trip object];
         newTrip.createdBy = [PFUser currentUser];
+        newTrip[@"parent"] = [PFUser currentUser];
         newTrip.location = [PFGeoPoint geoPointWithLocation:self.locationPlacemark.location];
         newTrip.date = [self.datePicker date];
         NSDateFormatter *dateFormat = [NSDateFormatter new];
         [dateFormat setDateFormat:@"dd MMM yyyy"];
-        NSString *dateString = [dateFormat stringFromDate:newTrip.date];
-        newTrip.name = [NSString stringWithFormat:@"%@, %@ - %@", self.cityTextField.text, self.countryTextField.text, dateString];
+        newTrip.dateString = [dateFormat stringFromDate:newTrip.date];
+        newTrip.name = [NSString stringWithFormat:@"%@, %@", self.cityTextField.text, self.countryTextField.text];
         [newTrip saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             if (succeeded) {
                 NSLog(@"The object has been saved.");

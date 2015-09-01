@@ -60,10 +60,8 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:false];
     NSArray *segues = @[@"myTrips", @"newTrip", @"sharedTrips", @"downloadTrips"];
-//    if ([segues[indexPath.row] isEqualToString:@"newTrip"]) {
-//        [self performSegueWithIdentifier:@"newTrip" sender:nil];
-//    }
     [self performSegueWithIdentifier:segues[indexPath.row] sender:self.navigationController];
 }
 

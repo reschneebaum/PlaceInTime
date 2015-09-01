@@ -135,6 +135,7 @@
             [self.mapView addAnnotation:annot];
         }
         self.landmarks = [NSArray arrayWithArray:tempLandmarks];
+        NSLog(@"%@", self.landmarks.firstObject);
     }];
 }
 
@@ -239,6 +240,14 @@
     } else {
         return @"Historical Events & Landmarks";
     }
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 75;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 75;
 }
 
 
