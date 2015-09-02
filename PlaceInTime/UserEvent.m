@@ -6,8 +6,8 @@
 //  Copyright (c) 2015 Rachel Schneebaum. All rights reserved.
 //
 
-#import "UserEvent.h"
 #import <Parse/PFObject+Subclass.h>
+#import "UserEvent.h"
 
 @implementation UserEvent
 
@@ -15,10 +15,10 @@
 @dynamic textDescription;
 @dynamic user;
 @dynamic valence;
-@dynamic latitude;
-@dynamic longitude;
 @dynamic date;
 @dynamic belongsToTrip;
+@dynamic location;
+@dynamic locationString;
 
 +(void)load {
     [self registerSubclass];

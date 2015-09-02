@@ -8,11 +8,18 @@
 
 #import <UIKit/UIKit.h>
 #import "UserEvent.h"
+#import "HistoryEvent.h"
+#import "Landmark.h"
+#import "Trip.h"
 
 @interface EventsViewController : UIViewController
 
-@property UserEvent *event;
 @property NSMutableArray *points;
+@property Trip *trip;
+@property Landmark *selectedLandmark;
+@property UserEvent *selectedUserEvent;
+@property HistoryEvent *selectedHistoryEvent;
+@property CLLocation *mapLocation;
 
 @end
 

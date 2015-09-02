@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UserInfo.h"
 
 @interface AddTripViewController : UIViewController
+
+@property UserInfo *user;
 
 @end

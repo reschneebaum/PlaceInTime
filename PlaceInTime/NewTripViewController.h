@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Trip.h"
 
 @interface NewTripViewController : UIViewController
+
+@property CLLocation *userLocation;
+@property Trip *trip;
 
 @end

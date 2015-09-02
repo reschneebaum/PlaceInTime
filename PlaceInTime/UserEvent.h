@@ -17,9 +17,11 @@
 @property (nonatomic, strong) NSString *user;
 @property (nonatomic, strong) Trip *belongsToTrip;
 @property float valence;
-@property float latitude;
-@property float longitude;
+@property (nonatomic, strong) PFGeoPoint *location;
+@property (nonatomic, strong) NSString *locationString;
 
 +(NSString *)parseClassName;
+-(void)queryCurrentEvent;
+-(void)queryEventsBelongToCurrentTrip;
 
 @end

@@ -13,8 +13,7 @@
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *date;
 @property (nonatomic, strong) NSString *textDescription;
-@property float latitude;
-@property float longitude;
+@property (nonatomic, strong) PFGeoPoint *location;
 
 +(NSString *)parseClassName;
 

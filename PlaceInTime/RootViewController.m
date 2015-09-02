@@ -11,8 +11,10 @@
 #import "RootViewController.h"
 #import "EventsViewController.h"
 #import "TripsViewController.h"
+#import "AddTripViewController.h"
+#import "LoginViewController.h"
 
-@interface RootViewController () <PFLogInViewControllerDelegate, PFSignUpViewControllerDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface RootViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property NSArray *options;
 @property NSArray *segues;
@@ -22,6 +24,7 @@
 @implementation RootViewController
 
 - (void)viewDidLoad {
+    [super viewDidLoad];
     self.options = [[NSArray alloc] initWithObjects:@"View/Edit My Trips", @"Start a New Trip", @"Share Trips", @"Download Available Trips", nil];
 
     UIBarButtonItem *logoutButton = [[UIBarButtonItem alloc]
@@ -29,7 +32,6 @@
                                    style:UIBarButtonItemStylePlain
                                    target:self
                                    action:@selector(logOutButtonTapAction:)];
-
     self.navigationItem.rightBarButtonItem = logoutButton;
 }
 
@@ -38,92 +40,10 @@
 
     if ([PFUser currentUser]) {
         self.navigationItem.prompt = [NSString stringWithFormat:NSLocalizedString(@"Welcome, %@!", nil), [[PFUser currentUser] username]];
-        self.currentUser = [PFUser currentUser];
-        TripsViewController *tripsVC = [TripsViewController new];
-        tripsVC.trips = self.trips;
     } else {
         NSLog(@"error");
     }
 }
-
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-
-    if (![PFUser currentUser]) {
-        PFLogInViewController *logInViewController = [[PFLogInViewController alloc] init];
-        [logInViewController setDelegate:self];
-
-        PFSignUpViewController *signUpViewController = [[PFSignUpViewController alloc] init];
-        [signUpViewController setDelegate:self];
-
-        [logInViewController setSignUpController:signUpViewController];
-
-        [self presentViewController:logInViewController animated:YES completion:NULL];
-    }
-}
-
-
-#pragma mark - PFLogInViewControllerDelegate
-#pragma mark -
-
-- (BOOL)logInViewController:(PFLogInViewController *)logInController shouldBeginLogInWithUsername:(NSString *)username password:(NSString *)password {
-    if (username && password && username.length && password.length) {
-        return YES; // Begin login process
-    }
-
-    [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Missing Information", nil) message:NSLocalizedString(@"Make sure you fill out all of the information!", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] show];
-    return NO; // Interrupt login process
-}
-
-- (void)logInViewController:(PFLogInViewController *)logInController didLogInUser:(PFUser *)user {
-    self.currentUser = user;
-    TripsViewController *tripsVC = [TripsViewController new];
-    tripsVC.trips = self.trips;
-    [self dismissViewControllerAnimated:YES completion:NULL];
-}
-
-- (void)logInViewController:(PFLogInViewController *)logInController didFailToLogInWithError:(NSError *)error {
-    NSLog(@"Failed to log in...");
-}
-
-- (void)logInViewControllerDidCancelLogIn:(PFLogInViewController *)logInController {
-    NSLog(@"User dismissed the logInViewController");
-}
-
-
-#pragma mark - PFSignUpViewControllerDelegate
-#pragma mark -
-
-- (BOOL)signUpViewController:(PFSignUpViewController *)signUpController shouldBeginSignUp:(NSDictionary *)info {
-    BOOL informationComplete = YES;
-    for (id key in info) {
-        NSString *field = [info objectForKey:key];
-        if (!field || !field.length) { // check completion
-            informationComplete = NO;
-            break;
-        }
-    }
-    // Display an alert if a field wasn't completed
-    if (!informationComplete) {
-        [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Missing Information", nil) message:NSLocalizedString(@"Make sure you fill out all of the information!", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] show];
-    }
-    return informationComplete;
-}
-
-- (void)signUpViewController:(PFSignUpViewController *)signUpController didSignUpUser:(PFUser *)user {
-    TripsViewController *tripsVC = [TripsViewController new];
-    tripsVC.trips = self.trips;
-    [self dismissViewControllerAnimated:YES completion:NULL];
-}
-
-- (void)signUpViewController:(PFSignUpViewController *)signUpController didFailToSignUpWithError:(NSError *)error {
-    NSLog(@"Failed to sign up...");
-}
-
-- (void)signUpViewControllerDidCancelSignUp:(PFSignUpViewController *)signUpController {
-    NSLog(@"User dismissed the signUpViewController");
-}
-
 
 #pragma mark - UITableView Data Source methods
 #pragma mark -
@@ -136,23 +56,50 @@
 
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CellID"];
     cell.textLabel.text = [self.options objectAtIndex:indexPath.row];
+    cell.textLabel.font = [UIFont fontWithName:@"Avenir Next Heavy" size:16];
+    cell.textLabel.textColor = [UIColor colorWithRed:143/255 green:181/255 blue:191/255 alpha:1.0];
+
     return cell;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    TripsViewController *tripsVC = [TripsViewController new];
-    tripsVC.trips = self.trips;
-    self.segues = @[@"trips1", @"newTrip", @"trips2", @"trips3"];
-    [self performSegueWithIdentifier:[NSString stringWithFormat:@"%@", self.segues[indexPath.row]] sender:self.navigationController];
+    [tableView deselectRowAtIndexPath:indexPath animated:false];
+    NSArray *segues = @[@"myTrips", @"newTrip", @"sharedTrips", @"downloadTrips"];
+    [self performSegueWithIdentifier:segues[indexPath.row] sender:self.navigationController];
 }
+
+- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
+    UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
+
+    //    header.textLabel.textColor = [UIColor redColor];
+    header.textLabel.font = [UIFont fontWithName:@"Avenir Next" size:18];
+    CGRect headerFrame = header.frame;
+    header.textLabel.frame = headerFrame;
+    header.textLabel.textAlignment = NSTextAlignmentCenter;
+}
+
 
 #pragma mark - Navigation
 #pragma mark -
 
 - (IBAction)logOutButtonTapAction:(UIBarButtonItem *)sender {
     [PFUser logOut];
-    PFLogInViewController *login = [PFLogInViewController new];
-    [self presentViewController:login animated:true completion:nil];
+    [self dismissViewControllerAnimated:true completion:^{
+        NSLog(@"%@", [PFUser currentUser]);
+        [self performSegueWithIdentifier:@"logout" sender:self];
+    }];
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"newTrip"]) {
+        AddTripViewController *avc = segue.destinationViewController;
+        avc.user = self.user;
+    } else if ([segue.identifier isEqualToString:@"logout"]) {
+        LoginViewController *lvc = segue.destinationViewController;
+    } else {
+        TripsViewController *tvc = segue.destinationViewController;
+        tvc.user = self.user;
+    }
 }
 
 @end

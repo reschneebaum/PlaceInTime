@@ -9,10 +9,10 @@
 #import <MapKit/MapKit.h>
 #import <CoreLocation/CoreLocation.h>
 #import <Parse/Parse.h>
-#import <Parse/PFObject+Subclass.h>
 #import "AddEventViewController.h"
 #import "EventsViewController.h"
 #import "UserEvent.h"
+#import "Trip.h"
 
 @interface AddEventViewController () <CLLocationManagerDelegate, UITextViewDelegate>
 
@@ -23,6 +23,7 @@
 @property (weak, nonatomic) IBOutlet UISlider *eventValenceSlider;
 @property (weak, nonatomic) IBOutlet UITextView *valenceDescriptionTextView;
 @property (weak, nonatomic) IBOutlet UIButton *addButton;
+@property NSDateFormatter *dateFormat;
 
 @end
 
@@ -36,20 +37,49 @@
     [self.locationManager startUpdatingLocation];
     [self.bgMapView showsUserLocation];
     [self.bgMapView showsBuildings];
+    [self initializeTextFieldInputView];
     [self configureStoryboardObjects];
     NSLog(@"self: %g, %g", self.location.latitude, self.location.longitude);
 
 }
 
+-(void)getCurrentTrip {
+    PFQuery *query = [Trip query];
+    [query whereKey:@"createdBy" equalTo:[PFUser currentUser]];
+    [query whereKey:@"location" nearGeoPoint:[PFGeoPoint geoPointWithLatitude:self.location.latitude longitude:self.location.latitude]];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            NSLog(@"successfully received %lu trip(s)", (unsigned long)objects.count);
+            self.trip = objects.firstObject;
+            NSLog(@"%@", self.trip);
+        } else {
+            NSLog(@"Error: %@ %@", error, [error userInfo]);
+    }
+    }];
+}
+
 -(void)configureStoryboardObjects {
     self.eventDescriptionTextView.layer.cornerRadius = 10.0;
     self.eventDescriptionTextView.layer.borderWidth = 0.3;
-    self.eventDescriptionTextView.layer.borderColor = [[UIColor grayColor]CGColor];
+    self.eventDescriptionTextView.layer.borderColor = [[UIColor grayColor] CGColor];
     self.valenceDescriptionTextView.layer.cornerRadius = 10.0;
     self.valenceDescriptionTextView.layer.borderWidth = 0.3;
-    self.valenceDescriptionTextView.layer.borderColor = [[UIColor grayColor]CGColor];
+    self.valenceDescriptionTextView.layer.borderColor = [[UIColor grayColor] CGColor];
     self.addButton.enabled = false;
     self.eventDescriptionTextView.delegate = self;
+}
+
+-(void)initializeTextFieldInputView {
+    UIDatePicker *datePicker = [[UIDatePicker alloc] initWithFrame:CGRectZero];
+    datePicker.datePickerMode = UIDatePickerModeDate;
+    [datePicker addTarget:self action:@selector(dateUpdated:) forControlEvents:UIControlEventValueChanged];
+    self.eventDateTextField.inputView = datePicker;
+}
+
+-(void)dateUpdated:(UIDatePicker *)datePicker {
+    NSDateFormatter *dateFormat = [NSDateFormatter new];
+    [dateFormat setDateFormat:@"dd MMM yyyy"];
+    self.eventDateTextField.text = [dateFormat stringFromDate:datePicker.date];
 }
 
 #pragma mark - CLLocationManagerDelegate methods
@@ -74,6 +104,7 @@
         self.addButton.enabled = true;
     }
 }
+
 - (IBAction)onEventDateChanged:(UITextField *)sender {
     if ([self.eventNameTextField hasText] && [self.eventDateTextField hasText] && [self.eventDescriptionTextView hasText]) {
         self.addButton.enabled = true;
@@ -102,8 +133,9 @@
     event.date = self.eventDateTextField.text;
     event.textDescription = self.eventDescriptionTextView.text;
     event.valence = self.eventValenceSlider.value;
-    event.latitude = self.location.latitude;
-    event.longitude = self.location.longitude;
+    event.location = [PFGeoPoint geoPointWithLatitude:self.location.latitude longitude:self.location.longitude];
+    event.belongsToTrip = self.trip;
+    NSLog(@"%@",self.trip);
     [event saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (succeeded) {
             NSLog(@"The object has been saved.");

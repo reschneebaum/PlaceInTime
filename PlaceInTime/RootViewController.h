@@ -7,10 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UserInfo.h"
 
 @interface RootViewController : UIViewController
 
-@property PFUser *currentUser;
-@property NSArray *trips;
+@property UserInfo *user;
 
 @end

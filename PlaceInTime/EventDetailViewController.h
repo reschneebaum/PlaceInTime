@@ -8,11 +8,17 @@
 
 #import <UIKit/UIKit.h>
 #import "UserEvent.h"
+#import "HistoryEvent.h"
+#import "Landmark.h"
 
 @interface EventDetailViewController : UIViewController
 
 @property CLLocationCoordinate2D location;
-@property NSArray *landmarks;
-@property UserEvent *point;
+@property Landmark *landmark;
+@property HistoryEvent *histEvent;
+@property UserEvent *userEvent;
+@property BOOL isLandmark;
+@property BOOL isUserEvent;
+@property BOOL isHistoryEvent;
 
 @end
