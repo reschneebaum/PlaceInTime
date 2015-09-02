@@ -60,28 +60,16 @@
     [geocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error) {
         if (!error) {
             CLPlacemark *placemark = placemarks.firstObject;
-
-            NSString *address = [NSString stringWithFormat:@"%@ %@, %@, %@ %@", placemark.subThoroughfare, placemark.thoroughfare, placemark.locality, placemark.administrativeArea, placemark.postalCode];
-
-//            NSString *addressString = @"";
-//
-//            if (placemark.subThoroughfare != nil) {
-//                 addressString = [NSString stringWithFormat:@"%@", placemark.subThoroughfare];
-//            } else {
-//                NSLog(@"placemark.subThoroughfare is nil");
-//            }
-//
-//            if (placemark.thoroughfare != nil) {
-//                [addressString stringByAppendingFormat:@" %@", placemark.thoroughfare];
-//            } else {
-//                NSLog(@"placemark.thoroughfare is nil");
-//            }
-//
-//            if (placemark.locality) {
-//
-//            }
-
-
+            NSString *address;
+            if (placemark.subThoroughfare == nil) {
+                if (placemark.thoroughfare == nil) {
+                    address = [NSString stringWithFormat:@"%@, %@ %@", placemark.locality, placemark.administrativeArea, placemark.postalCode];
+                } else {
+                    address = [NSString stringWithFormat:@"%@, %@, %@ %@", placemark.thoroughfare, placemark.locality, placemark.administrativeArea, placemark.postalCode];
+                }
+            } else {
+                address = [NSString stringWithFormat:@"%@ %@, %@, %@ %@", placemark.subThoroughfare, placemark.thoroughfare, placemark.locality, placemark.administrativeArea, placemark.postalCode];
+            }
             self.locationLabel.text = address;
         } else {
             NSLog(@"Error while in reverseGeocode: %@", error.localizedDescription);

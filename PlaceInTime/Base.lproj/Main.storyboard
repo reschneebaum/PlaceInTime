@@ -315,7 +315,7 @@
                     <navigationItem key="navigationItem" title="Trip Name" id="tSV-oe-DxR">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="bme-hu-8F3">
                             <connections>
-                                <segue destination="ibc-ge-Fzv" kind="modal" modalTransitionStyle="coverVertical" id="WBd-aW-CSe"/>
+                                <action selector="onAddButtonPressed:" destination="vXZ-lx-hvc" id="RRy-B8-Fxm"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -821,6 +821,15 @@
                                     <action selector="onCreateAccountButtonPressed:" destination="WSF-Ew-fW0" eventType="touchUpInside" id="TDJ-0R-ajC"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please check your email for password reset instructions!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ebN-qv-ybM">
+                                <rect key="frame" x="21" y="100" width="279" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="Cni-tb-hOC"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="AvenirNextCondensed-Italic" family="Avenir Next Condensed" pointSize="14"/>
+                                <color key="textColor" red="0.3294117647" green="0.43137254899999999" blue="0.4549019608" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -830,6 +839,7 @@
                             <constraint firstItem="j8g-fl-0mq" firstAttribute="trailing" secondItem="2fU-pv-OKx" secondAttribute="trailingMargin" id="OeU-8e-aHH"/>
                             <constraint firstItem="Ijc-3t-ep7" firstAttribute="leading" secondItem="2fU-pv-OKx" secondAttribute="leadingMargin" id="Ow2-G3-lez"/>
                             <constraint firstItem="0fs-Gr-2ke" firstAttribute="top" secondItem="GST-Ui-Veq" secondAttribute="bottom" id="PbL-Gd-BqR"/>
+                            <constraint firstItem="ebN-qv-ybM" firstAttribute="leading" secondItem="2fU-pv-OKx" secondAttribute="leadingMargin" constant="5" id="Rkw-pA-Dpy"/>
                             <constraint firstItem="Ec0-NF-5er" firstAttribute="top" secondItem="Ijc-3t-ep7" secondAttribute="bottom" constant="9" id="STv-zK-TUP"/>
                             <constraint firstItem="Bq9-xx-BxS" firstAttribute="leading" secondItem="2fU-pv-OKx" secondAttribute="leadingMargin" id="TFm-RZ-tyh"/>
                             <constraint firstItem="GST-Ui-Veq" firstAttribute="leading" secondItem="2fU-pv-OKx" secondAttribute="leadingMargin" constant="-16" id="Tix-4j-Y0d"/>
@@ -838,9 +848,11 @@
                             <constraint firstItem="DcL-7z-HiQ" firstAttribute="top" secondItem="3eb-5e-HQW" secondAttribute="bottom" constant="127" id="aoY-92-WxO"/>
                             <constraint firstItem="GST-Ui-Veq" firstAttribute="top" secondItem="2fU-pv-OKx" secondAttribute="topMargin" id="bud-eX-kV8"/>
                             <constraint firstItem="DcL-7z-HiQ" firstAttribute="trailing" secondItem="2fU-pv-OKx" secondAttribute="trailingMargin" id="grl-a9-gQO"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="ebN-qv-ybM" secondAttribute="trailing" constant="4" id="iZq-5z-nBS"/>
                             <constraint firstItem="Bq9-xx-BxS" firstAttribute="top" secondItem="Ijc-3t-ep7" secondAttribute="bottom" constant="9" id="jBz-yL-TM2"/>
                             <constraint firstItem="j8g-fl-0mq" firstAttribute="leading" secondItem="2fU-pv-OKx" secondAttribute="leadingMargin" id="tmX-h9-IHT"/>
                             <constraint firstItem="Ec0-NF-5er" firstAttribute="trailing" secondItem="2fU-pv-OKx" secondAttribute="trailingMargin" id="vPi-HN-hdU"/>
+                            <constraint firstItem="DcL-7z-HiQ" firstAttribute="top" secondItem="ebN-qv-ybM" secondAttribute="bottom" constant="26" id="xQJ-aD-987"/>
                         </constraints>
                     </view>
                     <connections>
@@ -849,6 +861,7 @@
                         <outlet property="mapView" destination="GST-Ui-Veq" id="xDf-am-baZ"/>
                         <outlet property="passwordButton" destination="Ec0-NF-5er" id="f8O-fy-jpL"/>
                         <outlet property="passwordTextField" destination="j8g-fl-0mq" id="Nkc-17-Vpa"/>
+                        <outlet property="retrievePasswordLabel" destination="ebN-qv-ybM" id="wDV-yq-jiC"/>
                         <outlet property="usernameTextField" destination="DcL-7z-HiQ" id="hes-eY-k8U"/>
                         <segue destination="f3I-jF-huH" kind="modal" identifier="createAccount" modalTransitionStyle="flipHorizontal" id="aUS-4U-dqb"/>
                         <segue destination="pFj-BP-NX9" kind="push" identifier="login" id="AnO-Ub-sN9"/>
@@ -1048,6 +1061,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="s5p-In-lGz"/>
+        <segue reference="AnO-Ub-sN9"/>
     </inferredMetricsTieBreakers>
 </document>

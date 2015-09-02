@@ -22,6 +22,7 @@
 @property BOOL textFieldsComplete;
 @property (weak, nonatomic) IBOutlet UIButton *passwordButton;
 @property (weak, nonatomic) IBOutlet UIButton *createAccountButton;
+@property (weak, nonatomic) IBOutlet UILabel *retrievePasswordLabel;
 
 @end
 
@@ -31,9 +32,8 @@
     [super viewDidLoad];
     self.mapView.delegate = self;
     [self.mapView setRegion:MKCoordinateRegionMake(CLLocationCoordinate2DMake(41.89374, -87.63533), MKCoordinateSpanMake(0.5, 0.5)) animated:false];
-//    [self customizeButton:self.passwordButton];
-//    [self customizeButton:self.createAccountButton];
     self.loginButton.enabled = false;
+    self.retrievePasswordLabel.hidden = true;
 }
 
 -(void)checkIfTextFieldsComplete {
@@ -84,7 +84,24 @@
 }
 
 - (IBAction)onRetrievePasswordButtonPressed:(UIButton *)sender {
-    [PFUser requestPasswordResetForEmailInBackground:@"email@example.com"];
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Retrieve Password" message:@"Please enter the email address associated with your account." preferredStyle:UIAlertControllerStyleAlert];
+        [alertController addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+            textField.placeholder = @"Email Address";
+        }];
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+            if (((UITextField *)alertController.textFields.firstObject).text != nil) {
+                [PFUser requestPasswordResetForEmailInBackground:((UITextField *)alertController.textFields.firstObject).text];
+                self.retrievePasswordLabel.hidden = false;
+                self.retrievePasswordLabel.text = @"Please check your email for reset instructions.";
+            } else {
+                NSLog(@"no email address entered");
+            }
+        }];
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+        }];
+        [alertController addAction:okAction];
+        [alertController addAction:cancelAction];
+        [self presentViewController:alertController animated:true completion:nil];
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {

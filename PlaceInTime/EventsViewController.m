@@ -61,12 +61,19 @@
     UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
     longPress.minimumPressDuration = 1.2; //length of user press
     [self.mapView addGestureRecognizer:longPress];
-    self.navigationItem.title = self.event.name;
+    self.navigationItem.title = self.trip.name;
 }
 
 -(void)viewWillAppear:(BOOL)animated {
     [self queryAndLoadTripEvents];
+}
 
+-(void)displayAlertWithErrorString:(NSString *)errorString {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:errorString preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+    }];
+    [alertController addAction:cancelAction];
+    [self presentViewController:alertController animated:true completion:nil];
 }
 
 -(void)queryAndLoadTripEvents {
@@ -187,7 +194,7 @@
     eventVC.location = newAnnotation.coordinate;
     eventVC.trip = self.trip;
     [self presentViewController:eventVC animated:true completion:nil];
-    [self.mapView addAnnotation:newAnnotation];
+//    [self.mapView addAnnotation:newAnnotation];
 }
 
 
@@ -252,7 +259,7 @@
 }
 
 -(void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control {
-    NSLog(@"%li", view.tag);
+    NSLog(@"%li", (long)view.tag);
     switch (view.tag) {
         case 10: {
             UserEventAnnotation *annot = view.annotation;
@@ -318,7 +325,7 @@
         UITableViewCell *landmarkCell = [tableView dequeueReusableCellWithIdentifier:@"LandmarkCellID"];
         landmarkCell.textLabel.text = [self.landmarks[indexPath.row]name];
         landmarkCell.textLabel.font = [UIFont fontWithName:@"Avenir Next" size:16];
-        landmarkCell.imageView.image = [UIImage imageNamed:@"column"];
+        landmarkCell.imageView.image = [UIImage imageNamed:@"landmark"];
         return landmarkCell;
     }
 }
@@ -362,6 +369,10 @@
         self.tableView.hidden = false;
         self.mapView.hidden = true;
     }
+}
+
+- (IBAction)onAddButtonPressed:(UIBarButtonItem *)sender {
+    [self displayAlertWithErrorString:@"To add a new event, press and hold its map location"];
 }
 
 -(IBAction)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
