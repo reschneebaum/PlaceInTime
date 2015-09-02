@@ -56,12 +56,15 @@
     longPress.minimumPressDuration = 1.2; //length of user press
     [self.mapView addGestureRecognizer:longPress];
 
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:self];
+    navController.navigationBar.hidden = false;
+
     UIBarButtonItem *logoutButton = [[UIBarButtonItem alloc]
                                      initWithTitle:@"Logout"
                                      style:UIBarButtonItemStylePlain
                                      target:self
                                      action:@selector(logOutButtonTapAction:)];
-    self.navigationItem.rightBarButtonItem = logoutButton;
+    navController.navigationItem.rightBarButtonItem = logoutButton;
 }
 
 -(void)viewWillAppear:(BOOL)animated {

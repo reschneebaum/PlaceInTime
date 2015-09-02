@@ -85,13 +85,13 @@
     return self.assets.count;
 }
 
-- (UICollectionViewCell *) collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+- (PhotoCollectionViewCell *) collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     PhotoCollectionViewCell *cell = (PhotoCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"PhotoCell" forIndexPath:indexPath];
 
     ALAsset *asset = self.assets[indexPath.row];
     cell.asset = asset;
     cell.backgroundColor = [UIColor blackColor];
-    cell.photoImageView.image = asset;
+    cell.photoImageView.image = self.image;
 
     return cell;
 }

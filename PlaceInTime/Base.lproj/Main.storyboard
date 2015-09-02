@@ -429,11 +429,13 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Eh-ac-Xvz">
-                                                    <rect key="frame" x="121" y="0.0" width="79" height="32"/>
+                                                    <rect key="frame" x="117" y="0.0" width="86" height="32"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="32" id="RGP-bT-b7q"/>
                                                     </constraints>
+                                                    <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="15"/>
                                                     <state key="normal" title="add photos">
+                                                        <color key="titleColor" red="0.3294117647" green="0.43137254899999999" blue="0.4549019608" alpha="1" colorSpace="calibratedRGB"/>
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                     <connections>
@@ -443,8 +445,8 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="1Eh-ac-Xvz" firstAttribute="top" secondItem="JpA-Tm-FqE" secondAttribute="topMargin" constant="-8" id="0dw-7h-Esh"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="1Eh-ac-Xvz" secondAttribute="trailing" constant="112" id="QIB-UH-Pip"/>
-                                                <constraint firstItem="1Eh-ac-Xvz" firstAttribute="leading" secondItem="JpA-Tm-FqE" secondAttribute="leadingMargin" constant="113" id="fiZ-cz-x6M"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="1Eh-ac-Xvz" secondAttribute="trailing" constant="109" id="QIB-UH-Pip"/>
+                                                <constraint firstItem="1Eh-ac-Xvz" firstAttribute="leading" secondItem="JpA-Tm-FqE" secondAttribute="leadingMargin" constant="109" id="fiZ-cz-x6M"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -453,18 +455,11 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" tag="6" contentMode="center" tableViewCell="o3D-2g-00R" id="1oM-fn-DuL">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" editable="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ovs-M2-XNg">
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" editable="NO" text="Description of event" translatesAutoresizingMaskIntoConstraints="NO" id="Ovs-M2-XNg">
                                                     <rect key="frame" x="8" y="8" width="304" height="133.5"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <color key="tintColor" red="0.3294117647" green="0.43137254899999999" blue="0.4549019608" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <attributedString key="attributedText">
-                                                        <fragment content="Description of event">
-                                                            <attributes>
-                                                                <font key="NSFont" size="14" name="HelveticaNeue"/>
-                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.2"/>
-                                                            </attributes>
-                                                        </fragment>
-                                                    </attributedString>
+                                                    <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                     <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES" address="YES"/>
                                                 </textView>
@@ -500,9 +495,6 @@
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="Ebk-9M-aAB"/>
                     </toolbarItems>
                     <navigationItem key="navigationItem" title="Event Name" id="zat-Fm-HYW">
-                        <barButtonItem key="leftBarButtonItem" title="Trip" id="r8s-71-DWx">
-                            <color key="tintColor" red="0.3294117647" green="0.43137254899999999" blue="0.4549019608" alpha="1" colorSpace="calibratedRGB"/>
-                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Edit" id="QLU-bT-P5t">
                             <color key="tintColor" red="0.3294117647" green="0.43137254899999999" blue="0.4549019608" alpha="1" colorSpace="calibratedRGB"/>
                         </barButtonItem>
@@ -606,7 +598,7 @@
                                 </connections>
                             </textField>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.84999999999999998" contentMode="scaleToFill" keyboardDismissMode="onDrag" translatesAutoresizingMaskIntoConstraints="NO" id="7it-lz-RgV">
-                                <rect key="frame" x="16" y="203" width="288" height="115"/>
+                                <rect key="frame" x="16" y="203" width="288" height="114"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
@@ -614,11 +606,11 @@
                                     <outlet property="delegate" destination="ibc-ge-Fzv" id="HaL-ZF-Idh"/>
                                 </connections>
                             </textView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How did you feel?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="17R-jb-rz0">
-                                <rect key="frame" x="21" y="342" width="135" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Negative or positive event?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="17R-jb-rz0">
+                                <rect key="frame" x="21" y="335" width="215" height="28"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="135" id="8yq-Lj-Kxt"/>
-                                    <constraint firstAttribute="height" constant="21" id="FOx-SQ-pyz"/>
+                                    <constraint firstAttribute="width" constant="215" id="8yq-Lj-Kxt"/>
+                                    <constraint firstAttribute="height" constant="28" id="FOx-SQ-pyz"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="16"/>
                                 <color key="textColor" red="0.36078431372549019" green="0.27843137254901962" blue="0.25882352941176473" alpha="1" colorSpace="calibratedRGB"/>
@@ -708,7 +700,7 @@
                             <constraint firstItem="Qfq-1c-2DP" firstAttribute="top" secondItem="wMt-o4-iwq" secondAttribute="bottom" constant="90" id="MAh-Tk-Wb5"/>
                             <constraint firstItem="wMt-o4-iwq" firstAttribute="leading" secondItem="lQh-ZA-kQY" secondAttribute="leadingMargin" id="OVi-BJ-gN9"/>
                             <constraint firstItem="7it-lz-RgV" firstAttribute="top" secondItem="aUs-NH-0OA" secondAttribute="bottom" constant="14" id="PAK-Vm-6BZ"/>
-                            <constraint firstItem="17R-jb-rz0" firstAttribute="top" secondItem="7it-lz-RgV" secondAttribute="bottom" constant="24" id="PGJ-Tg-2DE"/>
+                            <constraint firstItem="17R-jb-rz0" firstAttribute="top" secondItem="7it-lz-RgV" secondAttribute="bottom" constant="18" id="PGJ-Tg-2DE"/>
                             <constraint firstItem="5If-v2-FFL" firstAttribute="top" secondItem="msa-a9-ave" secondAttribute="bottom" constant="8" id="UYK-AO-UzI"/>
                             <constraint firstItem="17R-jb-rz0" firstAttribute="leading" secondItem="lQh-ZA-kQY" secondAttribute="leadingMargin" constant="5" id="V3i-tD-dnz"/>
                             <constraint firstItem="l93-RY-xTV" firstAttribute="leading" secondItem="lQh-ZA-kQY" secondAttribute="leadingMargin" constant="5" id="VAq-nb-OsM"/>
@@ -1020,6 +1012,7 @@
         <!--Navigation Controller-->
         <scene sceneID="0tV-wd-9eE">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BDU-Up-iwF" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController storyboardIdentifier="navVC" automaticallyAdjustsScrollViewInsets="NO" id="GFV-AX-zOa" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="fQG-kE-8ju"/>
@@ -1044,7 +1037,6 @@
                         <segue destination="T5y-PJ-gAm" kind="relationship" relationship="rootViewController" id="Mf8-fJ-l0o"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="BDU-Up-iwF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="410" y="315"/>
         </scene>
@@ -1061,7 +1053,7 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="C6D-ZN-pVI"/>
-        <segue reference="X7r-Kz-h3l"/>
+        <segue reference="aeH-vp-syx"/>
         <segue reference="RvC-N2-vTv"/>
     </inferredMetricsTieBreakers>
 </document>
