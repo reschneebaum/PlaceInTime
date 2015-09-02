@@ -58,9 +58,35 @@
 -(void)reverseGeocode:(CLLocation *)location {
     CLGeocoder *geocoder = [CLGeocoder new];
     [geocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error) {
-        CLPlacemark *placemark = placemarks.firstObject;
-        NSString *address = [NSString stringWithFormat:@"%@ %@, %@, %@ %@", placemark.subThoroughfare, placemark.thoroughfare, placemark.locality, placemark.administrativeArea, placemark.postalCode];
-        self.locationLabel.text = address;
+        if (!error) {
+            CLPlacemark *placemark = placemarks.firstObject;
+
+            NSString *address = [NSString stringWithFormat:@"%@ %@, %@, %@ %@", placemark.subThoroughfare, placemark.thoroughfare, placemark.locality, placemark.administrativeArea, placemark.postalCode];
+
+//            NSString *addressString = @"";
+//
+//            if (placemark.subThoroughfare != nil) {
+//                 addressString = [NSString stringWithFormat:@"%@", placemark.subThoroughfare];
+//            } else {
+//                NSLog(@"placemark.subThoroughfare is nil");
+//            }
+//
+//            if (placemark.thoroughfare != nil) {
+//                [addressString stringByAppendingFormat:@" %@", placemark.thoroughfare];
+//            } else {
+//                NSLog(@"placemark.thoroughfare is nil");
+//            }
+//
+//            if (placemark.locality) {
+//
+//            }
+
+
+            self.locationLabel.text = address;
+        } else {
+            NSLog(@"Error while in reverseGeocode: %@", error.localizedDescription);
+        }
+
     }];
 }
 
@@ -143,16 +169,5 @@
         cell.photoImageView.image = self.image;
     }];
 }
-
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

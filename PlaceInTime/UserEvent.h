@@ -21,7 +21,5 @@
 @property (nonatomic, strong) NSString *locationString;
 
 +(NSString *)parseClassName;
--(void)queryCurrentEvent;
--(void)queryEventsBelongToCurrentTrip;
 
 @end

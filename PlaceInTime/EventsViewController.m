@@ -5,6 +5,11 @@
 //  Created by Rachel Schneebaum on 8/17/15.
 //  Copyright (c) 2015 Rachel Schneebaum. All rights reserved.
 //
+//  Map icon created by BraveBros. from Noun Project
+//  Column icon created by Aleks from Noun Project
+//  Pin icon created by Matteo Della Chiesa from Noun Project
+//  Camera icon created by Demograph(TM) from Noun Project
+//
 
 #import <MapKit/MapKit.h>
 #import <CoreLocation/CoreLocation.h>
@@ -14,7 +19,7 @@
 #import "AddEventViewController.h"
 #import "EventDetailTableViewController.h"
 #import "LoginViewController.h"
-#import "UserEventTableViewCell.h"
+#import "WebViewController.h"
 #import "UserEvent.h"
 #import "HistoryEvent.h"
 #import "Landmark.h"
@@ -22,15 +27,16 @@
 #import "UserEventAnnotation.h"
 #import "LandmarkAnnotation.h"
 
-@interface EventsViewController () <MKMapViewDelegate, CLLocationManagerDelegate, UITableViewDelegate, UITableViewDataSource>
+@interface EventsViewController () <MKMapViewDelegate, CLLocationManagerDelegate, UITableViewDelegate, UITableViewDataSource, UINavigationControllerDelegate, UINavigationBarDelegate>
 
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property CLLocationManager *locationManager;
-@property NSArray *userEvents;
+@property NSMutableArray *userEvents;
 @property NSArray *historyEvents;
 @property NSArray *landmarks;
 @property UserEvent *event;
+@property Landmark *landmark;
 @property BOOL isChicago;
 
 @end
@@ -49,22 +55,13 @@
     self.mapLocation = [[CLLocation alloc] initWithLatitude:self.trip.location.latitude longitude:self.trip.location.longitude];
     [self.mapView setRegion:MKCoordinateRegionMake(self.mapLocation.coordinate, MKCoordinateSpanMake(1.0, 1.0))];
 
-    [self checkAndIfChicagoLoadHistoryEvents];
+//    [self checkAndIfChicagoLoadHistoryEvents];
     [self searchForAndLoadLandmarks];
 
     UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
     longPress.minimumPressDuration = 1.2; //length of user press
     [self.mapView addGestureRecognizer:longPress];
-
-    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:self];
-    navController.navigationBar.hidden = false;
-
-    UIBarButtonItem *logoutButton = [[UIBarButtonItem alloc]
-                                     initWithTitle:@"Logout"
-                                     style:UIBarButtonItemStylePlain
-                                     target:self
-                                     action:@selector(logOutButtonTapAction:)];
-    navController.navigationItem.rightBarButtonItem = logoutButton;
+    self.navigationItem.title = self.event.name;
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -85,9 +82,11 @@
                     userAnnot.coordinate = CLLocationCoordinate2DMake(event.location.latitude, event.location.longitude);
                     userAnnot.title = event.name;
                     userAnnot.subtitle = event.date;
+                    userAnnot.event = event;
+                    userAnnot.valence = (int)event.valence;
                     [self.mapView addAnnotation:userAnnot];
                 }
-                self.userEvents = [NSArray arrayWithArray:objects];
+                self.userEvents = [NSMutableArray arrayWithArray:objects];
                 [self.tableView reloadData];
                 NSLog(@"%@", self.userEvents.firstObject);
             } else {
@@ -168,9 +167,6 @@
 
 -(void)combineLandmarksAndHistoryEventsAndSort {
     NSMutableArray *tempArray = [NSMutableArray arrayWithArray:self.landmarks];
-    if (self.historyEvents.count > 0) {
-        [tempArray addObjectsFromArray:self.historyEvents];
-    }
     NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)];
     NSArray *sortDescriptors = @[sortDescriptor];
     NSArray *sortedArray = [tempArray sortedArrayUsingDescriptors:sortDescriptors];
@@ -203,6 +199,36 @@
     if ([annotation isEqual:mapView.userLocation]) {
         return nil;
     } else if ([annotation isKindOfClass:[UserEventAnnotation class]]) {
+        UserEventAnnotation *userAnnot = annotation;
+        switch (userAnnot.valence) {
+            case 1: {
+                userAnnot.valence = 1;
+                pin.image = [UIImage imageNamed:@"red_pin"];
+                break;
+            }
+            case 2: {
+                userAnnot.valence = 2;
+                pin.image = [UIImage imageNamed:@"orange_pin"];
+                break;
+            }
+            case 3: {
+                userAnnot.valence = 3;
+                pin.image = [UIImage imageNamed:@"green_pin"];
+                break;
+            }
+            case 4: {
+                userAnnot.valence = 4;
+                pin.image = [UIImage imageNamed:@"blue_pin"];
+                break;
+            }
+            case 5: {
+                userAnnot.valence = 5;
+                pin.image = [UIImage imageNamed:@"purple_pin"];
+                break;
+            }
+            default:
+                break;
+        }
         CGRect cropRect = CGRectMake(0.0, 0.0, 35.0, 35.0);
         UIImageView *imageView = [[UIImageView alloc]initWithFrame:cropRect];
         imageView.clipsToBounds = YES;
@@ -210,21 +236,40 @@
         pin.canShowCallout = true;
         pin.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
         pin.leftCalloutAccessoryView = imageView;
+        pin.tag = 10;
     } else {
-        UIImage *image = [UIImage imageNamed:@"wind_rose"];
         CGRect cropRect = CGRectMake(0.0, 0.0, 35.0, 35.0);
         UIImageView *imageView = [[UIImageView alloc]initWithFrame:cropRect];
         imageView.clipsToBounds = YES;
-        imageView.image = image;
+        imageView.image = [UIImage imageNamed:@"camera"];
+        pin.image = [UIImage imageNamed:@"landmark_small"];
         pin.canShowCallout = true;
-//        pin.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+        pin.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
         pin.leftCalloutAccessoryView = imageView;
+        pin.tag = 20;
     }
     return pin;
 }
 
 -(void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control {
-    [self performSegueWithIdentifier:@"detailSegue" sender:self];
+    NSLog(@"%li", view.tag);
+    switch (view.tag) {
+        case 10: {
+            UserEventAnnotation *annot = view.annotation;
+            self.event = annot.event;
+
+            [self performSegueWithIdentifier:@"detailSegue" sender:self];
+            break;
+        }
+        case 20: {
+            MKPointAnnotation *annot = view.annotation;
+            self.landmark = [Landmark new];
+            self.landmark.name = annot.title;
+            [self performSegueWithIdentifier:@"webSegue" sender:self];
+        }
+        default:
+            break;
+    }
 }
 
 #pragma mark - UITableView datasource methods
@@ -265,14 +310,15 @@
         UITableViewCell *userCell = [tableView dequeueReusableCellWithIdentifier:@"UserCellID"];
         userCell.textLabel.text = [self.userEvents[indexPath.row]name];
         userCell.textLabel.font = [UIFont fontWithName:@"Avenir Next" size:16];
-        userCell.detailTextLabel.text = [self.userEvents[indexPath.row]date];
+        userCell.detailTextLabel.text = (NSString*)[self.userEvents[indexPath.row]date];
         userCell.detailTextLabel.font = [UIFont fontWithName:@"Avenir Next" size:12];
-//        userCell.imageView.image = [UIImage imageNamed:self.userEvents[indexPath.row]imageString];
+        userCell.imageView.image = [UIImage imageNamed:@"pin"];
         return userCell;
     } else {
         UITableViewCell *landmarkCell = [tableView dequeueReusableCellWithIdentifier:@"LandmarkCellID"];
         landmarkCell.textLabel.text = [self.landmarks[indexPath.row]name];
         landmarkCell.textLabel.font = [UIFont fontWithName:@"Avenir Next" size:16];
+        landmarkCell.imageView.image = [UIImage imageNamed:@"column"];
         return landmarkCell;
     }
 }
@@ -282,27 +328,31 @@
     if (indexPath.section == 0) {
         self.event = self.userEvents[indexPath.row];
         [self performSegueWithIdentifier:@"detailSegue" sender:self];
+    } else {
+        self.landmark = self.landmarks[indexPath.row];
+        [self performSegueWithIdentifier:@"webSegue" sender:self];
     }
 }
 
 -(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    return YES;
+    if (indexPath.section == 0) {
+        return YES;
+    } else {
+    return NO;
+    }
 }
 
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
         [self.userEvents[indexPath.row] delete];
     }
 }
 
--(void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-
 -(BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-     return YES;
-}
+    return NO;
 
+}
 
 - (IBAction)onSegmentedControlSwitched:(UISegmentedControl *)sender {
     if (sender.selectedSegmentIndex == 0) {
@@ -319,6 +369,9 @@
         EventDetailTableViewController *detailVC = segue.destinationViewController;
         detailVC.userEvent = self.event;
         detailVC.trip = self.trip;
+    } else if ([segue.identifier isEqualToString:@"webSegue"]) {
+        WebViewController *webVC = segue.destinationViewController;
+        webVC.name = self.landmark.name;
     }
 }
 
@@ -326,10 +379,8 @@
     [self queryAndLoadTripEvents];
 }
 
-- (IBAction)logOutButtonTapAction:(UIBarButtonItem *)sender {
-    [PFUser logOut];
-    LoginViewController *login = [LoginViewController new];
-    [self presentViewController:login animated:true completion:nil];
+-(IBAction)unwindFromAddEvent:(UIStoryboardSegue *)sender {
+
 }
 
 @end
