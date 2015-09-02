@@ -84,7 +84,7 @@
 }
 
 - (IBAction)onRetrievePasswordButtonPressed:(UIButton *)sender {
-    NSLog(@"workin on it");
+    [PFUser requestPasswordResetForEmailInBackground:@"email@example.com"];
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {

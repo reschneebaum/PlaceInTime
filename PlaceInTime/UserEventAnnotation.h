@@ -7,9 +7,11 @@
 //
 
 #import <MapKit/MapKit.h>
+#import "UserEvent.h"
 
 @interface UserEventAnnotation : MKPointAnnotation
 
-@property NSString *valence;
+@property int valence;
+@property UserEvent *event;
 
 @end

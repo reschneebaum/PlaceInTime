@@ -10,7 +10,6 @@
 		8F61B3AB1B87962D009023EB /* HistoryEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F61B3AA1B87962D009023EB /* HistoryEvent.m */; };
 		8FF95F4B1B87715800ED5D4B /* timeplaces.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8FF95F4A1B87715800ED5D4B /* timeplaces.plist */; };
 		C41E797B1B93F2C700A25D8B /* EventDetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C41E797A1B93F2C700A25D8B /* EventDetailTableViewController.m */; };
-		C42D7FCF1B8782AA00B56AFC /* EventDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C42D7FCE1B8782AA00B56AFC /* EventDetailViewController.m */; };
 		C42DDB8E1B82454300CAAD15 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C42DDB8D1B82454300CAAD15 /* main.m */; };
 		C42DDB911B82454300CAAD15 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C42DDB901B82454300CAAD15 /* AppDelegate.m */; };
 		C42DDB941B82454300CAAD15 /* PlaceInTime.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C42DDB921B82454300CAAD15 /* PlaceInTime.xcdatamodeld */; };
@@ -37,15 +36,11 @@
 		C4997EF91B960C0E0032CFB5 /* LandmarkAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = C4997EF81B960C0E0032CFB5 /* LandmarkAnnotation.m */; };
 		C4997EFC1B965ED10032CFB5 /* PhotoCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C4997EFB1B965ED00032CFB5 /* PhotoCollectionViewCell.m */; };
 		C4997EFE1B9660020032CFB5 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4997EFD1B9660020032CFB5 /* AssetsLibrary.framework */; };
-		C4A30E0D1B8CCDBC006A39AC /* UserEventTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A30E0C1B8CCDBC006A39AC /* UserEventTableViewCell.m */; };
-		C4A30E101B8CCDD1006A39AC /* LandmarkTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A30E0F1B8CCDD1006A39AC /* LandmarkTableViewCell.m */; };
+		C4997F011B9693A20032CFB5 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4997F001B9693A20032CFB5 /* WebViewController.m */; };
 		C4A30E131B8CD109006A39AC /* Landmark.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A30E121B8CD109006A39AC /* Landmark.m */; };
 		C4A30E161B8CEDF7006A39AC /* Trip.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A30E151B8CEDF7006A39AC /* Trip.m */; };
-		C4A91C9E1B83BD1C007C26CA /* LoginViewControllerOld.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A91C9D1B83BD1C007C26CA /* LoginViewControllerOld.m */; };
 		C4A91CA11B83BD2B007C26CA /* AddEventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A91CA01B83BD2B007C26CA /* AddEventViewController.m */; };
-		C4A91CA41B83BD5A007C26CA /* UserEventAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A91CA31B83BD5A007C26CA /* UserEventAnnotationView.m */; };
 		C4A91CAA1B84C815007C26CA /* UserEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A91CA91B84C815007C26CA /* UserEvent.m */; };
-		C4B103661B8DCDFD000EC658 /* CodeDump.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B103651B8DCDFD000EC658 /* CodeDump.m */; };
 		C4B103691B8DEE7D000EC658 /* AddTripViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B103681B8DEE7D000EC658 /* AddTripViewController.m */; };
 		C4B1036C1B8DEE91000EC658 /* NewTripViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B1036B1B8DEE91000EC658 /* NewTripViewController.m */; };
 		C4B13F6A1B8BAE80005A6475 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B13F691B8BAE80005A6475 /* RootViewController.m */; };
@@ -91,8 +86,6 @@
 		8FF95F4A1B87715800ED5D4B /* timeplaces.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = timeplaces.plist; sourceTree = "<group>"; };
 		C41E79791B93F2C700A25D8B /* EventDetailTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventDetailTableViewController.h; sourceTree = "<group>"; };
 		C41E797A1B93F2C700A25D8B /* EventDetailTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventDetailTableViewController.m; sourceTree = "<group>"; };
-		C42D7FCD1B8782AA00B56AFC /* EventDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventDetailViewController.h; sourceTree = "<group>"; };
-		C42D7FCE1B8782AA00B56AFC /* EventDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventDetailViewController.m; sourceTree = "<group>"; };
 		C42DDB881B82454300CAAD15 /* PlaceInTime.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlaceInTime.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C42DDB8C1B82454300CAAD15 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C42DDB8D1B82454300CAAD15 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -132,25 +125,17 @@
 		C4997EFA1B965ED00032CFB5 /* PhotoCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoCollectionViewCell.h; sourceTree = "<group>"; };
 		C4997EFB1B965ED00032CFB5 /* PhotoCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoCollectionViewCell.m; sourceTree = "<group>"; };
 		C4997EFD1B9660020032CFB5 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
-		C4A30E0B1B8CCDBC006A39AC /* UserEventTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserEventTableViewCell.h; sourceTree = "<group>"; };
-		C4A30E0C1B8CCDBC006A39AC /* UserEventTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserEventTableViewCell.m; sourceTree = "<group>"; };
-		C4A30E0E1B8CCDD1006A39AC /* LandmarkTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LandmarkTableViewCell.h; sourceTree = "<group>"; };
-		C4A30E0F1B8CCDD1006A39AC /* LandmarkTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LandmarkTableViewCell.m; sourceTree = "<group>"; };
+		C4997EFF1B9693A20032CFB5 /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
+		C4997F001B9693A20032CFB5 /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
 		C4A30E111B8CD109006A39AC /* Landmark.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Landmark.h; sourceTree = "<group>"; };
 		C4A30E121B8CD109006A39AC /* Landmark.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Landmark.m; sourceTree = "<group>"; };
 		C4A30E141B8CEDF7006A39AC /* Trip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Trip.h; sourceTree = "<group>"; };
 		C4A30E151B8CEDF7006A39AC /* Trip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Trip.m; sourceTree = "<group>"; };
-		C4A91C9C1B83BD1C007C26CA /* LoginViewControllerOld.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewControllerOld.h; sourceTree = "<group>"; };
-		C4A91C9D1B83BD1C007C26CA /* LoginViewControllerOld.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewControllerOld.m; sourceTree = "<group>"; };
 		C4A91C9F1B83BD2B007C26CA /* AddEventViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddEventViewController.h; sourceTree = "<group>"; };
 		C4A91CA01B83BD2B007C26CA /* AddEventViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddEventViewController.m; sourceTree = "<group>"; };
-		C4A91CA21B83BD5A007C26CA /* UserEventAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserEventAnnotationView.h; sourceTree = "<group>"; };
-		C4A91CA31B83BD5A007C26CA /* UserEventAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserEventAnnotationView.m; sourceTree = "<group>"; };
 		C4A91CA81B84C815007C26CA /* UserEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserEvent.h; sourceTree = "<group>"; };
 		C4A91CA91B84C815007C26CA /* UserEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserEvent.m; sourceTree = "<group>"; };
 		C4A91CAB1B861521007C26CA /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
-		C4B103641B8DCDFD000EC658 /* CodeDump.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CodeDump.h; sourceTree = "<group>"; };
-		C4B103651B8DCDFD000EC658 /* CodeDump.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CodeDump.m; sourceTree = "<group>"; };
 		C4B103671B8DEE7D000EC658 /* AddTripViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddTripViewController.h; sourceTree = "<group>"; };
 		C4B103681B8DEE7D000EC658 /* AddTripViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddTripViewController.m; sourceTree = "<group>"; };
 		C4B1036A1B8DEE91000EC658 /* NewTripViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewTripViewController.h; sourceTree = "<group>"; };
@@ -244,7 +229,6 @@
 				C4B103611B8D1C5E000EC658 /* Model Objects */,
 				C42DDB9B1B82454300CAAD15 /* Images.xcassets */,
 				C42DDB9D1B82454300CAAD15 /* LaunchScreen.xib */,
-				C4A30E0A1B8CC0BF006A39AC /* Old */,
 				C42DDB921B82454300CAAD15 /* PlaceInTime.xcdatamodeld */,
 				C4B13F5D1B8BAE28005A6475 /* Frameworks */,
 				C42DDB8B1B82454300CAAD15 /* Supporting Files */,
@@ -279,21 +263,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		C4A30E0A1B8CC0BF006A39AC /* Old */ = {
-			isa = PBXGroup;
-			children = (
-				C42D7FCD1B8782AA00B56AFC /* EventDetailViewController.h */,
-				C42D7FCE1B8782AA00B56AFC /* EventDetailViewController.m */,
-				C4B103641B8DCDFD000EC658 /* CodeDump.h */,
-				C4B103651B8DCDFD000EC658 /* CodeDump.m */,
-				C4A91C9C1B83BD1C007C26CA /* LoginViewControllerOld.h */,
-				C4A91C9D1B83BD1C007C26CA /* LoginViewControllerOld.m */,
-				C4A91CA21B83BD5A007C26CA /* UserEventAnnotationView.h */,
-				C4A91CA31B83BD5A007C26CA /* UserEventAnnotationView.m */,
-			);
-			name = Old;
-			sourceTree = "<group>";
-		};
 		C4B103611B8D1C5E000EC658 /* Model Objects */ = {
 			isa = PBXGroup;
 			children = (
@@ -322,10 +291,6 @@
 				C4997EF81B960C0E0032CFB5 /* LandmarkAnnotation.m */,
 				C4997EFA1B965ED00032CFB5 /* PhotoCollectionViewCell.h */,
 				C4997EFB1B965ED00032CFB5 /* PhotoCollectionViewCell.m */,
-				C4A30E0B1B8CCDBC006A39AC /* UserEventTableViewCell.h */,
-				C4A30E0C1B8CCDBC006A39AC /* UserEventTableViewCell.m */,
-				C4A30E0E1B8CCDD1006A39AC /* LandmarkTableViewCell.h */,
-				C4A30E0F1B8CCDD1006A39AC /* LandmarkTableViewCell.m */,
 			);
 			name = "Custom Classes";
 			sourceTree = "<group>";
@@ -351,6 +316,8 @@
 				C4B103681B8DEE7D000EC658 /* AddTripViewController.m */,
 				C4B1036A1B8DEE91000EC658 /* NewTripViewController.h */,
 				C4B1036B1B8DEE91000EC658 /* NewTripViewController.m */,
+				C4997EFF1B9693A20032CFB5 /* WebViewController.h */,
+				C4997F001B9693A20032CFB5 /* WebViewController.m */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -514,30 +481,25 @@
 			files = (
 				C4A30E161B8CEDF7006A39AC /* Trip.m in Sources */,
 				C4A30E131B8CD109006A39AC /* Landmark.m in Sources */,
-				C4A30E0D1B8CCDBC006A39AC /* UserEventTableViewCell.m in Sources */,
 				C4B103691B8DEE7D000EC658 /* AddTripViewController.m in Sources */,
 				C4E414991B8F6CA800116824 /* LoginViewController.m in Sources */,
 				C41E797B1B93F2C700A25D8B /* EventDetailTableViewController.m in Sources */,
-				C4A91CA41B83BD5A007C26CA /* UserEventAnnotationView.m in Sources */,
 				8F61B3AB1B87962D009023EB /* HistoryEvent.m in Sources */,
-				C42D7FCF1B8782AA00B56AFC /* EventDetailViewController.m in Sources */,
 				C4D857391B9504060015543A /* Route.m in Sources */,
 				C4997EFC1B965ED10032CFB5 /* PhotoCollectionViewCell.m in Sources */,
 				C4997EF61B960BFB0032CFB5 /* UserEventAnnotation.m in Sources */,
 				C4E4149F1B8F765200116824 /* UserInfo.m in Sources */,
 				C42DDB911B82454300CAAD15 /* AppDelegate.m in Sources */,
 				C42DDB941B82454300CAAD15 /* PlaceInTime.xcdatamodeld in Sources */,
+				C4997F011B9693A20032CFB5 /* WebViewController.m in Sources */,
 				C4B1036C1B8DEE91000EC658 /* NewTripViewController.m in Sources */,
 				C4B13F6D1B8C8107005A6475 /* TripsViewController.m in Sources */,
 				C4997EF91B960C0E0032CFB5 /* LandmarkAnnotation.m in Sources */,
 				C4E4149C1B8F6CB400116824 /* SignupViewController.m in Sources */,
 				C42DDB971B82454300CAAD15 /* EventsViewController.m in Sources */,
-				C4A91C9E1B83BD1C007C26CA /* LoginViewControllerOld.m in Sources */,
-				C4A30E101B8CCDD1006A39AC /* LandmarkTableViewCell.m in Sources */,
 				C4B13F6A1B8BAE80005A6475 /* RootViewController.m in Sources */,
 				C4A91CA11B83BD2B007C26CA /* AddEventViewController.m in Sources */,
 				C42DDB8E1B82454300CAAD15 /* main.m in Sources */,
-				C4B103661B8DCDFD000EC658 /* CodeDump.m in Sources */,
 				C4A91CAA1B84C815007C26CA /* UserEvent.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

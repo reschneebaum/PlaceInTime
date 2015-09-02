@@ -5,10 +5,13 @@
 //  Created by Rachel Schneebaum on 8/25/15.
 //  Copyright (c) 2015 Rachel Schneebaum. All rights reserved.
 //
+//  Map icon created by BraveBros. from Noun Project
+//
 
 #import <Parse/Parse.h>
 #import <ParseUI/ParseUI.h>
 #import "TripsViewController.h"
+#import "AddTripViewController.h"
 #import "EventsViewController.h"
 #import "LoginViewController.h"
 #import "Trip.h"
@@ -26,15 +29,25 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self assignAndRetrieveUserTrips];
 
     UIBarButtonItem *logoutButton = [[UIBarButtonItem alloc]
                                      initWithTitle:@"Logout"
                                      style:UIBarButtonItemStylePlain
                                      target:self
                                      action:@selector(logOutButtonTapAction:)];
-    self.navigationItem.rightBarButtonItem = logoutButton;
+    self.navigationItem.leftBarButtonItem = logoutButton;
     self.tripLocations = [NSMutableArray new];
+}
+
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+
+    if ([PFUser currentUser]) {
+        self.navigationItem.prompt = [NSString stringWithFormat:NSLocalizedString(@"Welcome, %@!", nil), [[PFUser currentUser] username]];
+    } else {
+        NSLog(@"error");
+    }
+    [self assignAndRetrieveUserTrips];
 }
 
 
@@ -90,7 +103,7 @@
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
     Trip *trip = self.trips[indexPath.row];
-    cell.textLabel.text = trip.locationString;
+    cell.textLabel.text = trip.name;
     cell.textLabel.font = [UIFont fontWithName:@"Avenir Next" size:16];
     cell.detailTextLabel.text = trip.dateString;
     cell.detailTextLabel.font = [UIFont fontWithName:@"Avenir Next" size:12];
@@ -123,8 +136,9 @@
 
 - (IBAction)logOutButtonTapAction:(UIBarButtonItem *)sender {
     [PFUser logOut];
-    LoginViewController *login = [LoginViewController new];
-    [self presentViewController:login animated:true completion:nil];
+    [self performSegueWithIdentifier:@"logout" sender:self];
+//    LoginViewController *login = [LoginViewController new];
+//    [self presentViewController:login animated:true completion:nil];
 }
 
 
