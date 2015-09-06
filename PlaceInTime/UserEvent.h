@@ -19,6 +19,7 @@
 @property float valence;
 @property (nonatomic, strong) PFGeoPoint *location;
 @property (nonatomic, strong) NSString *locationString;
+@property (nonatomic, strong) NSString *imageString;
 
 +(NSString *)parseClassName;
 

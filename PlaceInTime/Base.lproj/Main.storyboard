@@ -389,12 +389,12 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell4" rowHeight="206" id="btO-we-Qhy">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell4" rowHeight="12" id="btO-we-Qhy">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" tag="3" contentMode="center" tableViewCell="btO-we-Qhy" id="dYi-hv-Xfb">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="LkM-m8-Ru8">
+                                                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="LkM-m8-Ru8">
                                                     <rect key="frame" x="0.0" y="8" width="320" height="189.5"/>
                                                     <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Q6Y-K7-SFT">
                                                         <size key="itemSize" width="323" height="167"/>
@@ -431,7 +431,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell5" rowHeight="40" id="Bm2-Jd-CYg">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell5" rowHeight="4" id="Bm2-Jd-CYg">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" tag="4" contentMode="center" tableViewCell="Bm2-Jd-CYg" id="JpA-Tm-FqE">
                                             <autoresizingMask key="autoresizingMask"/>
@@ -447,7 +447,7 @@
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                     <connections>
-                                                        <action selector="onAddImageTapped:" destination="oDF-Bx-zId" eventType="touchUpInside" id="6Yb-4f-KgZ"/>
+                                                        <action selector="selectPhoto:" destination="oDF-Bx-zId" eventType="touchUpInside" id="7tS-9i-O0z"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
@@ -506,6 +506,7 @@
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="addPhotosButton" destination="1Eh-ac-Xvz" id="S01-V3-ZQz"/>
                         <outlet property="collectionView" destination="LkM-m8-Ru8" id="Va0-Hy-QmC"/>
                         <outlet property="dateLabel" destination="PIn-Qd-UnU" id="z6n-Ye-pwe"/>
                         <outlet property="descriptionTextView" destination="Ovs-M2-XNg" id="COy-zb-IZD"/>

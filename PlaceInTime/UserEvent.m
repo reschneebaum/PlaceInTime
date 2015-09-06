@@ -19,6 +19,7 @@
 @dynamic belongsToTrip;
 @dynamic location;
 @dynamic locationString;
+@dynamic imageString;
 
 +(void)load {
     [self registerSubclass];

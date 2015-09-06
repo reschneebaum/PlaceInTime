@@ -6,6 +6,8 @@
 //  Copyright (c) 2015 Rachel Schneebaum. All rights reserved.
 //
 #import <AssetsLibrary/AssetsLibrary.h>
+#import <ImageIO/ImageIO.h>
+#import "AppDelegate.h"
 #import "EventDetailTableViewController.h"
 #import "PhotoCollectionViewCell.h"
 
@@ -19,6 +21,8 @@
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property NSArray *assets;
 @property UIImage *image;
+@property (weak, nonatomic) IBOutlet UIButton *addPhotosButton;
+@property NSManagedObjectContext *moc;
 
 @end
 
@@ -26,32 +30,16 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    NSLog(@"%@", self.userEvent.name);
+    AppDelegate *delegate = [[UIApplication sharedApplication] delegate];
+    self.moc = delegate.managedObjectContext;
 
     [self configureView];
     CLLocation *location = [[CLLocation alloc] initWithLatitude:self.userEvent.location.latitude longitude:self.userEvent.location.longitude];
     [self reverseGeocode:location];
     [self.navigationItem setTitle:self.userEvent.name];
     NSLog(@"%@", self.userEvent.name);
-
-    _assets = [@[]mutableCopy];
-    __block NSMutableArray *tmpAssets = [@[] mutableCopy];
-    ALAssetsLibrary *assetsLibrary = [EventDetailTableViewController defaultAssetLibrary];
-
-    [assetsLibrary enumerateGroupsWithTypes:ALAssetsGroupAll usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
-        [group enumerateAssetsUsingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
-            if (result) {
-                [tmpAssets addObject:result];
-            }
-        }];
-
-        self.assets = tmpAssets;
-        [self.collectionView reloadData];
-
-    } failureBlock:^(NSError *error) {
-        NSLog(@" Error Loading images");
-        
-    }];
+    self.addPhotosButton.hidden = true;
+    self.collectionView.hidden = true;
 }
 
 
@@ -102,8 +90,6 @@
 - (PhotoCollectionViewCell *) collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     PhotoCollectionViewCell *cell = (PhotoCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"PhotoCell" forIndexPath:indexPath];
 
-    ALAsset *asset = self.assets[indexPath.row];
-    cell.asset = asset;
     cell.backgroundColor = [UIColor blackColor];
     cell.photoImageView.image = self.image;
 
@@ -118,44 +104,60 @@
     return 1;
 }
 
--(void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
-    ALAsset *asset = self.assets[indexPath.row];
-    ALAssetRepresentation *defaultRep = [asset defaultRepresentation];
-    UIImage *image = [UIImage imageWithCGImage:[defaultRep fullScreenImage] scale:[defaultRep scale] orientation:0];
-    self.image = image;
-}
+//-(void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
+//    ALAsset *asset = self.assets[indexPath.row];
+//    ALAssetRepresentation *defaultRep = [asset defaultRepresentation];
+//    UIImage *image = [UIImage imageWithCGImage:[defaultRep fullScreenImage] scale:[defaultRep scale] orientation:0];
+//    self.image = image;
+//}
 
-+ (ALAssetsLibrary *)defaultAssetLibrary{
-    static dispatch_once_t pred;
-    static ALAssetsLibrary *library = nil;
-    dispatch_once(&pred, ^{
-        library = [[ALAssetsLibrary alloc]init];
-    });
-
-    return library;
-
-}
-
-- (IBAction)onAddImageTapped:(UIButton *)sender {
-    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary] == NO) {
-        return;
+-(void)retrieveImageTimestamp {
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"gg_gps" ofType:@"jpg"];
+    NSURL *imageFileURL = [NSURL fileURLWithPath:path];
+    CGImageSourceRef imageSource = CGImageSourceCreateWithURL((CFURLRef)CFBridgingRetain(imageFileURL), NULL);
+    NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:NO], (NSString *)kCGImageSourceShouldCache, nil];
+    CFDictionaryRef imageProperties = CGImageSourceCopyPropertiesAtIndex(imageSource, 0, (CFDictionaryRef)CFBridgingRetain(options));
+    CFDictionaryRef exifDic = CFDictionaryGetValue(imageProperties, kCGImagePropertyExifDictionary);
+    if (exifDic){
+        NSString *timestamp = (NSString *)CFBridgingRelease(CFDictionaryGetValue(exifDic, kCGImagePropertyExifDateTimeOriginal));
+        if (timestamp){
+            NSLog(@"timestamp: %@", timestamp);
+            self.userEvent.imageString = timestamp;
+        } else {
+            NSLog(@"timestamp not found in the exif dic %@", exifDic);
+        }
+    } else {
+        NSLog(@"exifDic nil for imageProperties %@",imageProperties);
     }
-
-    UIImagePickerController *mediaUI = [[UIImagePickerController alloc]init];
-    mediaUI.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-    mediaUI.allowsEditing = NO;
-    mediaUI.delegate = self;
-    [self presentViewController:mediaUI animated:YES completion:nil];
+    CFRelease(imageProperties);
 }
+
+-(void)presentNoCameraAlert {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Error" message:@"No camera available on device" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+    }];
+    [alertController addAction:okAction];
+    [self presentViewController:alertController animated:true completion:nil];
+}
+
+#pragma mark - UIImagePickerController methods
+#pragma mark -
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
-    UIImage *image = (UIImage *)[info objectForKey:UIImagePickerControllerOriginalImage];
-
-    [self dismissViewControllerAnimated:YES completion:^{
-        self.image = image;
-        PhotoCollectionViewCell *cell = [PhotoCollectionViewCell new];
-        cell.photoImageView.image = self.image;
-    }];
+    self.image = info[UIImagePickerControllerOriginalImage];
+    [picker dismissViewControllerAnimated:true completion:nil];
 }
+
+-(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+    [picker dismissViewControllerAnimated:true completion:nil];
+}
+
+//- (IBAction)selectPhoto:(UIButton *)sender {
+//    UIImagePickerController *picker = [UIImagePickerController new];
+//    picker.delegate = self;
+//    picker.allowsEditing = NO;
+//    picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+//    [self presentViewController:picker animated:true completion:nil];
+//}
 
 @end
