@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>name</key>
+		<string>SS Eastland</string>
+		<key>latitude</key>
+		<real>41.8875</real>
+		<key>longitude</key>
+		<real>-87.631</real>
+		<key>date</key>
+		<date>1915-07-24T15:48:46Z</date>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>Dillinger Shot - Biograph Theatre</string>
+		<key>latitude</key>
+		<real>41.9264344</real>
+		<key>longitude</key>
+		<real>-87.6497153</real>
+		<key>date</key>
+		<date>1934-07-22T14:48:46Z</date>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>St. Valentine&apos;s Day Massacre</string>
+		<key>latitude</key>
+		<real>41.9207461</real>
+		<key>longitude</key>
+		<real>-87.6378898</real>
+		<key>date</key>
+		<date>1929-02-14T15:48:46Z</date>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>Iroquois Theatre Fire</string>
+		<key>latitude</key>
+		<real>41.884722</real>
+		<key>longitude</key>
+		<real>-87.62861100000001</real>
+		<key>date</key>
+		<date>1903-12-30T15:48:46Z</date>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>Haymarket Affair</string>
+		<key>latitude</key>
+		<real>41.8849</real>
+		<key>longitude</key>
+		<real>-87.64409999999999</real>
+		<key>date</key>
+		<date>1886-05-04T15:48:46Z</date>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>Memorial Day Massacre</string>
+		<key>latitude</key>
+		<real>41.6820189</real>
+		<key>longitude</key>
+		<real>-87.539692</real>
+		<key>date</key>
+		<date>1937-05-30T14:48:46Z</date>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>Pullman Strike</string>
+		<key>latitude</key>
+		<real>41.7038906</real>
+		<key>longitude</key>
+		<real>-87.5980766</real>
+		<key>date</key>
+		<date>1894-05-11T15:48:46Z</date>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>Cross of Gold Speech</string>
+		<key>latitude</key>
+		<real>41.8832309</real>
+		<key>longitude</key>
+		<real>-87.62784910000001</real>
+		<key>date</key>
+		<date>1896-07-09T15:48:46Z</date>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>Worlds Columbian Exposition</string>
+		<key>latitude</key>
+		<real>41.783</real>
+		<key>longitude</key>
+		<real>-87.58</real>
+		<key>date</key>
+		<date>1983-05-01T14:48:46Z</date>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>Our lady of the Angels School Fire</string>
+		<key>latitude</key>
+		<real>41.8972163</real>
+		<key>longitude</key>
+		<real>-87.7224841</real>
+		<key>date</key>
+		<date>1958-12-01T15:48:46Z</date>
+	</dict>
+</array>
+</plist>

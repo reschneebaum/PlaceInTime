@@ -6,9 +6,22 @@
 //  Copyright (c) 2015 Rachel Schneebaum. All rights reserved.
 //
 
+#import <Fabric/Fabric.h>
+#import <TwitterKit/TwitterKit.h>
+#import <Crashlytics/Crashlytics.h>
+#import <Parse/Parse.h>
+#import <ParseUI/ParseUI.h>
 #import "AppDelegate.h"
+#import "RootViewController.h"
+#import "Trip.h"
+#import "UserEvent.h"
+#import "HistoryEvent.h"
+#import "Route.h"
 
 @interface AppDelegate ()
+
+@property RootViewController *rootVC;
+@property PFLogInViewController *loginVC;
 
 @end
 
@@ -16,7 +29,28 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+//    [[Twitter sharedInstance] startWithConsumerKey:@"v0d9T4KnfyyNV6GXy12n9GvFP" consumerSecret:@"8d23KwU9IzPanEQ5scbEgeLyAZcgnzFbkUojhA8obFiIdosAAL"];
+//    [Fabric with:@[[Twitter sharedInstance]]];
+    [Fabric with:@[[Crashlytics class], [Twitter class]]];
+
+    // Register custom subclasses:
+    [Trip registerSubclass];
+    [UserEvent registerSubclass];
+    [HistoryEvent registerSubclass];
+    [UserInfo registerSubclass];
+//    [Route registerSubclass];
+
+    // [Optional] Power your app with Local Datastore. For more info, go to
+    // https://parse.com/docs/ios_guide#localdatastore/iOS
+    [Parse enableLocalDatastore];
+
+    // Initialize Parse.
+    [Parse setApplicationId:@"tLg8NdVRRSie7XTjk5N3w3Kpt2IuJ6vnllrtDyCb"
+                  clientKey:@"erLoiCZB1aP7PweMw5B0if2DtE54ozPHLxQEdooE"];
+
+    // [Optional] Track statistics around application opens.
+    [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
+    
     return YES;
 }
 
