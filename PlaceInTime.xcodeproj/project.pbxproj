@@ -42,7 +42,6 @@
 		C4A91CA11B83BD2B007C26CA /* AddEventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A91CA01B83BD2B007C26CA /* AddEventViewController.m */; };
 		C4A91CAA1B84C815007C26CA /* UserEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A91CA91B84C815007C26CA /* UserEvent.m */; };
 		C4B103691B8DEE7D000EC658 /* AddTripViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B103681B8DEE7D000EC658 /* AddTripViewController.m */; };
-		C4B1036C1B8DEE91000EC658 /* NewTripViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B1036B1B8DEE91000EC658 /* NewTripViewController.m */; };
 		C4B13F6A1B8BAE80005A6475 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B13F691B8BAE80005A6475 /* RootViewController.m */; };
 		C4B13F6D1B8C8107005A6475 /* TripsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B13F6C1B8C8107005A6475 /* TripsViewController.m */; };
 		C4B77D191B8EE8E30073E9D8 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4B77D0F1B8EE8700073E9D8 /* Bolts.framework */; };
@@ -138,8 +137,6 @@
 		C4A91CAB1B861521007C26CA /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		C4B103671B8DEE7D000EC658 /* AddTripViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddTripViewController.h; sourceTree = "<group>"; };
 		C4B103681B8DEE7D000EC658 /* AddTripViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddTripViewController.m; sourceTree = "<group>"; };
-		C4B1036A1B8DEE91000EC658 /* NewTripViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewTripViewController.h; sourceTree = "<group>"; };
-		C4B1036B1B8DEE91000EC658 /* NewTripViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewTripViewController.m; sourceTree = "<group>"; };
 		C4B13F681B8BAE80005A6475 /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
 		C4B13F691B8BAE80005A6475 /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
 		C4B13F6B1B8C8107005A6475 /* TripsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TripsViewController.h; sourceTree = "<group>"; };
@@ -314,8 +311,6 @@
 				C41E797A1B93F2C700A25D8B /* EventDetailTableViewController.m */,
 				C4B103671B8DEE7D000EC658 /* AddTripViewController.h */,
 				C4B103681B8DEE7D000EC658 /* AddTripViewController.m */,
-				C4B1036A1B8DEE91000EC658 /* NewTripViewController.h */,
-				C4B1036B1B8DEE91000EC658 /* NewTripViewController.m */,
 				C4997EFF1B9693A20032CFB5 /* WebViewController.h */,
 				C4997F001B9693A20032CFB5 /* WebViewController.m */,
 			);
@@ -492,7 +487,6 @@
 				C42DDB911B82454300CAAD15 /* AppDelegate.m in Sources */,
 				C42DDB941B82454300CAAD15 /* PlaceInTime.xcdatamodeld in Sources */,
 				C4997F011B9693A20032CFB5 /* WebViewController.m in Sources */,
-				C4B1036C1B8DEE91000EC658 /* NewTripViewController.m in Sources */,
 				C4B13F6D1B8C8107005A6475 /* TripsViewController.m in Sources */,
 				C4997EF91B960C0E0032CFB5 /* LandmarkAnnotation.m in Sources */,
 				C4E4149C1B8F6CB400116824 /* SignupViewController.m in Sources */,
