@@ -88,7 +88,6 @@
 - (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
     UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
 
-//    header.textLabel.textColor = [UIColor redColor];
     header.textLabel.font = [UIFont fontWithName:@"Avenir Next" size:18];
     CGRect headerFrame = header.frame;
     header.textLabel.frame = headerFrame;
@@ -117,9 +116,6 @@
     [tableView deselectRowAtIndexPath:indexPath animated:false];
     self.trip = self.trips[indexPath.row];
     [self performSegueWithIdentifier:@"viewTrip" sender:self];
-//    EventsViewController *mapVC = [self.storyboard instantiateViewControllerWithIdentifier:@"mapVC"];
-//    mapVC.trip = self.trip;
-//    [self.navigationController pushViewController:mapVC animated:true];
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -134,8 +130,6 @@
 - (IBAction)logOutButtonTapAction:(UIBarButtonItem *)sender {
     [PFUser logOut];
     [self performSegueWithIdentifier:@"logout" sender:self];
-//    LoginViewController *login = [LoginViewController new];
-//    [self presentViewController:login animated:true completion:nil];
 }
 
 

@@ -192,7 +192,6 @@
     eventVC.location = newAnnotation.coordinate;
     eventVC.trip = self.trip;
     [self presentViewController:eventVC animated:true completion:nil];
-//    [self.mapView addAnnotation:newAnnotation];
 }
 
 

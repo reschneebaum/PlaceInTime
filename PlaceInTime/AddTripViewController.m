@@ -79,7 +79,6 @@
                 NSLog(@"The object has been saved.");
                 self.userLocation = [[CLLocation alloc] initWithLatitude:newTrip.location.latitude longitude:newTrip.location.longitude];
                 [self dismissViewControllerAnimated:true completion:nil];
-//                [self performSegueWithIdentifier:@"tripDetail" sender:self];
             } else {
                 NSLog(@"There was a problem, check error.description");
             }
