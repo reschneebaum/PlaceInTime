@@ -85,7 +85,6 @@
 - (IBAction)logOutButtonTapAction:(UIBarButtonItem *)sender {
     [PFUser logOut];
     [self dismissViewControllerAnimated:true completion:^{
-        NSLog(@"%@", [PFUser currentUser]);
         [self performSegueWithIdentifier:@"logout" sender:self];
     }];
 }

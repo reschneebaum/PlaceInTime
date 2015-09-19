@@ -37,7 +37,6 @@
     CLLocation *location = [[CLLocation alloc] initWithLatitude:self.userEvent.location.latitude longitude:self.userEvent.location.longitude];
     [self reverseGeocode:location];
     [self.navigationItem setTitle:self.userEvent.name];
-    NSLog(@"%@", self.userEvent.name);
     self.addPhotosButton.hidden = true;
     self.collectionView.hidden = true;
 }

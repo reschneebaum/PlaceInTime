@@ -95,7 +95,6 @@
                 }
                 self.userEvents = [NSMutableArray arrayWithArray:objects];
                 [self.tableView reloadData];
-                NSLog(@"%@", self.userEvents.firstObject);
             } else {
                 NSLog(@"Error: %@ %@", error, [error userInfo]);
             }
@@ -163,7 +162,6 @@
 
             LandmarkAnnotation *annot = [LandmarkAnnotation new];
             annot.title = mapItem.name;
-            NSLog(@"%@",annot.title);
             annot.coordinate = mapItem.placemark.coordinate;
             [self.mapView addAnnotation:annot];
         }
@@ -259,7 +257,6 @@
 }
 
 -(void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control {
-    NSLog(@"%li", (long)view.tag);
     switch (view.tag) {
         case 10: {
             UserEventAnnotation *annot = view.annotation;

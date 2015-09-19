@@ -12,7 +12,6 @@
 #import <MapKit/MapKit.h>
 #import "AddTripViewController.h"
 #import "EventsViewController.h"
-#import "NewTripViewController.h"
 #import "UserEvent.h"
 #import "Trip.h"
 
@@ -44,7 +43,6 @@
     CLGeocoder *geocoder = [CLGeocoder new];
     [geocoder geocodeAddressString:locationString completionHandler:^(NSArray *placemarks, NSError *error) {
         if (!error) {
-            NSLog(@"%@", placemarks.firstObject);
             self.locationPlacemark = placemarks.firstObject;
             [self createTrip];
         } else {
@@ -60,7 +58,6 @@
         self.cityTextField.text = placemark.locality;
         self.stateTextField.text = placemark.administrativeArea;
         self.countryTextField.text = placemark.country;
-        NSLog(@"%@", placemark.locality);
     }];
 }
 
@@ -140,8 +137,6 @@
     if([segue.identifier isEqualToString:@"tripDetail"]) {
         EventsViewController *mapVC = segue.destinationViewController;
         mapVC.mapLocation = self.userLocation;
-        NSLog(@"self - %@", self.userLocation);
-        NSLog(@"%@", mapVC.mapLocation);
         mapVC.trip = self.trip;
         mapVC.navigationItem.title = self.trip.name;
     }

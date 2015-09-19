@@ -59,12 +59,10 @@
             NSMutableArray *tempTrips = [NSMutableArray new];
             NSLog(@"Successfully retrieved %lu trip(s).", (unsigned long)objects.count);
             for (Trip *trip in objects) {
-                NSLog(@"%@", trip.objectId);
                 [tempTrips addObject:trip];
             }
             self.trips = [NSArray arrayWithArray:tempTrips];
             [self.tableView reloadData];
-            NSLog(@"%@", self.trips.firstObject);
         } else {
             NSLog(@"Error: %@ %@", error, [error userInfo]);
         }
@@ -118,7 +116,6 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:false];
     self.trip = self.trips[indexPath.row];
-    NSLog(@"tableview, tripsVC: %@", self.trip.location);
     [self performSegueWithIdentifier:@"viewTrip" sender:self];
 //    EventsViewController *mapVC = [self.storyboard instantiateViewControllerWithIdentifier:@"mapVC"];
 //    mapVC.trip = self.trip;

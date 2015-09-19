@@ -39,7 +39,6 @@
     [self.bgMapView showsBuildings];
     [self initializeTextFieldInputView];
     [self configureStoryboardObjects];
-    NSLog(@"self: %g, %g", self.location.latitude, self.location.longitude);
 
 }
 
@@ -51,7 +50,6 @@
         if (!error) {
             NSLog(@"successfully received %lu trip(s)", (unsigned long)objects.count);
             self.trip = objects.firstObject;
-            NSLog(@"%@", self.trip);
         } else {
             NSLog(@"Error: %@ %@", error, [error userInfo]);
     }
@@ -135,7 +133,6 @@
     event.valence = self.eventValenceSlider.value;
     event.location = [PFGeoPoint geoPointWithLatitude:self.location.latitude longitude:self.location.longitude];
     event.belongsToTrip = self.trip;
-    NSLog(@"%@",self.trip);
     [event saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (succeeded) {
             NSLog(@"The object has been saved.");
