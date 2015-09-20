@@ -15,7 +15,7 @@
 #import "UserEvent.h"
 #import "Trip.h"
 
-@interface AddTripViewController () <CLLocationManagerDelegate, MKMapViewDelegate>
+@interface AddTripViewController () <CLLocationManagerDelegate, MKMapViewDelegate, UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *cityTextField;
 @property (weak, nonatomic) IBOutlet UITextField *stateTextField;
@@ -35,6 +35,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.mapView.delegate = self;
+    self.cityTextField.delegate = self;
+    self.stateTextField.delegate = self;
+    self.countryTextField.delegate = self;
     [self.mapView setRegion:MKCoordinateRegionMake(CLLocationCoordinate2DMake(41.89374, -87.63533), MKCoordinateSpanMake(0.5, 0.5)) animated:false];
 }
 
@@ -92,6 +95,15 @@
     }];
     [alertController addAction:cancelAction];
     [self presentViewController:alertController animated:true completion:nil];
+}
+
+#pragma mark - UITextFieldDelegate methods
+#pragma mark -
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+
+    return YES;
 }
 
 

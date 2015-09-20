@@ -26,7 +26,6 @@
 		C42DDBDC1B82941400CAAD15 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C42DDBDB1B82941400CAAD15 /* CoreGraphics.framework */; };
 		C42DDBDE1B82941C00CAAD15 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C42DDBDD1B82941C00CAAD15 /* QuartzCore.framework */; };
 		C42DDBE01B82942500CAAD15 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C42DDBDF1B82942500CAAD15 /* Security.framework */; };
-		C42DDBE21B82942D00CAAD15 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C42DDBE11B82942D00CAAD15 /* StoreKit.framework */; };
 		C42DDBE41B82943800CAAD15 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C42DDBE31B82943800CAAD15 /* SystemConfiguration.framework */; };
 		C42DDBE61B82944100CAAD15 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C42DDBE51B82944100CAAD15 /* libz.dylib */; };
 		C42DDBE81B82944D00CAAD15 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C42DDBE71B82944D00CAAD15 /* libsqlite3.dylib */; };
@@ -111,7 +110,6 @@
 		C42DDBDB1B82941400CAAD15 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		C42DDBDD1B82941C00CAAD15 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		C42DDBDF1B82942500CAAD15 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
-		C42DDBE11B82942D00CAAD15 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		C42DDBE31B82943800CAAD15 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		C42DDBE51B82944100CAAD15 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		C42DDBE71B82944D00CAAD15 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
@@ -176,7 +174,6 @@
 				C42DDBE81B82944D00CAAD15 /* libsqlite3.dylib in Frameworks */,
 				C42DDBE61B82944100CAAD15 /* libz.dylib in Frameworks */,
 				C42DDBE41B82943800CAAD15 /* SystemConfiguration.framework in Frameworks */,
-				C42DDBE21B82942D00CAAD15 /* StoreKit.framework in Frameworks */,
 				C42DDBE01B82942500CAAD15 /* Security.framework in Frameworks */,
 				C42DDBDE1B82941C00CAAD15 /* QuartzCore.framework in Frameworks */,
 				C42DDBDC1B82941400CAAD15 /* CoreGraphics.framework in Frameworks */,
@@ -334,7 +331,6 @@
 				C42DDBE71B82944D00CAAD15 /* libsqlite3.dylib */,
 				C42DDBE51B82944100CAAD15 /* libz.dylib */,
 				C42DDBE31B82943800CAAD15 /* SystemConfiguration.framework */,
-				C42DDBE11B82942D00CAAD15 /* StoreKit.framework */,
 				C42DDBDF1B82942500CAAD15 /* Security.framework */,
 				C42DDBDD1B82941C00CAAD15 /* QuartzCore.framework */,
 				C42DDBDB1B82941400CAAD15 /* CoreGraphics.framework */,
@@ -404,6 +400,11 @@
 					C42DDB871B82454300CAAD15 = {
 						CreatedOnToolsVersion = 6.4;
 						DevelopmentTeam = 8K928H3KGT;
+						SystemCapabilities = {
+							com.apple.InAppPurchase = {
+								enabled = 0;
+							};
+						};
 					};
 					C42DDBA31B82454300CAAD15 = {
 						CreatedOnToolsVersion = 6.4;
