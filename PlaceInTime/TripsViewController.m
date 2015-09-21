@@ -15,6 +15,7 @@
 #import "EventsViewController.h"
 #import "LoginViewController.h"
 #import "Trip.h"
+#import "UserEvent.h"
 
 @interface TripsViewController () <UITableViewDataSource, UITableViewDelegate, PFLogInViewControllerDelegate>
 
@@ -144,7 +145,27 @@
         UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:@"Delete Trip" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
             //  delete trip from store
             Trip *deletedTrip = self.trips[indexPath.row];
-            [deletedTrip deleteInBackground];
+            [deletedTrip deleteInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                if (succeeded) {
+                    //  find and delete all events that belong to deleted trip
+                    PFQuery *deletedEventsQuery = [UserEvent query];
+                    [deletedEventsQuery whereKey:@"belongsToTrip" equalTo:deletedTrip];
+                    [deletedEventsQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+                        if (!error) {
+                            NSMutableArray *deletedEvents = [NSMutableArray new];
+                            NSLog(@"Successfully retrieved %lu event(s).", (unsigned long)objects.count);
+                            for (UserEvent *event in objects) {
+                                [deletedEvents addObject:event];
+                            }
+                            [UserEvent deleteAllInBackground:deletedEvents];
+                        } else {
+                            NSLog(@"Error: %@ %@", error, [error userInfo]);
+                        }
+                    }];
+                } else {
+                    NSLog(@"Error: %@ %@", error, [error userInfo]);
+                }
+            }];
 
             //  update tableview by removing trip from array
             [tableView beginUpdates];
