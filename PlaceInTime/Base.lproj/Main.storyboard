@@ -343,32 +343,32 @@
                         <sections>
                             <tableViewSection id="zmk-If-KBn">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="Cell1" rowHeight="46" id="tdS-ac-fwa">
+                                    <tableViewCell tag="1" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="Cell1" rowHeight="60" id="tdS-ac-fwa">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="tdS-ac-fwa" id="heT-5S-ch5">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" tag="10" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IjL-r9-oAP">
-                                                    <rect key="frame" x="8" y="12" width="304" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="10" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Location" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="IjL-r9-oAP">
+                                                    <rect key="frame" x="1" y="12" width="318" height="26"/>
                                                     <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="18"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="IjL-r9-oAP" firstAttribute="leading" secondItem="heT-5S-ch5" secondAttribute="leadingMargin" id="H0W-Xb-sbf"/>
-                                                <constraint firstItem="IjL-r9-oAP" firstAttribute="trailing" secondItem="heT-5S-ch5" secondAttribute="trailingMargin" id="Kgm-5g-437"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="IjL-r9-oAP" secondAttribute="bottom" constant="4.5" id="Xyn-kq-wd6"/>
-                                                <constraint firstItem="IjL-r9-oAP" firstAttribute="top" secondItem="heT-5S-ch5" secondAttribute="topMargin" constant="4" id="xvP-u3-CjD"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="IjL-r9-oAP" secondAttribute="bottom" constant="-0.5" id="ELg-LT-6sF"/>
+                                                <constraint firstItem="IjL-r9-oAP" firstAttribute="top" secondItem="heT-5S-ch5" secondAttribute="topMargin" constant="4" id="PZT-6O-0uO"/>
+                                                <constraint firstItem="IjL-r9-oAP" firstAttribute="centerX" secondItem="heT-5S-ch5" secondAttribute="centerX" id="Tsk-EI-zat"/>
+                                                <constraint firstItem="IjL-r9-oAP" firstAttribute="leading" secondItem="heT-5S-ch5" secondAttribute="leadingMargin" constant="-7" id="bYQ-zI-Ivu"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell2" rowHeight="46" id="CRK-6h-3fk">
+                                    <tableViewCell tag="2" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell2" rowHeight="46" id="CRK-6h-3fk">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" tag="1" contentMode="center" tableViewCell="CRK-6h-3fk" id="Jdc-XB-Jpi">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PIn-Qd-UnU">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PIn-Qd-UnU">
                                                     <rect key="frame" x="8" y="12" width="304" height="21"/>
                                                     <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="18"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -383,13 +383,13 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell3" rowHeight="15" id="hqa-8G-QhR">
+                                    <tableViewCell tag="3" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell3" rowHeight="15" id="hqa-8G-QhR">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" tag="2" contentMode="center" tableViewCell="hqa-8G-QhR" id="V1u-6R-VkF">
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell4" rowHeight="12" id="btO-we-Qhy">
+                                    <tableViewCell tag="4" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell4" rowHeight="12" id="btO-we-Qhy">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" tag="3" contentMode="center" tableViewCell="btO-we-Qhy" id="dYi-hv-Xfb">
                                             <autoresizingMask key="autoresizingMask"/>
@@ -431,7 +431,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell5" rowHeight="4" id="Bm2-Jd-CYg">
+                                    <tableViewCell tag="5" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell5" rowHeight="4" id="Bm2-Jd-CYg">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" tag="4" contentMode="center" tableViewCell="Bm2-Jd-CYg" id="JpA-Tm-FqE">
                                             <autoresizingMask key="autoresizingMask"/>
@@ -458,7 +458,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" shouldIndentWhileEditing="NO" reuseIdentifier="Cell6" rowHeight="150" id="o3D-2g-00R">
+                                    <tableViewCell tag="6" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" shouldIndentWhileEditing="NO" reuseIdentifier="Cell6" rowHeight="150" id="o3D-2g-00R">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" tag="6" contentMode="center" tableViewCell="o3D-2g-00R" id="1oM-fn-DuL">
                                             <autoresizingMask key="autoresizingMask"/>
@@ -481,7 +481,7 @@
                                         </tableViewCellContentView>
                                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell7" rowHeight="73" id="vaC-yp-3ss" userLabel="Cell7">
+                                    <tableViewCell tag="7" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell7" rowHeight="73" id="vaC-yp-3ss" userLabel="Cell7">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" tag="7" contentMode="center" tableViewCell="vaC-yp-3ss" id="EOX-Lw-dxk">
                                             <autoresizingMask key="autoresizingMask"/>
