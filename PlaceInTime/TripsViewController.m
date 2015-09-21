@@ -139,20 +139,31 @@
 
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        //  delete trip from store
-        Trip *deletedTrip = self.trips[indexPath.row];
-        [deletedTrip deleteInBackground];
+        //  present alert controller to confirm deletion
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Delete Trip?" message:@"Are you sure you want to delete this trip and its associated events? This action cannot be undone." preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:@"Delete Trip" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+            //  delete trip from store
+            Trip *deletedTrip = self.trips[indexPath.row];
+            [deletedTrip deleteInBackground];
 
-        //  update tableview by removing trip from array
-        [tableView beginUpdates];
-        id tmp = [self.trips mutableCopy];
-        [tmp removeObjectAtIndex:indexPath.row];
-        self.trips = [tmp copy];
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
-        [tableView endUpdates];
+            //  update tableview by removing trip from array
+            [tableView beginUpdates];
+            id tmp = [self.trips mutableCopy];
+            [tmp removeObjectAtIndex:indexPath.row];
+            self.trips = [tmp copy];
+            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
+            [tableView endUpdates];
 
-        //  reload to preserve alternating cell colors
-        [tableView reloadData];
+            //  reload to preserve alternating cell colors
+            [tableView reloadData];
+        }];
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+            //  hide delete button
+            tableView.editing = false;
+        }];
+        [alert addAction:cancelAction];
+        [alert addAction:deleteAction];
+        [self presentViewController:alert animated:true completion:nil];
     }
 }
 

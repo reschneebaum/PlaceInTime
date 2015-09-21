@@ -92,8 +92,12 @@
 }
 
 -(void)presentAlertController {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Blank Fields" message:@"Please be sure to complete all fields!" preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Blank Fields"
+                                                                             message:@"Please be sure to complete all fields!"
+                                                                      preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Ok"
+                                                           style:UIAlertActionStyleCancel
+                                                         handler:^(UIAlertAction *action) {
     }];
     [alertController addAction:cancelAction];
     [self presentViewController:alertController animated:true completion:nil];
