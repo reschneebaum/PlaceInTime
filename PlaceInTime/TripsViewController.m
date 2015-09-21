@@ -42,11 +42,13 @@
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 
+    //  display welcome prompt if user logged in
     if ([PFUser currentUser]) {
         self.navigationItem.prompt = [NSString stringWithFormat:NSLocalizedString(@"Welcome, %@!", nil), [[PFUser currentUser] username]];
     } else {
         NSLog(@"error");
     }
+    //  retrieve trips created by current user & populate tableview
     [self assignAndRetrieveUserTrips];
 }
 
@@ -70,7 +72,7 @@
 }
 
 
-#pragma mark - UITableViewDataSource methods
+#pragma mark - UITableView DataSource & Delegate methods
 #pragma mark -
 
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
@@ -127,14 +129,41 @@
     }
 }
 
-- (IBAction)logOutButtonTapAction:(UIBarButtonItem *)sender {
-    [PFUser logOut];
-    [self performSegueWithIdentifier:@"logout" sender:self];
+-(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+
+-(BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
+    return NO;
+}
+
+-(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        //  delete trip from store
+        Trip *deletedTrip = self.trips[indexPath.row];
+        [deletedTrip deleteInBackground];
+
+        //  update tableview by removing trip from array
+        [tableView beginUpdates];
+        id tmp = [self.trips mutableCopy];
+        [tmp removeObjectAtIndex:indexPath.row];
+        self.trips = [tmp copy];
+        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
+        [tableView endUpdates];
+
+        //  reload to preserve alternating cell colors
+        [tableView reloadData];
+    }
 }
 
 
 #pragma mark - Navigation
 #pragma mark -
+
+- (IBAction)logOutButtonTapAction:(UIBarButtonItem *)sender {
+    [PFUser logOut];
+    [self performSegueWithIdentifier:@"logout" sender:self];
+}
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(UITableViewCell *)sender {
     if ([segue.identifier isEqualToString:@"viewTrip"]) {

@@ -42,6 +42,7 @@
 }
 
 -(void)performForwardGeocoding {
+    //  finds coordinates of user-entered location
     NSString *locationString = [NSString stringWithFormat:@"%@ %@ %@", self.cityTextField.text, self.stateTextField.text, self.countryTextField.text];
     CLGeocoder *geocoder = [CLGeocoder new];
     [geocoder geocodeAddressString:locationString completionHandler:^(NSArray *placemarks, NSError *error) {
@@ -55,6 +56,7 @@
 }
 
 -(void)reverseGeocodeFromLocation:(CLLocation *)location {
+    //  if user selects "current location": fills text fields based on current coordinates
     CLGeocoder *geocoder = [CLGeocoder new];
     [geocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error) {
         CLPlacemark *placemark = placemarks.lastObject;
@@ -110,6 +112,8 @@
 #pragma mark - CLLocationManagerDelegate methods
 #pragma mark -
 
+//  called only if user selects "current location" option
+
 -(void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
     NSLog(@"error");
 }
@@ -129,6 +133,7 @@
 #pragma mark -
 
 - (IBAction)onCurrentLocationButtonPressed:(UIButton *)sender {
+    //  trigger CLLocationManager delegate methods
     self.locationManager = [CLLocationManager new];
     self.locationManager.delegate = self;
     [self.locationManager requestWhenInUseAuthorization];
@@ -136,6 +141,7 @@
 }
 
 - (IBAction)onGoButtonPressed:(UIBarButtonItem *)sender {
+    //  if text fields aren't empty, find coordinates based on user-entered information
     if (self.cityTextField.hasText && self.stateTextField.hasText && self.countryTextField.hasText) {
         [self performForwardGeocoding];
     } else {
