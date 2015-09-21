@@ -82,7 +82,7 @@
         [query whereKey:@"belongsToTrip" equalTo:self.trip];
         [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
             if (!error) {
-                NSLog(@"successfully received %lu events", (unsigned long)objects.count);
+                NSLog(@"successfully retrieved %lu events", (unsigned long)objects.count);
 
                 for (UserEvent *event in objects) {
                     UserEventAnnotation *userAnnot = [UserEventAnnotation new];
@@ -275,7 +275,7 @@
     }
 }
 
-#pragma mark - UITableView datasource methods
+#pragma mark - UITableView datasource & delegate methods
 #pragma mark -
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -347,15 +347,47 @@
 
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
-        [self.userEvents[indexPath.row] delete];
+        //  present alert controller to confirm deletion
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Delete Event?" message:@"Are you sure you want to delete this location and its associated data? This action cannot be undone." preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:@"Delete" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+            //  delete event from store
+            UserEvent *deletedEvent = self.userEvents[indexPath.row];
+            [deletedEvent deleteInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                if (succeeded) {
+                    NSLog(@"successfully deleted event: %@", deletedEvent.name);
+
+                    //  update tableview by removing event from array
+                    [tableView beginUpdates];
+                    id tmp = [self.userEvents mutableCopy];
+                    [tmp removeObjectAtIndex:indexPath.row];
+                    self.userEvents = [tmp copy];
+                    [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+                    [tableView endUpdates];
+
+                    //  reload to preserve alternating cell colors
+                    [tableView reloadData];
+                } else {
+                    NSLog(@"Error: %@ %@", error, [error userInfo]);
+                }
+            }];
+        }];
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+            //  hide delete button
+            tableView.editing = false;
+        }];
+        [alert addAction:cancelAction];
+        [alert addAction:deleteAction];
+        [self presentViewController:alert animated:true completion:nil];
     }
+
 }
 
 -(BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
     return NO;
-
 }
+
+#pragma mark - Navigation
+#pragma mark -
 
 - (IBAction)onSegmentedControlSwitched:(UISegmentedControl *)sender {
     if (sender.selectedSegmentIndex == 0) {

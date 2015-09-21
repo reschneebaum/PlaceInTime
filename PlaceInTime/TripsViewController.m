@@ -166,13 +166,13 @@
                     NSLog(@"Error: %@ %@", error, [error userInfo]);
                 }
             }];
-
+            
             //  update tableview by removing trip from array
             [tableView beginUpdates];
             id tmp = [self.trips mutableCopy];
             [tmp removeObjectAtIndex:indexPath.row];
             self.trips = [tmp copy];
-            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
+            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
             [tableView endUpdates];
 
             //  reload to preserve alternating cell colors
