@@ -3,7 +3,7 @@
 //  PlaceInTime
 //
 //  Created by Rachel Schneebaum on 8/17/15.
-//  Copyright (c) 2015 Rachel Schneebaum. All rights reserved.
+//  Copyright (c) 2015 Rachel Schneebaum & Quinn Harney. All rights reserved.
 //
 //  Map icon created by BraveBros. from Noun Project
 //  Column icon created by Aleks from Noun Project
@@ -199,7 +199,7 @@
 #pragma mark -
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation {
-    MKPinAnnotationView *pin = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:nil];
+    MKAnnotationView *annot = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:nil];
     if ([annotation isEqual:mapView.userLocation]) {
         return nil;
     } else if ([annotation isKindOfClass:[UserEventAnnotation class]]) {
@@ -207,27 +207,27 @@
         switch (userAnnot.valence) {
             case 1: {
                 userAnnot.valence = 1;
-                pin.image = [UIImage imageNamed:@"red_pin"];
+                annot.image = [UIImage imageNamed:@"red_pin"];
                 break;
             }
             case 2: {
                 userAnnot.valence = 2;
-                pin.image = [UIImage imageNamed:@"orange_pin"];
+                annot.image = [UIImage imageNamed:@"orange_pin"];
                 break;
             }
             case 3: {
                 userAnnot.valence = 3;
-                pin.image = [UIImage imageNamed:@"green_pin"];
+                annot.image = [UIImage imageNamed:@"green_pin"];
                 break;
             }
             case 4: {
                 userAnnot.valence = 4;
-                pin.image = [UIImage imageNamed:@"blue_pin"];
+                annot.image = [UIImage imageNamed:@"blue_pin"];
                 break;
             }
             case 5: {
                 userAnnot.valence = 5;
-                pin.image = [UIImage imageNamed:@"purple_pin"];
+                annot.image = [UIImage imageNamed:@"purple_pin"];
                 break;
             }
             default:
@@ -237,22 +237,22 @@
         UIImageView *imageView = [[UIImageView alloc]initWithFrame:cropRect];
         imageView.clipsToBounds = YES;
         imageView.image = [UIImage imageNamed:@"path_map"];
-        pin.canShowCallout = true;
-        pin.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
-        pin.leftCalloutAccessoryView = imageView;
-        pin.tag = 10;
+        annot.canShowCallout = true;
+        annot.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+        annot.leftCalloutAccessoryView = imageView;
+        annot.tag = 10;
     } else {
         CGRect cropRect = CGRectMake(0.0, 0.0, 35.0, 35.0);
         UIImageView *imageView = [[UIImageView alloc]initWithFrame:cropRect];
         imageView.clipsToBounds = YES;
         imageView.image = [UIImage imageNamed:@"camera"];
-        pin.image = [UIImage imageNamed:@"landmark_small"];
-        pin.canShowCallout = true;
-        pin.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
-        pin.leftCalloutAccessoryView = imageView;
-        pin.tag = 20;
+        annot.image = [UIImage imageNamed:@"landmark_small"];
+        annot.canShowCallout = true;
+        annot.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+        annot.leftCalloutAccessoryView = imageView;
+        annot.tag = 20;
     }
-    return pin;
+    return annot;
 }
 
 -(void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control {
@@ -260,7 +260,6 @@
         case 10: {
             UserEventAnnotation *annot = view.annotation;
             self.event = annot.event;
-
             [self performSegueWithIdentifier:@"detailSegue" sender:self];
             break;
         }

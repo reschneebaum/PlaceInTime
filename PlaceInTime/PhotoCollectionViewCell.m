@@ -3,7 +3,7 @@
 //  PlaceInTime
 //
 //  Created by Quinn Harney on 8/28/15.
-//  Copyright (c) 2015 DeliciousProductions. All rights reserved.
+//  Copyright (c) 2015 Rachel Schneebaum & Quinn Harney. All rights reserved.
 //
 
 #import "PhotoCollectionViewCell.h"
