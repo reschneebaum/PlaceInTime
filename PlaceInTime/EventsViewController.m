@@ -199,7 +199,7 @@
 #pragma mark -
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation {
-    MKAnnotationView *annot = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:nil];
+    MKAnnotationView *annot = [[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:nil];
     if ([annotation isEqual:mapView.userLocation]) {
         return nil;
     } else if ([annotation isKindOfClass:[UserEventAnnotation class]]) {
