@@ -432,7 +432,7 @@
 }
 
 - (IBAction)onAddButtonPressed:(UIBarButtonItem *)sender {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:@"To add a new event, press and hold on the map or enter the address below:" preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:@"To add a new event, press and hold on the map,\n or enter the address below:" preferredStyle:UIAlertControllerStyleAlert];
     [alertController addTextFieldWithConfigurationHandler:^(UITextField *textField) {
         textField.placeholder = @"Street Address";
     }];
