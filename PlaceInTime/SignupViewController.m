@@ -25,6 +25,7 @@
 @property BOOL textFieldsComplete;
 @property BOOL passwordConfirmed;
 @property BOOL signupFailed;
+@property NSArray *textFields;
 
 @end
 
@@ -35,6 +36,11 @@
     self.mapView.delegate = self;
     [self.mapView setRegion:MKCoordinateRegionMake(CLLocationCoordinate2DMake(41.89374, -87.63533), MKCoordinateSpanMake(0.5, 0.5)) animated:false];
     self.signupButton.enabled = false;
+
+    self.textFields = @[self.usernameTextField, self.passwordTextField, self.confirmPasswordTextField, self.emailTextField, self.nameTextField];
+    for (UITextField *textField in self.textFields) {
+        textField.delegate = self;
+    }
 }
 
 -(void)checkForTextFieldsComplete {
@@ -69,6 +75,63 @@
     return true;
 }
 
+-(void)registerUser {
+    if (self.passwordConfirmed == false) {
+        [self displayAlertWithErrorString:@"Please make sure your passwords are identical!"];
+    } else {
+        PFUser *user = [PFUser user];
+        user.username = self.usernameTextField.text;
+        user.password = self.passwordTextField.text;
+        user.email = self.emailTextField.text;
+        [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            if (!error) {
+                self.signupFailed = false;
+                UINavigationController *navVC = [self.storyboard instantiateViewControllerWithIdentifier:@"navVC"];
+                [self presentViewController:navVC animated:true completion:nil];
+                NSLog(@"user - %@ signed up", user.username);
+                UserInfo *userInfo = [UserInfo object];
+                userInfo.name = self.nameTextField.text;
+                [userInfo saveInBackground];
+                NSLog(@"userinfo - %@ saved", userInfo.name);
+            } else {
+                self.signupFailed = true;
+                NSString *errorString = [[error userInfo] objectForKey:@"error"];
+                UIAlertView *errorAlertView = [[UIAlertView alloc] initWithTitle:@"Error" message:errorString delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+                [errorAlertView show];
+            }
+        }];
+    }
+
+}
+
+#pragma mark - UITextFieldDelegate
+#pragma mark -
+
+-(BOOL)textFieldShouldReturn:(UITextField *)textField {
+    textField.delegate = self;
+    [textField endEditing:true];
+    return false;
+}
+
+-(IBAction)textFieldDidEndEditing:(UITextField *)textField {
+    [textField resignFirstResponder];
+    if ([textField isEqual:self.textFields.lastObject]) {
+        textField.returnKeyType = UIReturnKeyGo;
+        [self registerUser];
+    } else {
+        textField.returnKeyType = UIReturnKeyNext;
+        if ([textField isEqual:self.textFields[0]]) {
+            [self.textFields[1] becomeFirstResponder];
+        } else if ([textField isEqual:self.textFields[1]]) {
+            [self.textFields[2] becomeFirstResponder];
+        } else if ([textField isEqual:self.textFields[2]]) {
+            [self.textFields[3] becomeFirstResponder];
+        } else if ([textField isEqual:self.textFields[3]]) {
+            [self.textFields[4] becomeFirstResponder];
+        }
+    }
+}
+
 #pragma mark - Navigation
 #pragma mark -
 
@@ -96,32 +159,8 @@
 
 
 - (IBAction)onSignupButtonPressed:(UIButton *)sender {
-    if (self.passwordConfirmed == false) {
-        [self displayAlertWithErrorString:@"Please make sure your passwords are identical!"];
-    } else {
-        PFUser *user = [PFUser user];
-        user.username = self.usernameTextField.text;
-        user.password = self.passwordTextField.text;
-        user.email = self.emailTextField.text;
-        [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-            if (!error) {
-                self.signupFailed = false;
-                UINavigationController *navVC = [self.storyboard instantiateViewControllerWithIdentifier:@"navVC"];
-                [self presentViewController:navVC animated:true completion:nil];
-                NSLog(@"user - %@ signed up", user.username);
-                UserInfo *userInfo = [UserInfo object];
-                userInfo.name = self.nameTextField.text;
-                [userInfo saveInBackground];
-                NSLog(@"userinfo - %@ saved", userInfo.name);
-            } else {
-                self.signupFailed = true;
-                NSString *errorString = [[error userInfo] objectForKey:@"error"];
-                UIAlertView *errorAlertView = [[UIAlertView alloc] initWithTitle:@"Error" message:errorString delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
-                [errorAlertView show];
-            }
-        }];
+    [self registerUser];
     }
-}
 
 - (IBAction)unwindOnCancelButtonPressed:(UIButton *)sender {
     [self performSegueWithIdentifier:@"cancel" sender:self];

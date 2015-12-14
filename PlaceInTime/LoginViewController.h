@@ -10,7 +10,7 @@
 #import <UIKit/UIKit.h>
 #import "UserInfo.h"
 
-@interface LoginViewController : UIViewController
+@interface LoginViewController : UIViewController <UITextFieldDelegate>
 
 @property UserInfo *user;
 

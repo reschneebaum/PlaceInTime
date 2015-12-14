@@ -54,6 +54,41 @@
     button.layer.backgroundColor = [[UIColor whiteColor] CGColor];
 }
 
+-(void)loginUser {
+    [PFUser logInWithUsernameInBackground:self.usernameTextField.text password:self.passwordTextField.text block:^(PFUser *user, NSError *error) {
+        if (user) {
+            NSLog(@"user - %@ logged in", user.username);
+            UINavigationController *navVC = [self.storyboard instantiateViewControllerWithIdentifier:@"navVC"];
+            [self presentViewController:navVC animated:true completion:nil];
+        } else {
+            NSString *errorString = [[error userInfo] objectForKey:@"error"];
+            UIAlertView *errorAlertView = [[UIAlertView alloc] initWithTitle:@"Error" message:errorString delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+            [errorAlertView show];
+        }
+    }];
+}
+
+#pragma mark - UITextFieldDelegate
+#pragma mark -
+
+-(BOOL)textFieldShouldReturn:(UITextField *)textField {
+    textField.delegate = self;
+    [textField endEditing:true];
+    return false;
+}
+
+-(IBAction)textFieldDidEndEditing:(UITextField *)textField {
+    textField.delegate = self;
+    [textField resignFirstResponder];
+    if ([textField isEqual:self.usernameTextField]) {
+        textField.returnKeyType = UIReturnKeyNext;
+        [self.passwordTextField becomeFirstResponder];
+    } else {
+        textField.returnKeyType = UIReturnKeyGo;
+        [self loginUser];
+    }
+}
+
 #pragma mark - Navigation
 #pragma mark -
 
@@ -66,17 +101,7 @@
 }
 
 - (IBAction)onLoginButtonPressed:(UIButton *)sender {
-    [PFUser logInWithUsernameInBackground:self.usernameTextField.text password:self.passwordTextField.text block:^(PFUser *user, NSError *error) {
-        if (user) {
-            NSLog(@"user - %@ logged in", user.username);
-            UINavigationController *navVC = [self.storyboard instantiateViewControllerWithIdentifier:@"navVC"];
-            [self presentViewController:navVC animated:true completion:nil];
-        } else {
-            NSString *errorString = [[error userInfo] objectForKey:@"error"];
-            UIAlertView *errorAlertView = [[UIAlertView alloc] initWithTitle:@"Error" message:errorString delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
-            [errorAlertView show];
-        }
-    }];
+    [self loginUser];
 }
 
 - (IBAction)onCreateAccountButtonPressed:(UIButton *)sender {

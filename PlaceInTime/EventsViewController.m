@@ -71,11 +71,13 @@
 -(void)queryAndLoadTripEvents {
     if (self.trip != nil) {
         PFQuery *query = [UserEvent query];
+        // load all events belonging to current trip
         [query whereKey:@"belongsToTrip" equalTo:self.trip];
         [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
             if (!error) {
                 NSLog(@"successfully retrieved %lu events", (unsigned long)objects.count);
 
+                // add annotations to map for each retrieved event
                 for (UserEvent *event in objects) {
                     UserEventAnnotation *userAnnot = [UserEventAnnotation new];
                     userAnnot.coordinate = CLLocationCoordinate2DMake(event.location.latitude, event.location.longitude);
@@ -85,6 +87,7 @@
                     userAnnot.valence = (int)event.valence;
                     [self.mapView addAnnotation:userAnnot];
                 }
+                // add retrieved events to array to populate tableview
                 self.userEvents = [NSMutableArray arrayWithArray:objects];
                 [self.tableView reloadData];
             } else {
@@ -175,11 +178,16 @@
     if (gestureRecognizer.state != UIGestureRecognizerStateBegan)
     return;
 
+    // convert long press touch point to CLLocationCoordinate2D
     CGPoint touchPoint = [gestureRecognizer locationInView:self.mapView];
     CLLocationCoordinate2D touchMapCoordinate =
     [self.mapView convertPoint:touchPoint toCoordinateFromView:self.mapView];
+
+    // create new annotation at touch point coordinate
     UserEventAnnotation *newAnnotation = [UserEventAnnotation new];
     newAnnotation.coordinate = touchMapCoordinate;
+
+    // segue to add event at annotation coordinate
     AddEventViewController *eventVC = [self.storyboard instantiateViewControllerWithIdentifier:@"eventVC"];
     eventVC.location = newAnnotation.coordinate;
     eventVC.trip = self.trip;
@@ -187,14 +195,18 @@
 }
 
 -(void)forwardGeocodeFromEnteredAddress:(NSString *)addressString {
-    //  finds coordinates of user-entered location
     CLGeocoder *geocoder = [CLGeocoder new];
     [geocoder geocodeAddressString:addressString completionHandler:^(NSArray *placemarks, NSError *error) {
         if (!error) {
+            // convert user-entered address into CLLocationCoordinate2D
             CLPlacemark *addressPlacemark = placemarks.firstObject;
             CLLocationCoordinate2D addressCoordinate = addressPlacemark.location.coordinate;
+
+            // create new annotation at geocoded coordinate
             UserEventAnnotation *newAnnotation = [UserEventAnnotation new];
             newAnnotation.coordinate = addressCoordinate;
+
+            // segue to add event at annotation coordinate
             AddEventViewController *eventVC = [self.storyboard instantiateViewControllerWithIdentifier:@"eventVC"];
             eventVC.location = newAnnotation.coordinate;
             eventVC.trip = self.trip;
@@ -211,10 +223,15 @@
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation {
     MKAnnotationView *annot = [[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:nil];
+    // display default blue circle at user location
     if ([annotation isEqual:mapView.userLocation]) {
         return nil;
+
+        // check if annotation marks a user event
     } else if ([annotation isKindOfClass:[UserEventAnnotation class]]) {
         UserEventAnnotation *userAnnot = annotation;
+
+        // if user event, display annotation images corresponding to event's valence
         switch (userAnnot.valence) {
             case 1: {
                 userAnnot.valence = 1;
@@ -244,6 +261,8 @@
             default:
                 break;
         }
+
+        // if user event, draw and display map icon on annotation view
         CGRect cropRect = CGRectMake(0.0, 0.0, 35.0, 35.0);
         UIImageView *imageView = [[UIImageView alloc]initWithFrame:cropRect];
         imageView.clipsToBounds = YES;
@@ -253,6 +272,7 @@
         annot.leftCalloutAccessoryView = imageView;
         annot.tag = 10;
     } else {
+        // if landmark, draw & display camera icon on annotation view
         CGRect cropRect = CGRectMake(0.0, 0.0, 35.0, 35.0);
         UIImageView *imageView = [[UIImageView alloc]initWithFrame:cropRect];
         imageView.clipsToBounds = YES;
@@ -269,12 +289,14 @@
 -(void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control {
     switch (view.tag) {
         case 10: {
+            // if annotation corresponds to user event, segue to event details
             UserEventAnnotation *annot = view.annotation;
             self.event = annot.event;
             [self performSegueWithIdentifier:@"detailSegue" sender:self];
             break;
         }
         case 20: {
+            // if annotation corresponds to landmark, segue to wiki webview
             MKPointAnnotation *annot = view.annotation;
             self.landmark = [Landmark new];
             self.landmark.name = annot.title;
@@ -314,7 +336,7 @@
     if (section == 0) {
         return self.userEvents.count;
     } else {
-    return self.landmarks.count;
+        return self.landmarks.count;
     }
 }
 
@@ -410,7 +432,7 @@
 }
 
 - (IBAction)onAddButtonPressed:(UIBarButtonItem *)sender {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:@"To add a new event, press and hold its map location, or enter the address below:" preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:@"To add a new event, press and hold on the map or enter the address below:" preferredStyle:UIAlertControllerStyleActionSheet];
     [alertController addTextFieldWithConfigurationHandler:^(UITextField *textField) {
         textField.placeholder = @"Street Address";
     }];

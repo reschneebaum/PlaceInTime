@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "UserInfo.h"
 
-@interface SignupViewController : UIViewController
+@interface SignupViewController : UIViewController <UITextFieldDelegate>
 
 @property UserInfo *user;
 
