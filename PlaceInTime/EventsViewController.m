@@ -68,14 +68,6 @@
     [self queryAndLoadTripEvents];
 }
 
--(void)displayAlertWithErrorString:(NSString *)errorString {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:errorString preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-    }];
-    [alertController addAction:cancelAction];
-    [self presentViewController:alertController animated:true completion:nil];
-}
-
 -(void)queryAndLoadTripEvents {
     if (self.trip != nil) {
         PFQuery *query = [UserEvent query];
@@ -192,6 +184,25 @@
     eventVC.location = newAnnotation.coordinate;
     eventVC.trip = self.trip;
     [self presentViewController:eventVC animated:true completion:nil];
+}
+
+-(void)forwardGeocodeFromEnteredAddress:(NSString *)addressString {
+    //  finds coordinates of user-entered location
+    CLGeocoder *geocoder = [CLGeocoder new];
+    [geocoder geocodeAddressString:addressString completionHandler:^(NSArray *placemarks, NSError *error) {
+        if (!error) {
+            CLPlacemark *addressPlacemark = placemarks.firstObject;
+            CLLocationCoordinate2D addressCoordinate = addressPlacemark.location.coordinate;
+            UserEventAnnotation *newAnnotation = [UserEventAnnotation new];
+            newAnnotation.coordinate = addressCoordinate;
+            AddEventViewController *eventVC = [self.storyboard instantiateViewControllerWithIdentifier:@"eventVC"];
+            eventVC.location = newAnnotation.coordinate;
+            eventVC.trip = self.trip;
+            [self presentViewController:eventVC animated:true completion:nil];
+        } else {
+            NSLog(@"error: %@", error);
+        }
+    }];
 }
 
 
@@ -399,7 +410,25 @@
 }
 
 - (IBAction)onAddButtonPressed:(UIBarButtonItem *)sender {
-    [self displayAlertWithErrorString:@"To add a new event, press and hold its map location"];
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:@"To add a new event, press and hold its map location, or enter the address below:" preferredStyle:UIAlertControllerStyleActionSheet];
+    [alertController addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+        textField.placeholder = @"Street Address";
+    }];
+    [alertController addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+        textField.placeholder = @"City, State, Country";
+        textField.text = self.trip.locationString;
+    }];
+    UIAlertAction *addressAction = [UIAlertAction actionWithTitle:@"Use address entered" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        NSString *addressString = alertController.textFields[0].text;
+        NSString *cityString = alertController.textFields[1].text;
+        [self forwardGeocodeFromEnteredAddress:[NSString stringWithFormat:@"%@ %@", addressString, cityString]];
+    }];
+    UIAlertAction *mapAction = [UIAlertAction actionWithTitle:@"Choose location from map" style:UIAlertActionStyleDefault handler:nil];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
+    [alertController addAction:addressAction];
+    [alertController addAction:mapAction];
+    [alertController addAction:cancelAction];
+    [self presentViewController:alertController animated:true completion:nil];
 }
 
 -(IBAction)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
