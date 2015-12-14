@@ -101,7 +101,12 @@
             }
         }];
     }
+}
 
+-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    for (UITextField *textField in self.textFields) {
+        [textField resignFirstResponder];
+    }
 }
 
 #pragma mark - UITextFieldDelegate

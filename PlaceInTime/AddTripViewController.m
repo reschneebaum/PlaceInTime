@@ -103,13 +103,29 @@
     [self presentViewController:alertController animated:true completion:nil];
 }
 
-#pragma mark - UITextFieldDelegate methods
+
+#pragma mark - UITextFieldDelegate
 #pragma mark -
 
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    [textField resignFirstResponder];
+-(BOOL)textFieldShouldReturn:(UITextField *)textField {
+    textField.delegate = self;
+    [textField endEditing:true];
+    return false;
+}
 
-    return YES;
+-(IBAction)textFieldDidEndEditing:(UITextField *)textField {
+    textField.delegate = self;
+    [textField resignFirstResponder];
+    if ([textField isEqual:self.countryTextField]) {
+        textField.returnKeyType = UIReturnKeyDone;
+    } else {
+        textField.returnKeyType = UIReturnKeyNext;
+        if ([textField isEqual:self.cityTextField]) {
+            [self.stateTextField becomeFirstResponder];
+        } else if ([textField isEqual:self.stateTextField]) {
+            [self.countryTextField becomeFirstResponder];
+        }
+    }
 }
 
 

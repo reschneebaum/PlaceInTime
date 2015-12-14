@@ -10,7 +10,7 @@
 #import "UserEvent.h"
 #import "Trip.h"
 
-@interface AddEventViewController : UIViewController
+@interface AddEventViewController : UIViewController <UITextFieldDelegate>
 
 @property CLLocationManager *locationManager;
 @property CLLocation *currentLocation;

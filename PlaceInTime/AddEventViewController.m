@@ -80,6 +80,27 @@
     self.eventDateTextField.text = [dateFormat stringFromDate:datePicker.date];
 }
 
+-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    [self.eventNameTextField resignFirstResponder];
+    [self.eventDateTextField resignFirstResponder];
+    [self.eventDescriptionTextView resignFirstResponder];
+}
+
+#pragma mark - UITextFieldDelegate
+#pragma mark -
+
+-(BOOL)textFieldShouldReturn:(UITextField *)textField {
+    textField.delegate = self;
+    [textField endEditing:true];
+    return false;
+}
+
+-(IBAction)textFieldDidEndEditing:(UITextField *)textField {
+    textField.delegate = self;
+    textField.returnKeyType = UIReturnKeyDone;
+    [textField resignFirstResponder];
+}
+
 #pragma mark - CLLocationManagerDelegate methods
 #pragma mark -
 
